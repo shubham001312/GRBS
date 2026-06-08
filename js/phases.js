@@ -496,6 +496,7 @@ const PHASES = [
             resources: [
               { level: 'Docs', url: 'https://fastapi.tiangolo.com/tutorial/', label: 'FastAPI Tutorial' },
               { level: 'Video', url: 'https://www.youtube.com/watch?v=0sOvCWFmrtA', label: 'freeCodeCamp — FastAPI' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=52c7Kxp_14E', label: 'CodeWithHarry — FastAPI (Hindi)' },
             ],
           },
           {
@@ -1696,6 +1697,7 @@ const PHASES = [
             difficulty: 'Advanced',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=X48VuDVv0do', label: 'TechWorld with Nana — Kubernetes Tutorial' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=mYVzuE3daY8', label: 'Easy Engineering Classes — Kubernetes (Hindi)' },
             ],
           },
         ],
@@ -1708,6 +1710,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=R8_veViYyPw', label: 'GitHub Actions Tutorial' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=ookIfjc8dW0', label: 'The DevOps Hut — GitHub Actions (Hindi)' },
             ],
           },
           {
@@ -1727,6 +1730,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=Z4unUK0vn4k', label: 'MLflow — Experiment Tracking' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=GlvgqliaQaA', label: 'Vikash Das — MLflow (Hindi)' },
             ],
           },
           {
@@ -1899,6 +1903,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=RjG689EwG5g', label: 'MIT PhD — How to Read ML Papers' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=x6slke5niqw', label: 'CampusX — Research Papers (Hindi)' },
             ],
           },
           {
