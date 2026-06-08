@@ -61,7 +61,7 @@ const PHASES = [
             difficulty: 'Beginner',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=ZtqBQ68cfJc', label: 'freeCodeCamp — Linux CLI' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=8JJ101D3knE', label: 'CodeWithHarry — Linux Tutorial (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://youtu.be/l32UR9DcjLg?si=EYWnz3i_hTh2Mv9H', label: 'CodeWithHarry — Linux Tutorial (Hindi)' },
             ],
           },
           {
@@ -81,7 +81,7 @@ const PHASES = [
             difficulty: 'Beginner',
             resources: [
               { level: 'Beginner', url: 'https://www.youtube.com/watch?v=RGOj5yH7evk', label: 'freeCodeCamp — Git & GitHub' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=8JJ101D3knE', label: 'CodeWithHarry — Git & GitHub (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://youtu.be/Ez8F0nW6S-w?si=xG_gnw7GO8D8If-i', label: 'ApnaCollege — Git & GitHub (Hindi)' },
             ],
           },
           {
@@ -155,10 +155,10 @@ const PHASES = [
             name: 'Python basics: variables, control flow, functions, I/O',
             difficulty: 'Beginner',
             resources: [
-              { level: 'Beginner', url: 'https://www.youtube.com/watch?v=_uQrJ0TkZlc', label: 'Programming with Mosh — Python' },
-              { level: 'Intermediate', url: 'https://www.youtube.com/watch?v=HGOBQPFzWKo', label: 'freeCodeCamp — Python Full Course' },
               { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=gfDE2a7MKjA', label: 'CodeWithHarry — Python (Hindi)' },
               { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=vLqTf2b6GZw', label: 'Apna College — Python (Hindi)' },
+              { level: 'Beginner', url: 'https://www.youtube.com/watch?v=_uQrJ0TkZlc', label: 'Programming with Mosh — Python' },
+              { level: 'Intermediate', url: 'https://www.youtube.com/watch?v=HGOBQPFzWKo', label: 'freeCodeCamp — Python Full Course' },
             ],
           },
           {
@@ -167,7 +167,7 @@ const PHASES = [
             resources: [
               { level: 'Intermediate', url: 'https://www.youtube.com/watch?v=Ej_02ICOIgs', label: 'Corey Schafer — OOP Playlist' },
               { level: 'Advanced', url: 'https://www.youtube.com/watch?v=p15xzjzR9j0', label: 'Corey Schafer — Dunder Methods' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLu0W_9lII9ahKZ42vg2w9ERPmShYbYAB7', label: 'CodeWithHarry — Python Complete (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://youtu.be/UrsmFxEIp5k?si=VnaqAClwFnpJglTL', label: 'CodeWithHarry — Python Complete (Hindi)' },
             ],
           },
           {
