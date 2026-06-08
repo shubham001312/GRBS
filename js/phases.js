@@ -33,6 +33,8 @@ const PHASES = [
               { level: 'Beginner', url: 'https://www.youtube.com/watch?v=_uQrJ0TkZlc', label: 'Programming with Mosh — Python for Beginners' },
               { level: 'Intermediate', url: 'https://www.youtube.com/watch?v=HGOBQPFzWKo', label: 'freeCodeCamp — Python Full Course' },
               { level: 'Advanced', url: 'https://www.youtube.com/watch?v=p15xzjzR9j0', label: 'Corey Schafer — Python OOP' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=gfDE2a7MKjA', label: 'CodeWithHarry — Python Tutorial (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=vLqTf2b6GZw', label: 'Apna College — Python for Beginners (Hindi)' },
             ],
           },
           {
@@ -42,6 +44,7 @@ const PHASES = [
               { level: 'Beginner', url: 'https://www.youtube.com/watch?v=JeznW_7DlB0', label: 'Tech With Tim — OOP Python' },
               { level: 'Intermediate', url: 'https://www.youtube.com/watch?v=Ej_02ICOIgs', label: 'Corey Schafer — OOP Playlist' },
               { level: 'Advanced', url: 'https://www.youtube.com/watch?v=p15xzjzR9j0', label: 'Corey Schafer — Dunder Methods' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLu0W_9lII9ahKZ42vg2w9ERPmShYbYAB7', label: 'CodeWithHarry — Python Complete Course (Hindi)' },
             ],
           },
           {
@@ -83,6 +86,7 @@ const PHASES = [
             resources: [
               { level: 'Beginner', url: 'https://www.youtube.com/watch?v=RGOj5yH7evk', label: 'freeCodeCamp — Git & GitHub' },
               { level: 'Intermediate', url: 'https://www.youtube.com/watch?v=Uszj_k0DGsg', label: 'freeCodeCamp — Advanced Git' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=8JJ101D3knE', label: 'CodeWithHarry — Git & GitHub (Hindi)' },
             ],
           },
           {
@@ -102,6 +106,9 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=pkYVOmU3MgA', label: 'freeCodeCamp — DSA Full Course' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=8hly31x3sqs', label: 'NeetCode — DSA for Beginners' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BEO', label: 'Striver — A2Z DSA Course (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLdo5W4Ni4Fzn5yVzB2u0y2u5O-q4L4_rW', label: 'Jenny\'s Lectures — DSA (Hindi)' },
             ],
           },
           {
@@ -109,6 +116,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=fAAZixBzIAI', label: 'freeCodeCamp — Trees and Graphs' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BEO', label: 'Striver — Trees & Graphs (Hindi)' },
             ],
           },
           {
@@ -116,6 +124,8 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=kPRA0W1kECg', label: 'freeCodeCamp — Algorithms' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=8hly31x3sqs', label: 'NeetCode — Sorting & Searching' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BEO', label: 'Striver — Sorting Algorithms (Hindi)' },
             ],
           },
           {
@@ -324,6 +334,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=8Y0qQEh7dJg', label: 'Sentdex — NumPy for ML' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLeo1K3hjS3uvCeTYTeyfe0-rN5r8zn9rw', label: 'codebasics — NumPy & Data Science (Hindi)' },
             ],
           },
         ],
@@ -337,6 +348,7 @@ const PHASES = [
             resources: [
               { level: 'Beginner', url: 'https://www.youtube.com/watch?v=vmEHCJofslg', label: 'Corey Schafer — Pandas Playlist' },
               { level: 'Full course', url: 'https://www.youtube.com/watch?v=e60ItwlZTKM', label: 'Keith Galli — Complete Pandas' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLeo1K3hjS3uvCeTYTeyfe0-rN5r8zn9rw', label: 'codebasics — Pandas Tutorial (Hindi)' },
             ],
           },
           {
@@ -349,7 +361,9 @@ const PHASES = [
           {
             name: 'groupby, merge, pivot tables, apply/map',
             difficulty: 'Intermediate',
-            resources: [],
+            resources: [
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=vmEHCJofslg', label: 'Corey Schafer — Pandas GroupBy & Merging' },
+            ],
           },
         ],
       },
@@ -373,7 +387,9 @@ const PHASES = [
           {
             name: 'Multi-panel figures and publication quality export',
             difficulty: 'Intermediate',
-            resources: [],
+            resources: [
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=3Xc3CA655Y4', label: 'Corey Schafer — Matplotlib Subplots' },
+            ],
           },
         ],
       },
@@ -397,12 +413,16 @@ const PHASES = [
           {
             name: 'Scaling: StandardScaler, MinMaxScaler, RobustScaler',
             difficulty: 'Beginner',
-            resources: [],
+            resources: [
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=0DdVhpb3ny4', label: 'StatQuest — Feature Scaling clearly explained' },
+            ],
           },
           {
             name: 'Feature selection: correlation matrix, mutual info, RFECV',
             difficulty: 'Advanced',
-            resources: [],
+            resources: [
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=rrTK6EEFQBY', label: 'StatQuest — Feature Selection Methods' },
+            ],
           },
         ],
       },
@@ -442,6 +462,8 @@ const PHASES = [
             resources: [
               { level: 'Beginner', url: 'https://www.youtube.com/watch?v=nk2CQITm_eo', label: 'StatQuest — Linear Regression' },
               { level: 'Full course', url: 'https://www.youtube.com/watch?v=jGwO_UgTS7I', label: 'Andrew Ng — ML Week 1-3' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=JxgmHe2NyeY', label: 'Krish Naik — Complete ML in 6 Hours (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLeo1K3hjS3uvCeTYTeyfe0-rN5r8zn9rw', label: 'codebasics — ML Tutorial Playlist (Hindi)' },
             ],
           },
           {
@@ -468,6 +490,7 @@ const PHASES = [
             difficulty: 'Beginner',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=7VeUPuFGJHk', label: 'StatQuest — Decision Trees' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=JxgmHe2NyeY', label: 'Krish Naik — Decision Trees (Hindi)' },
             ],
           },
           {
@@ -533,12 +556,17 @@ const PHASES = [
           {
             name: 'Confusion matrix, precision, recall, F1, AUC-ROC',
             difficulty: 'Intermediate',
-            resources: [],
+            resources: [
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Kdsp6sozTKE', label: 'StatQuest — Confusion Matrix' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=4jR5DbvGjY8', label: 'StatQuest — Precision, Recall, and F1 score' },
+            ],
           },
           {
             name: 'Hyperparameter tuning: GridSearchCV, RandomizedSearchCV',
             difficulty: 'Intermediate',
-            resources: [],
+            resources: [
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=0wUF4udGiCY', label: 'StatQuest — Hyperparameter Tuning' },
+            ],
           },
         ],
       },
@@ -578,6 +606,7 @@ const PHASES = [
             resources: [
               { level: 'Best resource', url: 'https://www.youtube.com/watch?v=VMj-3S1tku0', label: 'Karpathy — micrograd (zero to hero Ep.1)' },
               { level: 'Visual', url: 'https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi', label: '3Blue1Brown — Neural Networks Series' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLKnIA16_RmvYuZauWaPlRTC54KxSNLtNn', label: 'CampusX — 100 Days of Deep Learning (Hindi)' },
             ],
           },
           {
@@ -599,6 +628,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Full course', url: 'https://www.youtube.com/watch?v=Z_ikDlimN6A', label: 'freeCodeCamp — PyTorch for DL full course' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=6EJaHBJhwDs', label: 'CampusX — PyTorch for Deep Learning (Hindi)' },
             ],
           },
         ],
@@ -625,6 +655,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=K0lWSB2QoIQ', label: 'Sentdex — PyTorch Transfer Learning' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLKnIA16_RmvYuZauWaPlRTC54KxSNLtNn', label: 'CampusX — CNN & Transfer Learning (Hindi)' },
             ],
           },
         ],
@@ -686,6 +717,7 @@ const PHASES = [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=-9vVhYEXeyQ', label: 'Yannic Kilcher — BERT paper explained' },
               { level: 'Hugging Face', url: 'https://www.youtube.com/watch?v=DQc2Mi7ZcS4', label: 'Sentdex — BERT fine-tuning' },
               { level: 'Full HF course', url: 'https://huggingface.co/learn/nlp-course/chapter1/1', label: 'Hugging Face NLP Course' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=3bPhDUSAUYI', label: 'Krish Naik — BERT & Transformers (Hindi)' },
             ],
           },
         ],
@@ -735,12 +767,15 @@ const PHASES = [
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc', label: '3Blue1Brown — Attention in Transformers' },
               { level: 'Paper', url: 'https://arxiv.org/abs/1706.03762', label: 'Attention Is All You Need — Vaswani et al. 2017' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=3bPhDUSAUYI', label: 'Krish Naik — Transformers for NLP (Hindi)' },
             ],
           },
           {
             name: 'Why attention beats recurrence for long sequences',
             difficulty: 'Intermediate',
-            resources: [],
+            resources: [
+              { level: 'Blog', url: 'https://jalammar.github.io/illustrated-transformer/', label: 'Jay Alammar — The Illustrated Transformer' },
+            ],
           },
         ],
       },
@@ -764,12 +799,16 @@ const PHASES = [
           {
             name: 'Encoder stack: self-attention + FFN + LayerNorm + residuals',
             difficulty: 'Advanced',
-            resources: [],
+            resources: [
+              { level: 'Blog', url: 'https://jalammar.github.io/illustrated-transformer/', label: 'Jay Alammar — The Illustrated Transformer' },
+            ],
           },
           {
             name: 'Decoder stack: masked self-attention + cross-attention + FFN',
             difficulty: 'Advanced',
-            resources: [],
+            resources: [
+              { level: 'Blog', url: 'https://jalammar.github.io/illustrated-transformer/', label: 'Jay Alammar — The Illustrated Transformer' },
+            ],
           },
           {
             name: 'Encoder-only (BERT) vs Decoder-only (GPT) vs Seq2Seq (T5, BART)',
