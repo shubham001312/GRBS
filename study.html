@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study — GRBS</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/study.css">
+</head>
+<body>
+  <!-- Hamburger -->
+  <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html"><img src="assets/logo.svg" alt="GRBS Logo"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span> Home</a>
+      <a href="study.html" class="nav-link"><span class="nav-icon">📚</span> Study</a>
+      <a href="roadmap.html" class="nav-link"><span class="nav-icon">🗺️</span> Roadmap</a>
+      <a href="about.html" class="nav-link"><span class="nav-icon">👤</span> About</a>
+    </nav>
+    <hr class="sidebar-divider">
+    <div class="sidebar-progress">
+      <span id="sidebar-progress-text">Progress: 0% complete</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <main class="content">
+
+      <!-- Overall Progress Bar -->
+      <div class="study-progress-bar">
+        <span class="sp-label">Overall Study Progress:</span>
+        <div class="progress-bar">
+          <div class="progress-bar-fill" id="study-progress-fill" style="width: 0%"></div>
+        </div>
+        <span class="sp-percent" id="study-progress-percent">0%</span>
+      </div>
+
+      <!-- Phase Pill Navigation -->
+      <div class="phase-pills" id="phase-pills"></div>
+
+      <!-- Phases Container -->
+      <div id="phases-container"></div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <img src="assets/logo.svg" alt="GRBS" style="width: 100px; margin-bottom: 0.5rem;">
+          <p>GPT Roadmap By Shubham</p>
+          <p>© 2025 Shubham Mallick. All rights reserved.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="study.html">Study</a>
+            <a href="roadmap.html">Roadmap</a>
+            <a href="about.html">About</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="footer-social">
+            <a href="https://github.com/shubham001312" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
+            <a href="https://www.linkedin.com/in/shubham-mallick-061298378/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Built with ❤️ for students</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">GRBS — GPT Roadmap By Shubham</div>
+    </footer>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/phases.js"></script>
+  <script src="js/study.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

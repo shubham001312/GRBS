@@ -1,0 +1,313 @@
+/* ============================================
+   GRBS — Home Page Styles
+   ============================================ */
+
+/* --- Username Modal --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.modal-card h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-card .modal-sub {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-card input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  transition: border-color var(--transition);
+}
+
+.modal-card input[type="text"]:focus {
+  border-color: var(--accent);
+}
+
+.modal-card .modal-error {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  min-height: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-card .btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* --- Greeting Header --- */
+.home-header {
+  margin-bottom: 2rem;
+}
+
+.home-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.home-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* --- Overall Progress Ring --- */
+.overall-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.progress-ring-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 1rem;
+}
+
+.progress-ring-wrap svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 10;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.progress-ring-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.progress-ring-text .percent {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.progress-ring-text .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.progress-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* --- Phase Grid --- */
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.phase-card {
+  cursor: pointer;
+  display: block;
+}
+
+.phase-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.phase-card-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.phase-card-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.phase-card .progress-bar {
+  height: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.phase-card .progress-bar-fill {
+  background: var(--accent);
+}
+
+.phase-card .status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.status-badge.not-started {
+  color: var(--text-muted);
+}
+
+.status-badge.in-progress {
+  color: var(--accent-2);
+}
+
+.status-badge.completed {
+  color: var(--success);
+}
+
+/* --- Current Focus --- */
+.focus-widget {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent-2);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.focus-widget .focus-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: 0.2rem;
+}
+
+.focus-widget .focus-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.focus-widget .focus-arrow {
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+/* --- Quick Actions --- */
+.quick-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+/* --- Quote --- */
+.daily-quote {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.daily-quote .quote-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.daily-quote .quote-text {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.daily-quote .quote-author {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .phase-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .progress-ring-wrap {
+    width: 130px;
+    height: 130px;
+  }
+
+  .progress-ring-text .percent {
+    font-size: 1.4rem;
+  }
+
+  .quick-actions {
+    flex-direction: column;
+  }
+
+  .quick-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .focus-widget {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

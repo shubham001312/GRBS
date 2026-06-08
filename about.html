@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — GRBS</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+  <!-- Hamburger -->
+  <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html"><img src="assets/logo.svg" alt="GRBS Logo"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span> Home</a>
+      <a href="study.html" class="nav-link"><span class="nav-icon">📚</span> Study</a>
+      <a href="roadmap.html" class="nav-link"><span class="nav-icon">🗺️</span> Roadmap</a>
+      <a href="about.html" class="nav-link"><span class="nav-icon">👤</span> About</a>
+    </nav>
+    <hr class="sidebar-divider">
+    <div class="sidebar-progress">
+      <span id="sidebar-progress-text">Progress: 0% complete</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <main class="content">
+
+      <h1 style="margin-bottom: 1.5rem;">👤 About</h1>
+
+      <!-- Developer Card -->
+      <div class="about-dev-card">
+        <div class="about-dev-avatar">S</div>
+        <h2 class="about-dev-name">Shubham Mallick</h2>
+        <p class="about-dev-role">B.Tech Student | AI & LLM Enthusiast | Developer</p>
+        <p class="about-dev-bio">"I'm Shubham Mallick, a B.Tech student passionate about Artificial Intelligence and building intelligent systems from scratch. I created GRBS to make the journey from zero coding knowledge to building Large Language Models structured, free, and accessible to every student in India and beyond. This roadmap is what I wish existed when I started. I believe the best way to learn AI is to build it — one line of code at a time."</p>
+        <div class="about-social">
+          <a href="https://github.com/shubham001312" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
+          <a href="https://www.linkedin.com/in/shubham-mallick-061298378/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- About Project -->
+      <div class="about-project">
+        <h2>About This Project</h2>
+        <p>GPT Roadmap By Shubham (GRBS) is a free, open learning portal that guides B.Tech students from programming basics all the way to building and deploying Large Language Models. Every resource linked is free. Every project is practical. Every phase builds on the last.</p>
+        <p class="built-with">Built with: HTML · CSS · JavaScript · ❤️</p>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem;">No frameworks. No databases. Just a student helping students.</p>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="about-tech">
+        <h2>Tech Stack</h2>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">Vanilla JavaScript</span>
+          <span class="tech-tag">Google Fonts</span>
+          <span class="tech-tag">LocalStorage API</span>
+        </div>
+      </div>
+
+      <!-- Mission -->
+      <div class="about-mission">
+        <div class="mission-icon">🎯</div>
+        <p>"Make LLM engineering education free, structured, and accessible to every student."</p>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <img src="assets/logo.svg" alt="GRBS" style="width: 100px; margin-bottom: 0.5rem;">
+          <p>GPT Roadmap By Shubham</p>
+          <p>© 2025 Shubham Mallick. All rights reserved.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="study.html">Study</a>
+            <a href="roadmap.html">Roadmap</a>
+            <a href="about.html">About</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="footer-social">
+            <a href="https://github.com/shubham001312" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
+            <a href="https://www.linkedin.com/in/shubham-mallick-061298378/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Built with ❤️ for students</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">GRBS — GPT Roadmap By Shubham</div>
+    </footer>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

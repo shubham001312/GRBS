@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GRBS — GPT Roadmap By Shubham</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <!-- Hamburger -->
+  <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html"><img src="assets/logo.svg" alt="GRBS Logo"></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span> Home</a>
+      <a href="study.html" class="nav-link"><span class="nav-icon">📚</span> Study</a>
+      <a href="roadmap.html" class="nav-link"><span class="nav-icon">🗺️</span> Roadmap</a>
+      <a href="about.html" class="nav-link"><span class="nav-icon">👤</span> About</a>
+    </nav>
+    <hr class="sidebar-divider">
+    <div class="sidebar-progress">
+      <span id="sidebar-progress-text">Progress: 0% complete</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <main class="content">
+
+      <!-- Username Modal -->
+      <div class="modal-overlay" id="username-modal">
+        <div class="modal-card">
+          <h2>Welcome to GRBS 👋</h2>
+          <p class="modal-sub">What should we call you? (used only on this device)</p>
+          <input type="text" id="username-input" placeholder="Your first name" autocomplete="off">
+          <div class="modal-error" id="modal-error"></div>
+          <button class="btn btn-primary" id="modal-submit">Let's go →</button>
+        </div>
+      </div>
+
+      <!-- App Content (hidden until username is set) -->
+      <div id="app-content" style="display: none;">
+        <!-- Header -->
+        <div class="home-header">
+          <h1 id="greeting">Good morning! 👋</h1>
+          <p id="greeting-sub">You're learning to build LLMs from scratch.</p>
+        </div>
+
+        <!-- Overall Progress Ring -->
+        <div class="overall-progress">
+          <div class="progress-ring-wrap">
+            <svg viewBox="0 0 150 150">
+              <circle class="progress-ring-bg" cx="75" cy="75" r="65"></circle>
+              <circle class="progress-ring-fill" id="progress-fill" cx="75" cy="75" r="65"
+                stroke-dasharray="408.41" stroke-dashoffset="408.41"></circle>
+            </svg>
+            <div class="progress-ring-text">
+              <div class="percent" id="progress-percent">0%</div>
+              <div class="label">Complete</div>
+            </div>
+          </div>
+          <p class="progress-sub" id="progress-count">0 of 0 topics done</p>
+        </div>
+
+        <!-- Phase Progress Cards -->
+        <h2 style="margin-bottom: 1rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">PHASE PROGRESS</h2>
+        <div class="phase-grid" id="phase-grid"></div>
+
+        <!-- Current Focus Widget -->
+        <div class="focus-widget" id="focus-widget">
+          <div>
+            <div class="focus-label">Currently learning</div>
+            <div class="focus-name" id="focus-name">Loading...</div>
+          </div>
+          <span class="focus-arrow">→</span>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <a href="study.html" class="btn btn-primary">Continue Studying →</a>
+          <a href="roadmap.html" class="btn btn-secondary">View Roadmap →</a>
+        </div>
+
+        <!-- Daily Quote -->
+        <div class="daily-quote">
+          <div class="quote-icon">💬</div>
+          <p class="quote-text" id="quote-text"></p>
+          <p class="quote-author" id="quote-author"></p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <img src="assets/logo.svg" alt="GRBS" style="width: 100px; margin-bottom: 0.5rem;">
+          <p>GPT Roadmap By Shubham</p>
+          <p>© 2025 Shubham Mallick. All rights reserved.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="study.html">Study</a>
+            <a href="roadmap.html">Roadmap</a>
+            <a href="about.html">About</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="footer-social">
+            <a href="https://github.com/shubham001312" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
+            <a href="https://www.linkedin.com/in/shubham-mallick-061298378/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Built with ❤️ for students</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">GRBS — GPT Roadmap By Shubham</div>
+    </footer>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/phases.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
