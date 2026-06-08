@@ -18,12 +18,8 @@ function setUsername(name) {
 
 /* --- Progress --- */
 function getProgress() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.progress);
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
+  const raw = localStorage.getItem(STORAGE_KEYS.progress);
+  return raw ? JSON.parse(raw) : {};
 }
 
 function setProgress(key, value) {

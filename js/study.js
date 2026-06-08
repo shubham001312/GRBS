@@ -135,7 +135,7 @@ function renderPhases() {
             ` : ''}
           </div>
           <div class="topic-actions">
-            <button class="copy-btn" aria-label="Copy topic name" data-text="${topic.name.replace(/"/g, '&quot;')}">
+            <button class="copy-btn" aria-label="Copy topic name" data-text="${encodeURIComponent(topic.name)}">
               ${COPY_ICON_SVG}
               <span class="copy-tooltip">Copied!</span>
             </button>
@@ -187,7 +187,7 @@ function renderPhases() {
             ${task.hint ? `<div class="build-hint">💡 ${task.hint}</div>` : ''}
           </div>
           <div class="topic-actions">
-            <button class="copy-btn" aria-label="Copy build task" data-text="${task.name.replace(/"/g, '&quot;')}">
+            <button class="copy-btn" aria-label="Copy build task" data-text="${encodeURIComponent(task.name)}">
               ${COPY_ICON_SVG}
               <span class="copy-tooltip">Copied!</span>
             </button>
