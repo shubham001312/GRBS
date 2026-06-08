@@ -182,6 +182,16 @@
   font-family: var(--font-mono);
 }
 
+.phase-card-subtitle {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
 .phase-card .progress-bar {
   height: 6px;
   margin-bottom: 0.5rem;

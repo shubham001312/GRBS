@@ -86,7 +86,7 @@ function renderPhaseCards() {
   const grid = document.getElementById('phase-grid');
   grid.innerHTML = '';
 
-  const phaseEmojis = ['📖', '🧮', '📊', '🤖', '🧠', '🚀'];
+  const phaseEmojis = ['🛠️', '💻', '🧮', '🏗️', '📊', '🤖', '🧠', '⚡', '💬', '🔮', '🎯', '🧬', '🔍', '🤖', '🚀', '🖥️', '🔬', '🌐'];
 
   PHASES.forEach((phase, idx) => {
     const topicCount = getAllTopicsCount(phase);
@@ -111,6 +111,7 @@ function renderPhaseCards() {
     card.innerHTML = `
       <div class="phase-card-header">
         <span class="phase-card-title">${phaseEmojis[idx]} Phase ${idx}</span>
+        <span class="phase-card-subtitle">${phase.name}</span>
         <span class="phase-card-count">${doneItems}/${totalItems}</span>
       </div>
       <div class="progress-bar">
