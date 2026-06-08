@@ -1733,7 +1733,7 @@ const PHASES = [
             name: 'W&B, Neptune.ai, experiment comparison',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=Z4unUK0vn4k', label: 'MLflow — Experiment Tracking' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=_3z0r2k8Nh4', label: 'Computerio — Weights & Biases Tutorial' },
             ],
           },
         ],
@@ -1745,7 +1745,7 @@ const PHASES = [
             name: 'Model monitoring: data drift, concept drift, performance degradation',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=Z4unUK0vn4k', label: 'MLflow — Experiment Tracking' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=J_uH5x57p-0', label: 'Evidently AI — Data Drift Explained' },
             ],
           },
           {
@@ -1831,14 +1831,14 @@ const PHASES = [
             name: 'DeepSpeed ZeRO: Stage 1/2/3, offloading, CPU memory',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Zj4KiBdvK6s', label: 'DeepSpeed ZeRO Tutorial — Multi-GPU Fine-Tuning' },
             ],
           },
           {
             name: 'FSDP: Fully Sharded Data Parallel, activation checkpointing',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=8_k76AHu__s', label: 'PyTorch FSDP Tutorial — Transformer Wrapper' },
             ],
           },
         ],
@@ -1850,14 +1850,14 @@ const PHASES = [
             name: 'vLLM: PagedAttention, continuous batching, high-throughput serving',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=5ZlavKF_98U', label: 'Anyscale — vLLM & PagedAttention Explained' },
             ],
           },
           {
             name: 'TensorRT, ONNX Runtime, speculative decoding',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=zL3_rnjfrT4', label: 'Neural Internet — ONNX & TensorRT Optimization' },
             ],
           },
         ],
@@ -2066,21 +2066,21 @@ const PHASES = [
             name: 'Resume building for AI roles: projects, skills, impact',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=7MfBlmAomeM', label: 'AI Engineer Roadmap — How I\'d Learn AI in 2025' },
             ],
           },
           {
             name: 'Interview prep: system design, coding, ML theory, behavioral',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Resource', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
+              { level: 'Playlist', url: 'https://www.youtube.com/playlist?list=PLrtCHHeadkHqYX7O5cjHeWHzH2jzQqWg5', label: 'Exponent — ML Interview Prep' },
             ],
           },
           {
             name: 'Off-campus hiring: referrals, cold outreach, job boards, networking',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=DjqQZBR4bcM', label: 'Cold Job Outreach to Land Tech Interviews' },
             ],
           },
         ],
