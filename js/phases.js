@@ -32,15 +32,15 @@ const PHASES = [
             difficulty: 'Beginner',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=O5nskjZ_GoI', label: 'Crash Course Computer Science #1' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=kYam6NoxbFE', label: 'Apna College — Computer Fundamentals (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://youtu.be/FETxgyyu904?si=0cP-l_oFttwXcPZd', label: 'Not Your College — Computer Fundamentals (Hindi)' },
             ],
           },
           {
             name: 'Operating System basics: processes, threads, memory management',
             difficulty: 'Beginner',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/playlist?list=PLBlnK6fEyqRj9lld8sWIUNwlKfdUoPdFY', label: 'Neso Academy — OS Full Course' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLx2O_z85fS05x-aC9y6k_y-56l8d4rXW7', label: 'Knowledge Gate — OS (Hindi)' },
+              { level: 'Video', url: 'https://youtu.be/8XBtAjKwCm4?si=Op30PvfZY3y3eB8O', label: 'Operating System In One Shot by Anuj Bhaiya' },
+              { level: '🇮🇳 Hindi', url: 'https://youtu.be/xw_OuOhjauw?si=V6r_7QaVieprFQx7', label: 'Knowledge Gate — OS (Hindi)<NOT REQUIRED FOR ALL>' },
             ],
           },
           {
@@ -48,7 +48,7 @@ const PHASES = [
             difficulty: 'Beginner',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=qiQR5rTSshw', label: 'freeCodeCamp — Computer Networking Full Course' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLx2O_z85fS06PkoMCl0C8sFhCd-jd0Xp6', label: 'Knowledge Gate — Computer Networks (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://youtu.be/xN3BKHji12I?si=eRumwNsbB_Mm8XMv', label: 'Computer Networks & System Design (Hindi)' },
             ],
           },
         ],
