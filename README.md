@@ -4,7 +4,7 @@
 
 ### *Your complete 18-phase roadmap from zero to production-grade AI engineer*
 
-[![Website](https://img.shields.io/badge/🌐_Visit-Site-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://your-website-url.com)
+[![Website](https://img.shields.io/badge/🌐_Visit-Site-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/shubham001312/GRBS)
 [![GitHub Stars](https://img.shields.io/github/stars/shubham001312/GRBS?style=for-the-badge&color=yellow)](https://github.com/shubham001312/GRBS/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/shubham001312/GRBS?style=for-the-badge&color=purple)](https://github.com/shubham001312/GRBS/network/members)
 [![License](https://img.shields.io/github/license/shubham001312/GRBS?style=for-the-badge&color=green)](https://github.com/shubham001312/GRBS/blob/main/LICENSE)
@@ -86,10 +86,7 @@ Every phase includes **4 practical projects** to build real experience:
 
 ## 🚀 Quick Start
 
-### Option 1: Visit the Website
-🌐 **[Launch GRBS Website →](https://your-website-url.com)**
-
-### Option 2: Run Locally
+### Option 1: Clone & Run Locally
 ```bash
 # Clone the repository
 git clone https://github.com/shubham001312/GRBS.git
@@ -131,10 +128,11 @@ GRBS/
 │   ├── study.js        # Study mode with progress
 │   ├── nav.js          # Navigation logic
 │   ├── about.js        # About page logic
-│   ├── storage.js      # Local storage management
-│   └── phases.js       # Phase data configuration
+│   └── storage.js      # Local storage management
 ├── assets/             # Images, icons, and media
+├── .github/            # Issue templates & PR template
 ├── CONTRIBUTING.md     # Contribution guidelines
+├── MEMORY.md           # Session memory for AI continuity
 └── README.md           # This file
 ```
 
@@ -178,7 +176,7 @@ We welcome contributions from everyone! Whether you want to:
 |--------|-------|
 | 📚 Total Phases | 18 |
 | 🎥 Video Resources | 500+ |
-| 🇮🇳 Hindi Resources | 30+ |
+| 🇮🇳 Hindi Resources | 35+ |
 | 💻 Build Tasks | 72 |
 | 📁 Files | 15+ |
 | ⏱️ Total Duration | ~2.5–3.5 years |
