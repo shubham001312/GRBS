@@ -31,8 +31,8 @@ const PHASES = [
             name: 'How computers work: CPU, memory, storage, binary',
             difficulty: 'Beginner',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=tpIctyqPnpQ', label: 'Crash Course Computer Science' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=QH7iPQ7tkQ8', label: 'Apna College — Computer Fundamentals (Hindi)' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=O5nskjZ_GoI', label: 'Crash Course Computer Science #1' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=kYam6NoxbFE', label: 'Apna College — Computer Fundamentals (Hindi)' },
             ],
           },
           {
@@ -68,7 +68,7 @@ const PHASES = [
             name: 'Shell scripting, environment variables, package managers',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=_nbluN1UJ6k', label: 'NetworkChuck — Linux Commands' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=gd7BXuUQ91w', label: 'NetworkChuck — 60 Linux Commands' },
             ],
           },
         ],
@@ -107,14 +107,14 @@ const PHASES = [
             name: 'VS Code setup, extensions, shortcuts, debugging',
             difficulty: 'Beginner',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=WPqXPketL6I', label: 'Fireship — VS Code Best Practices' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=ifTF3ags0XI', label: 'Fireship — VS Code Productivity Tips' },
             ],
           },
           {
             name: 'Debugging techniques: print debugging, breakpoints, stack traces',
             difficulty: 'Beginner',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=b9eMm6VSPCQ', label: ' Corey Schafer — Python Debugging' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=b7VbiZBg-dA', label: ' Corey Schafer — Python Debugging' },
             ],
           },
         ],
@@ -195,7 +195,7 @@ const PHASES = [
             difficulty: 'Beginner',
             resources: [
               { level: 'Full course', url: 'https://www.youtube.com/watch?v=KJgsSFOSQv0', label: 'freeCodeCamp — C Full Course' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=irqG1dgqR1o', label: 'Apna College — C Language (Hindi)' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=irqbmMNs2Bo', label: 'Apna College — C Language (Hindi)' },
             ],
           },
           {
@@ -232,7 +232,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=kPRA0W1kECg', label: 'freeCodeCamp — Algorithms' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=8hly31x3sqs', label: 'NeetCode — Sorting & Searching' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=f9Aje_cN_CY', label: 'NeetCode — DSA in Python (Hindi)' },
             ],
           },
           {
@@ -240,7 +240,7 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Resource', url: 'https://leetcode.com/problemset/all/?difficulty=EASY', label: 'LeetCode — Easy Problems' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=8hly31x3sqs', label: 'NeetCode — DSA Roadmap' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=f9Aje_cN_CY', label: 'NeetCode — DSA Roadmap (Hindi)' },
             ],
           },
         ],
@@ -351,7 +351,7 @@ const PHASES = [
             name: 'MLE, cross-entropy loss, hypothesis testing',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=6xqv98r4Ml8', label: 'StatQuest — MLE' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=XepXtl9YKwc', label: 'StatQuest — Maximum Likelihood' },
               { level: 'Video', url: 'https://www.youtube.com/watch?v=0oc49DyA3hU', label: 'StatQuest — Hypothesis Testing' },
             ],
           },
@@ -427,7 +427,7 @@ const PHASES = [
             name: 'Memory management, virtual memory, file systems',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=ivH19TIY5-4', label: 'Neso Academy — Memory Management' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=d9WyerblWQc', label: 'Neso Academy — Memory Management' },
             ],
           },
         ],
@@ -447,7 +447,7 @@ const PHASES = [
             name: 'WebSockets, APIs, API design best practices',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=1yF-oIm6V64', label: 'Fireship — REST vs GraphQL vs gRPC' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=hiUR8ZOpZ8M', label: 'Fireship — Every Type of API Explained' },
             ],
           },
         ],
@@ -467,14 +467,14 @@ const PHASES = [
             name: 'PostgreSQL, schema design, indexing, normalization',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=qwerttrew', label: 'Traversy Media — PostgreSQL Crash Course' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=bssWKAX74uA', label: 'Traversy Media — PostgreSQL Introduction' },
             ],
           },
           {
             name: 'Redis, NoSQL, when to use what',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=vsKfT39bYM8', label: 'Fireship — Redis in 100 Seconds' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=G1rOthIU-uo', label: 'Fireship — Redis in 100 Seconds' },
             ],
           },
         ],
@@ -486,8 +486,8 @@ const PHASES = [
             name: 'System design fundamentals: scalability, caching, load balancing',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=Cxd0hGF1VtI', label: 'Gaurav Sen — System Design' },
-              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=3lo286bQ1xs', label: 'Apna College — System Design (Hindi)' },
+              { level: 'Video', url: 'https://www.youtube.com/playlist?list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX', label: 'Gaurav Sen — System Design' },
+              { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=CuQmQpvw04I', label: 'Apna College — System Design (Hindi)' },
             ],
           },
           {
@@ -611,7 +611,7 @@ const PHASES = [
             name: 'Missing value imputation, encoding, scaling',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=WhWKMJeVVME', label: 'Krish Naik — Feature Engineering' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=xhB-dmKmzRk', label: 'Krish Naik — Feature Engineering' },
               { level: 'Video', url: 'https://www.youtube.com/watch?v=wr9gUr-eWdA', label: 'Abhishek Thakur — Feature Engineering' },
             ],
           },
@@ -619,7 +619,7 @@ const PHASES = [
             name: 'Feature selection: correlation, mutual info, RFECV',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=rrTK6EEFQBY', label: 'StatQuest — Feature Selection' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=wpNl-JwwplA', label: 'StatQuest — Feature Selection & Missing Data' },
             ],
           },
         ],
@@ -746,14 +746,14 @@ const PHASES = [
             difficulty: 'Intermediate',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=Kdsp6sozTKE', label: 'StatQuest — Confusion Matrix' },
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=4jR5DbvGjY8', label: 'StatQuest — Precision, Recall, F1' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=8d3JbbSj-I8', label: 'StatQuest — Precision, Recall, F1' },
             ],
           },
           {
             name: 'Hyperparameter tuning: GridSearchCV, RandomizedSearchCV',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=0wUF4udGiCY', label: 'StatQuest — Hyperparameter Tuning' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Q-X1ukbxIs0', label: 'StatQuest — Hyperparameter Tuning' },
             ],
           },
         ],
@@ -963,7 +963,7 @@ const PHASES = [
             name: 'Data augmentation, prefetching, pin_memory',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'Aladdin Persson — PyTorch Advanced' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
         ],
@@ -982,7 +982,7 @@ const PHASES = [
             name: 'Model saving/loading, checkpointing, mixed precision training',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'Aladdin Persson — PyTorch Checkpointing' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Checkpointing' },
             ],
           },
         ],
@@ -1082,7 +1082,7 @@ const PHASES = [
             difficulty: 'Advanced',
             resources: [
               { level: 'Video', url: 'https://www.youtube.com/watch?v=-9vVhYEXeyQ', label: 'Yannic Kilcher — BERT paper' },
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=DQc2Mi7ZcS4', label: 'Sentdex — BERT fine-tuning' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=4QHg8Ix8WWQ', label: 'Fine-Tuning BERT for Text Classification' },
               { level: 'Full course', url: 'https://huggingface.co/learn/nlp-course/chapter1/1', label: 'Hugging Face NLP Course' },
               { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=3bPhDUSAUYI', label: 'Krish Naik — BERT (Hindi)' },
             ],
@@ -1390,7 +1390,7 @@ const PHASES = [
             name: 'Quantization: INT8, INT4, GPTQ, AWQ, GGUF',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=RoRPj_qCp7Y', label: 'GGML/GGUF Quantization Explained' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=_3FctggJ9r4', label: 'PTQ, GPTQ, AWQ, GGUF, GGML Quantization Explained' },
             ],
           },
         ],
@@ -1402,14 +1402,14 @@ const PHASES = [
             name: 'Knowledge distillation: teacher-student, feature distillation',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=rbgI1WwSmkY', label: 'Hugging Face — Distillation' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=riUYGZ-_fJY', label: 'Hugging Face — LLM Distillation' },
             ],
           },
           {
             name: 'RLHF concepts: reward modeling, PPO, DPO, Constitutional AI',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=jkrNMKz7pZ4', label: 'Yannic Kilcher — RLHF explained' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=nSrj1J6ODoM', label: 'Yannic Kilcher — RLHF explained' },
             ],
           },
         ],
@@ -1421,14 +1421,14 @@ const PHASES = [
             name: 'LLM benchmarks: MMLU, HumanEval, MT-Bench, Arena',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=3DCpXO0MbVU', label: 'How to Evaluate LLMs' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=a3SMraZWNNs', label: 'How to Evaluate LLMs' },
             ],
           },
           {
             name: 'Custom evaluation: human eval, LLM-as-judge, A/B testing',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=3DCpXO0MbVU', label: 'LLM Evaluation Best Practices' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=a3SMraZWNNs', label: 'LLM Evaluation Best Practices' },
             ],
           },
         ],
@@ -1495,7 +1495,7 @@ const PHASES = [
             name: 'Chunking strategies: fixed, recursive, semantic chunking',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=8aFf4EBK3yY', label: 'RAG Chunking Strategies' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=pIGRwMjhMaQ', label: 'Chunking Strategies in RAG' },
             ],
           },
           {
@@ -1726,14 +1726,14 @@ const PHASES = [
             name: 'MLflow: tracking, projects, models, model registry',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=9BgE8xVJBKk', label: 'MLflow Tutorial' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Z4unUK0vn4k', label: 'MLflow — Experiment Tracking' },
             ],
           },
           {
             name: 'W&B, Neptune.ai, experiment comparison',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=9BgE8xVJBKk', label: 'Experiment Tracking Tools' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Z4unUK0vn4k', label: 'MLflow — Experiment Tracking' },
             ],
           },
         ],
@@ -1745,14 +1745,14 @@ const PHASES = [
             name: 'Model monitoring: data drift, concept drift, performance degradation',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=9BgE8xVJBKk', label: 'ML Monitoring Best Practices' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Z4unUK0vn4k', label: 'MLflow — Experiment Tracking' },
             ],
           },
           {
             name: 'Hugging Face Hub: push models, Spaces (deploy Gradio/Streamlit free)',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=2TqTEpg3aUk', label: 'HF — Deploy to Spaces' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=xqdTFyRdtjQ', label: 'HF — Create a Hugging Face Space' },
             ],
           },
         ],
@@ -1793,14 +1793,14 @@ const PHASES = [
             name: 'GPU architecture, CUDA basics, memory management',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=9I0jogjAEkY', label: 'CUDA Programming for Beginners' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=86FAWCzIe_4', label: 'CUDA Programming Course' },
             ],
           },
           {
             name: 'PyTorch on GPU: .to(device), CUDA kernels, torch.compile',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'Aladdin Persson — PyTorch GPU' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
         ],
@@ -1812,14 +1812,14 @@ const PHASES = [
             name: 'Data parallelism, model parallelism, pipeline parallelism',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'Distributed Training Explained' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
           {
             name: 'PyTorch DDP: DistributedDataParallel, gradient synchronization',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'PyTorch DDP Tutorial' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
         ],
@@ -1831,14 +1831,14 @@ const PHASES = [
             name: 'DeepSpeed ZeRO: Stage 1/2/3, offloading, CPU memory',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'DeepSpeed Tutorial' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
           {
             name: 'FSDP: Fully Sharded Data Parallel, activation checkpointing',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'FSDP Tutorial' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
         ],
@@ -1850,14 +1850,14 @@ const PHASES = [
             name: 'vLLM: PagedAttention, continuous batching, high-throughput serving',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'vLLM Explained' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
           {
             name: 'TensorRT, ONNX Runtime, speculative decoding',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=91bC1-0L0kI', label: 'Inference Optimization Techniques' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=Ak4vq2ER6qQ', label: 'Aladdin Persson — PyTorch Advanced' },
             ],
           },
         ],
@@ -1898,7 +1898,7 @@ const PHASES = [
             name: 'How to read ML papers: abstract → figures → methods → results',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=732E4Hf83Bs', label: 'How to Read ML Papers' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=RjG689EwG5g', label: 'MIT PhD — How to Read ML Papers' },
             ],
           },
           {
@@ -1921,14 +1921,14 @@ const PHASES = [
             name: 'Reproducing experiments: data, code, hyperparameters, seeds',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=732E4Hf83Bs', label: 'How to Reproduce ML Papers' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=RjG689EwG5g', label: 'MIT PhD — Reproducing Research' },
             ],
           },
           {
             name: 'Using published code: GitHub repos, checkpoints, configs',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=732E4Hf83Bs', label: 'Reproducing Research' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=RjG689EwG5g', label: 'MIT PhD — Reproducing Research' },
             ],
           },
         ],
@@ -1940,7 +1940,7 @@ const PHASES = [
             name: 'Designing fair comparisons, ablation studies, statistical significance',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=732E4Hf83Bs', label: 'Benchmarking Best Practices' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=RjG689EwG5g', label: 'MIT PhD — Benchmarking Best Practices' },
             ],
           },
           {
@@ -1959,7 +1959,7 @@ const PHASES = [
             name: 'Hypothesis formation, controlled experiments, reporting negative results',
             difficulty: 'Advanced',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=732E4Hf83Bs', label: 'Experiment Design for ML' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=RjG689EwG5g', label: 'MIT PhD — Experiment Design for ML' },
             ],
           },
           {
@@ -2007,7 +2007,7 @@ const PHASES = [
             name: 'Profile README, pinned repos, contribution graph',
             difficulty: 'Beginner',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=GhJ421fr03Y', label: 'Build a GitHub Profile' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
               { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=ERCMXc8x7mc', label: 'Apna College — GitHub Profile (Hindi)' },
             ],
           },
@@ -2015,7 +2015,7 @@ const PHASES = [
             name: 'README best practices, project documentation, code quality',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=GhJ421fr03Y', label: 'GitHub Portfolio Tips' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
             ],
           },
         ],
@@ -2027,7 +2027,7 @@ const PHASES = [
             name: 'Finding good-first-issue, understanding codebases, PR workflow',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=GhJ421fr03Y', label: 'Open Source Contribution Guide' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
             ],
           },
           {
@@ -2054,7 +2054,7 @@ const PHASES = [
             name: 'LinkedIn: share projects, insights, and learning journey',
             difficulty: 'Beginner',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=GhJ421fr03Y', label: 'Building Your Tech Brand' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
             ],
           },
         ],
@@ -2066,21 +2066,21 @@ const PHASES = [
             name: 'Resume building for AI roles: projects, skills, impact',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=GhJ421fr03Y', label: 'AI Engineer Resume Tips' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
             ],
           },
           {
             name: 'Interview prep: system design, coding, ML theory, behavioral',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Resource', url: 'https://www.youtube.com/watch?v=GhJ421fr03Y', label: 'AI Engineer Interview Guide' },
+              { level: 'Resource', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
             ],
           },
           {
             name: 'Off-campus hiring: referrals, cold outreach, job boards, networking',
             difficulty: 'Intermediate',
             resources: [
-              { level: 'Video', url: 'https://www.youtube.com/watch?v=GhJ421fr03Y', label: 'Off-Campus Job Search Strategy' },
+              { level: 'Video', url: 'https://www.youtube.com/watch?v=zgqfWLHNKLk', label: 'GitHub Portfolio Tutorial' },
             ],
           },
         ],
