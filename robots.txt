@@ -1,0 +1,26 @@
+# robots.txt for GRBS - GPT Roadmap By Shubham
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://shubham001312.github.io/GRBS/sitemap.xml
+
+# Crawl delay to prevent server overload (in seconds)
+Crawl-delay: 1
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
