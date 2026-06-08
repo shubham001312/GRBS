@@ -29,6 +29,7 @@ function renderHome() {
     return;
   }
 
+  document.getElementById('username-modal').classList.add('hidden');
   document.getElementById('app-content').style.display = 'block';
   document.getElementById('greeting').textContent = `${getGreeting()}, ${username}! 👋`;
   document.getElementById('greeting-sub').textContent = "You're learning to build LLMs from scratch.";
