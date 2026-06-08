@@ -2,6 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home Page - Highest Priority -->
   <url>
+    <loc>https://shubham001312.github.io/GRBS/index.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Root path -->
+  <url>
     <loc>https://shubham001312.github.io/GRBS/</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
