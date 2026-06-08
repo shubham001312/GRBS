@@ -96,6 +96,7 @@ function renderPhases() {
 
     if (!locked) {
       attachPhaseToggle(header, section);
+      header.dataset.toggleAttached = 'true';
     }
 
     section.appendChild(header);
