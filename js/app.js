@@ -47,16 +47,19 @@ function showOnboarding() {
 }
 
 function showApp() {
-  // Always reveal content structure first, even if rendering fails
+  // Always reveal content structure first
   const content = document.getElementById('app-content');
   const nav = document.getElementById('app-nav');
   if (content) content.style.display = '';
   if (nav) nav.style.display = '';
 
-  try { renderCurrentTab(); } catch (e) { console.error('renderCurrentTab error:', e); }
-  try { setupNavigation(); } catch (e) { console.error('setupNavigation error:', e); }
-  try { setupSearch(); } catch (e) { console.error('setupSearch error:', e); }
-  try { updatePhaseIndicator(); } catch (e) { console.error('updatePhaseIndicator error:', e); }
+  // Set up navigation and search first
+  setupNavigation();
+  setupSearch();
+
+  // Switch to the saved tab (or default to dashboard)
+  const savedTab = appState.currentTab || 'dashboard';
+  switchTab(savedTab);
 }
 
 // Theme is light-only (original GRBS color scheme)
