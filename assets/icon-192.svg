@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E84545"/>
+      <stop offset="100%" stop-color="#D63B3B"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="96" cy="96" r="96" fill="url(#bg)"/>
+  <!-- Lightning bolt -->
+  <path d="M108 30L68 100h28L84 162l48-78h-30z" fill="#F7F4EF" stroke="#F7F4EF" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Small text arc at bottom -->
+  <text x="96" y="175" text-anchor="middle" fill="#F7F4EF" font-family="Arial, sans-serif" font-size="14" font-weight="bold" opacity="0.9">GRBS</text>
+</svg>

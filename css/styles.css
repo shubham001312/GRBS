@@ -527,6 +527,17 @@ main {
   .res-grid { grid-template-columns: 1fr; }
 }
 
+/* === Offline Banner === */
+.offline-banner {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 600; padding: 8px 16px;
+  background: var(--warning); color: #fff;
+  text-align: center; font-size: 13px;
+  font-weight: 600; font-family: var(--font-mono);
+  animation: slideDown 0.3s ease;
+}
+@keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+
 /* === Utility === */
 .text-center { text-align: center; }
 .text-muted { color: var(--text-muted); }
