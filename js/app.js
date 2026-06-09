@@ -96,6 +96,7 @@ function renderCurrentTab() {
     case 'projects': renderProjects(); break;
     case 'progress': renderProgress(); break;
     case 'goals': renderGoals(); break;
+    case 'about': renderAbout(); break;
   }
 }
 
