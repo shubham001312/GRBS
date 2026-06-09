@@ -1,242 +1,92 @@
+<!-- Version: 2.0 | Last Updated: June 9, 2026 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GRBS — GPT Roadmap By Shubham | Learn LLM Development from Scratch</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="GRBS (GPT Roadmap By Shubham) - A free, comprehensive learning platform for B.Tech students to master LLM development, AI, and machine learning from basics to advanced deployment.">
-  <meta name="keywords" content="LLM, GPT, AI learning, machine learning roadmap, neural networks, natural language processing, deep learning tutorial, student resources, free coding courses">
-  <meta name="author" content="Shubham Mallick">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="theme-color" content="#1a1a1a">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#F7F4EF">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://shubham001312.github.io/GRBS/">
-  <meta property="og:title" content="GRBS — GPT Roadmap By Shubham | Master LLM Development">
-  <meta property="og:description" content="Free structured learning path for B.Tech students to build and deploy Large Language Models. Complete curriculum from basics to advanced AI engineering.">
-  <meta property="og:image" content="https://shubham001312.github.io/GRBS/assets/logo.svg">
-  <meta property="og:site_name" content="GRBS - GPT Roadmap">
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://shubham001312.github.io/GRBS/">
-  <meta property="twitter:title" content="GRBS — GPT Roadmap By Shubham">
-  <meta property="twitter:description" content="Master LLM and AI development with our free structured learning roadmap for students.">
-  <meta property="twitter:image" content="https://shubham001312.github.io/GRBS/assets/logo.svg">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://shubham001312.github.io/GRBS/">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="apple-touch-icon" href="favicon.svg">
-  
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/nav.css">
-  <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/home.css">
-  
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "EducationalWebApplication",
-    "name": "GRBS - GPT Roadmap By Shubham",
-    "description": "A comprehensive learning platform for students to master LLM development and AI engineering from scratch",
-    "url": "https://shubham001312.github.io/GRBS/",
-    "image": "https://shubham001312.github.io/GRBS/assets/logo.svg",
-    "author": {
-      "@type": "Person",
-      "name": "Shubham Mallick",
-      "url": "https://github.com/shubham001312",
-      "sameAs": [
-        "https://www.linkedin.com/in/shubham-mallick-061298378/"
-      ]
-    },
-    "educationalLevel": "UndergraduateEducation",
-    "learningResourceType": "Interactive course",
-    "inLanguage": "en",
-    "isAccessibleForFree": true,
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "hasPart": [
-      {
-        "@type": "Course",
-        "name": "LLM Development Fundamentals",
-        "description": "Master the basics of large language model development",
-        "url": "https://shubham001312.github.io/GRBS/study.html"
-      },
-      {
-        "@type": "Course",
-        "name": "AI and Machine Learning Roadmap",
-        "description": "Complete learning path from programming to advanced AI engineering",
-        "url": "https://shubham001312.github.io/GRBS/roadmap.html"
-      }
-    ]
-  }
-  </script>
-  
-  <!-- Additional Structured Data for Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "GRBS - GPT Roadmap By Shubham",
-    "description": "Free educational platform for LLM and AI learning",
-    "url": "https://shubham001312.github.io/GRBS/",
-    "logo": "https://shubham001312.github.io/GRBS/assets/logo.svg",
-    "sameAs": [
-      "https://github.com/shubham001312",
-      "https://www.linkedin.com/in/shubham-mallick-061298378/"
-    ],
-    "contact": {
-      "@type": "ContactPoint",
-      "url": "https://github.com/shubham001312"
-    }
-  }
-  </script>
-
-  <!-- Preconnect to external resources -->
+  <title>GRBS — GPT Roadmap By Shubham</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- Hamburger -->
-  <button class="hamburger" id="menu-toggle" aria-label="Toggle navigation menu">☰</button>
 
-  <!-- Sidebar Overlay -->
-  <div class="sidebar-overlay"></div>
-
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <a href="index.html"><img src="assets/logo.svg" alt="GRBS Logo"></a>
+  <!-- Username Modal (Onboarding) -->
+  <div class="modal-overlay hidden" id="username-modal">
+    <div class="modal-card">
+      <h2>Welcome to GRBS 👋</h2>
+      <p class="modal-sub">What should we call you? (used only on this device)</p>
+      <input type="text" id="username-input" placeholder="Your first name" autocomplete="off">
+      <div class="modal-error" id="modal-error"></div>
+      <button class="btn-primary" id="modal-submit">Let's go →</button>
     </div>
-    <nav class="sidebar-nav">
-      <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span> Home</a>
-      <a href="study.html" class="nav-link"><span class="nav-icon">📚</span> Study</a>
-      <a href="roadmap.html" class="nav-link"><span class="nav-icon">🗺️</span> Roadmap</a>
-      <a href="about.html" class="nav-link"><span class="nav-icon">👤</span> About</a>
-    </nav>
-    <hr class="sidebar-divider">
-    <div class="sidebar-progress">
-      <span id="sidebar-progress-text">Progress: 0% complete</span>
-    </div>
-  </aside>
-
-  <!-- Main Content -->
-  <div class="main-wrapper">
-    <main class="content">
-
-      <!-- Username Modal -->
-      <div class="modal-overlay hidden" id="username-modal">
-        <div class="modal-card">
-          <h2>Welcome to GRBS 👋</h2>
-          <p class="modal-sub">What should we call you? (used only on this device)</p>
-          <input type="text" id="username-input" placeholder="Your first name" autocomplete="off">
-          <div class="modal-error" id="modal-error"></div>
-          <button class="btn btn-primary" id="modal-submit">Let's go →</button>
-        </div>
-      </div>
-
-      <!-- App Content (hidden until username is set) -->
-      <div id="app-content" style="display: none;">
-        <!-- Header -->
-        <div class="home-header">
-          <h1 id="greeting">Good morning! 👋</h1>
-          <p id="greeting-sub">You're learning to build LLMs from scratch.</p>
-        </div>
-
-        <!-- Overall Progress Ring -->
-        <div class="overall-progress">
-          <div class="progress-ring-wrap">
-            <svg viewBox="0 0 150 150">
-              <circle class="progress-ring-bg" cx="75" cy="75" r="65"></circle>
-              <circle class="progress-ring-fill" id="progress-fill" cx="75" cy="75" r="65"
-                stroke-dasharray="408.41" stroke-dashoffset="408.41"></circle>
-            </svg>
-            <div class="progress-ring-text">
-              <div class="percent" id="progress-percent">0%</div>
-              <div class="label">Complete</div>
-            </div>
-          </div>
-          <p class="progress-sub" id="progress-count">0 of 0 topics done</p>
-        </div>
-
-        <!-- Phase Progress Cards -->
-        <h2 style="margin-bottom: 1rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">PHASE PROGRESS</h2>
-        <div class="phase-grid" id="phase-grid"></div>
-
-        <!-- Current Focus Widget -->
-        <div class="focus-widget" id="focus-widget">
-          <div>
-            <div class="focus-label">Currently learning</div>
-            <div class="focus-name" id="focus-name">Loading...</div>
-          </div>
-          <span class="focus-arrow">→</span>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-          <a href="study.html" class="btn btn-primary">Continue Studying →</a>
-          <a href="roadmap.html" class="btn btn-secondary">View Roadmap →</a>
-        </div>
-
-        <!-- Daily Quote -->
-        <div class="daily-quote">
-          <div class="quote-icon">💬</div>
-          <p class="quote-text" id="quote-text"></p>
-          <p class="quote-author" id="quote-author"></p>
-        </div>
-      </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-col">
-          <img src="assets/logo.svg" alt="GRBS" style="width: 100px; margin-bottom: 0.5rem;">
-          <p>GPT Roadmap By Shubham</p>
-          <p>© 2025 Shubham Mallick. All rights reserved.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="study.html">Study</a>
-            <a href="roadmap.html">Roadmap</a>
-            <a href="about.html">About</a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h4>Connect</h4>
-          <div class="footer-social">
-            <a href="https://github.com/shubham001312" target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
-            <a href="https://www.linkedin.com/in/shubham-mallick-061298378/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a>
-            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Built with ❤️ for students</p>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">GRBS — GPT Roadmap By Shubham</div>
-    </footer>
   </div>
 
-  <script src="js/storage.js"></script>
-  <script src="js/phases.js"></script>
-  <script src="js/home.js"></script>
-  <script src="js/nav.js"></script>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo">⚡ GRBS</div>
+    <div class="header-actions">
+      <span class="phase-indicator" id="current-phase">Phase 0</span>
+      <span class="sync-indicator" id="sync-indicator">🟢 Saved</span>
+      <button id="btn-theme" class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <!-- Search -->
+  <div class="search-container" id="search-container">
+    <input type="text" id="search-input" class="search-input" placeholder="🔍 Search topics, projects..." autocomplete="off">
+    <div class="search-results hidden" id="search-results"></div>
+  </div>
+
+  <!-- Tab Content (JS fills these) -->
+  <main id="app-content" style="display:none;">
+    <div id="tab-dashboard" class="tab-content active"></div>
+    <div id="tab-roadmap" class="tab-content"></div>
+    <div id="tab-projects" class="tab-content"></div>
+    <div id="tab-progress" class="tab-content"></div>
+    <div id="tab-goals" class="tab-content"></div>
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav" id="app-nav" style="display:none;">
+    <button class="nav-item active" data-tab="dashboard">
+      <span class="nav-icon">📊</span>
+      <span class="nav-label">Dashboard</span>
+    </button>
+    <button class="nav-item" data-tab="roadmap">
+      <span class="nav-icon">🗺️</span>
+      <span class="nav-label">Roadmap</span>
+    </button>
+    <button class="nav-item" data-tab="projects">
+      <span class="nav-icon">🏗️</span>
+      <span class="nav-label">Projects</span>
+    </button>
+    <button class="nav-item" data-tab="progress">
+      <span class="nav-icon">📈</span>
+      <span class="nav-label">Progress</span>
+    </button>
+    <button class="nav-item" data-tab="goals">
+      <span class="nav-icon">🎯</span>
+      <span class="nav-label">Goals</span>
+    </button>
+  </nav>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- JS (load order matters) -->
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/roadmap.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/goals.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,102 @@
+{
+  "phases": [
+    {
+      "id": 0,
+      "topicsDone": {
+        "p0_t0": true,
+        "p0_t1": false,
+        "p0_t2": false,
+        "p0_t3": false
+      },
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 1,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 2,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 3,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 4,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 5,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 6,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 7,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 8,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 9,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 10,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": true
+    },
+    {
+      "id": 11,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 12,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 13,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    },
+    {
+      "id": 14,
+      "topicsDone": {},
+      "milestonesDone": {},
+      "manualUnlock": false
+    }
+  ],
+  "streak": 1,
+  "lastActivity": "2026-06-09T08:11:32.666Z",
+  "exportDate": "2026-06-09T08:17:07.307Z"
+}
