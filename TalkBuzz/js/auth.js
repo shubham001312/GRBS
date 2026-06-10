@@ -5,6 +5,7 @@
 
 let currentUser = null;
 let currentUserData = null;
+let isSigningUp = false; // Flag to skip onAuthStateChanged during signup
 
 // ─── Auth Tab Switching ───
 document.addEventListener('DOMContentLoaded', () => {
@@ -137,6 +138,7 @@ async function signUpWithEmail() {
   // Create account
   setBtnLoading(btn, true);
   try {
+    isSigningUp = true;
     const result = await FB.createUserWithEmailAndPassword(FB.auth, email, password);
     currentUser = result.user;
 
@@ -167,6 +169,7 @@ async function signUpWithEmail() {
     const msg = getAuthErrorMessage(error.code);
     showToast(msg, 'error');
   } finally {
+    isSigningUp = false;
     setBtnLoading(btn, false);
   }
 }
@@ -392,7 +395,10 @@ window.addEventListener('firebase-ready', async () => {
   FB.onAuthStateChanged(FB.auth, async (user) => {
     if (user) {
       currentUser = user;
-      await setupUserProfile(user);
+      // Skip profile setup during signup (signUpWithEmail handles it with correct username)
+      if (!isSigningUp) {
+        await setupUserProfile(user);
+      }
       showScreen('app-screen');
       initApp();
     } else {
