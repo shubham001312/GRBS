@@ -157,11 +157,19 @@ async function startChatWithUser(userId) {
     await FB.update(FB.ref(FB.db), step1);
 
     // Step 2: Add other user as member (now current user IS a member, so rule passes)
-    await FB.set(FB.ref(FB.db, `room_members/${roomId}/${userId}`), {
-      joinedAt: FB.serverTimestamp(),
-      lastRead: FB.serverTimestamp(),
-      unreadCount: 0
-    });
+    try {
+      await FB.set(FB.ref(FB.db, `room_members/${roomId}/${userId}`), {
+        joinedAt: FB.serverTimestamp(),
+        lastRead: FB.serverTimestamp(),
+        unreadCount: 0
+      });
+    } catch (step2Error) {
+      // Rollback: clean up the room and our membership since we couldn't add the other user
+      console.warn('Step 2 failed, rolling back room:', step2Error);
+      await FB.set(FB.ref(FB.db, `rooms/${roomId}`), null);
+      await FB.set(FB.ref(FB.db, `room_members/${roomId}`), null);
+      throw step2Error;
+    }
 
     showToast(`Chat started with ${targetName}! 💬`, 'success');
     openChatView(roomId);
