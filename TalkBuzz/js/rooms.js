@@ -190,6 +190,8 @@ function listenToRooms(callback) {
 
 function renderSkeletonChatList(container) {
   if (!container) return;
+  // Only show skeleton on first load (if no chat items exist yet)
+  if (container.querySelector('.chat-item')) return;
   const skeletonHtml = Array(5).fill('').map(() => `
     <div class="skeleton-chat-item">
       <div class="skeleton skeleton-avatar"></div>
@@ -269,6 +271,8 @@ function showAddPeopleModal() {
 function closeAddPeopleModal() {
   document.getElementById('add-people-modal')?.classList.add('hidden');
   if (addPeopleListenerUnsub) { addPeopleListenerUnsub(); addPeopleListenerUnsub = null; }
+  const searchInput = document.getElementById('add-people-search');
+  searchInput?.removeEventListener('input', handleAddPeopleSearch);
 }
 
 function handleAddPeopleSearch(e) {
@@ -355,6 +359,7 @@ function cleanupRoomListeners() {
   perRoomListeners = [];
   listenedRoomIds.clear();
   if (roomNameUnsub) { roomNameUnsub(); roomNameUnsub = null; }
+  if (addPeopleListenerUnsub) { addPeopleListenerUnsub(); addPeopleListenerUnsub = null; }
   roomTypingStates = {};
   unreadCounts = {};
   totalUnread = 0;

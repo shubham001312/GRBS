@@ -441,10 +441,12 @@
         // Listen for SW update messages
         navigator.serviceWorker.addEventListener('message', (event) => {
           if (event.data && event.data.type === 'SW_UPDATED') {
-            const banner = document.createElement('div');
-            banner.className = 'update-banner';
-            banner.innerHTML = '<span>New version available!</span><button onclick="window.location.reload()">Update Now</button>';
-            document.body.prepend(banner);
+            if (!document.querySelector('.update-banner')) {
+              const banner = document.createElement('div');
+              banner.className = 'update-banner';
+              banner.innerHTML = '<span>New version available!</span><button onclick="window.location.reload()">Update Now</button>';
+              document.body.prepend(banner);
+            }
           }
         });
         // Check for new SW every 60s
