@@ -64,10 +64,95 @@ input, textarea, button { font-family: inherit; }
 
 /* === Auth Screen === */
 .auth-screen { display: flex; align-items: center; justify-content: center; height: 100vh; }
-.auth-container { text-align: center; padding: 40px; max-width: 400px; width: 100%; }
+#auth-screen { display: flex; align-items: center; justify-content: center; height: 100vh; overflow-y: auto; }
+.auth-container { text-align: center; padding: 40px 20px; max-width: 400px; width: 100%; margin: 0 auto; }
 .auth-logo { margin-bottom: 24px; }
 .auth-title { font-size: 32px; font-weight: 700; background: linear-gradient(135deg, #6366f1, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
 .auth-subtitle { color: var(--muted); font-size: 16px; margin-bottom: 40px; }
+/* Auth Tabs */
+.auth-tabs { display: flex; gap: 0; margin-bottom: 24px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+.auth-tab {
+  flex: 1; padding: 12px; border: none; background: var(--surface);
+  color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: all var(--transition);
+}
+.auth-tab.active { background: var(--primary); color: white; }
+.auth-tab:not(.active):hover { background: var(--surface-hover); }
+
+/* Auth Forms */
+.auth-form { text-align: left; }
+.auth-input-group { margin-bottom: 16px; }
+.auth-input-group label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.auth-input-wrapper {
+  display: flex; align-items: center; gap: 10px; position: relative;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0 14px; transition: border-color var(--transition);
+}
+.auth-input-wrapper:focus-within { border-color: var(--primary); }
+.auth-input-icon { color: var(--muted); flex-shrink: 0; }
+.auth-input-wrapper input {
+  flex: 1; border: none; background: none; color: var(--text);
+  font-size: 14px; padding: 12px 0; outline: none;
+}
+.auth-input-wrapper input::placeholder { color: var(--muted); }
+.auth-hint { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* Password Toggle */
+.password-toggle {
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  padding: 4px; display: flex; align-items: center; transition: color var(--transition);
+  flex-shrink: 0;
+}
+.password-toggle:hover { color: var(--text); }
+
+/* Username Status */
+.username-status { font-size: 12px; font-weight: 600; margin-left: 8px; }
+.username-status.success { color: var(--online); }
+.username-status.error { color: var(--danger); }
+
+/* Password Strength */
+.password-strength { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.pw-bar { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.pw-fill { height: 100%; border-radius: 2px; transition: width 0.3s ease; }
+.pw-label { font-size: 11px; font-weight: 600; white-space: nowrap; }
+
+/* Auth Divider */
+.auth-divider { display: flex; align-items: center; gap: 12px; margin: 24px 0; }
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.auth-divider span { color: var(--muted); font-size: 13px; font-weight: 500; }
+
+/* Auth Link Button */
+.auth-link-btn {
+  background: none; border: none; color: var(--primary); font-size: 13px;
+  font-weight: 500; cursor: pointer; margin-top: 8px; text-align: center; width: 100%;
+  transition: color var(--transition);
+}
+.auth-link-btn:hover { color: var(--primary-hover); }
+
+/* Primary Button */
+.primary-btn {
+  width: 100%; background: var(--primary); color: white; border: none;
+  border-radius: var(--radius-sm); padding: 14px 24px; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all var(--transition); display: flex;
+  align-items: center; justify-content: center; gap: 10px;
+}
+.primary-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+.primary-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* Button Spinner */
+.btn-spinner {
+  width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite;
+  display: inline-block; vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Forgot Status */
+.forgot-status { margin-top: 12px; font-size: 13px; text-align: center; }
+
+/* Auth Buttons */
 .auth-buttons { display: flex; flex-direction: column; gap: 12px; }
 .auth-btn {
   display: flex; align-items: center; justify-content: center; gap: 12px;

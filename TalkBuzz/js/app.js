@@ -96,10 +96,6 @@ function renderRoomList(container, rooms) {
 }
 
 function setupEventListeners() {
-  // Auth buttons
-  document.getElementById('btn-google')?.addEventListener('click', signInWithGoogle);
-  document.getElementById('btn-anonymous')?.addEventListener('click', signInAsGuest);
-
   // Sidebar buttons
   document.getElementById('btn-new-room')?.addEventListener('click', () => {
     document.getElementById('new-room-modal')?.classList.remove('hidden');
