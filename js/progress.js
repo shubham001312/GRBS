@@ -198,10 +198,11 @@ function renderHeatmap() {
   let html = '<div style="display:grid;grid-template-columns:repeat(' + weeks + ',1fr);gap:3px;">';
 
   // Render 12 weeks x 7 days grid
+  const daysPerWeek = 7;
   for (let w = 0; w < weeks; w++) {
     html += '<div style="display:flex;flex-direction:column;gap:3px;">';
-    for (let d = 0; d < days; d++) {
-      const idx = w * days + d;
+    for (let d = 0; d < daysPerWeek; d++) {
+      const idx = w * daysPerWeek + d;
       const count = counts[idx] || 0;
       let level = 0;
       if (count > 0) {

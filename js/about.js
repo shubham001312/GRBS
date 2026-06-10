@@ -84,7 +84,7 @@ function renderAbout() {
     <!-- Footer -->
     <div style="text-align:center;padding:20px 0;font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">
       <p>GRBS — GPT Roadmap By Shubham</p>
-      <p style="margin-top:4px;">© 2025 Shubham Mallick. All rights reserved.</p>
+      <p style="margin-top:4px;">© 2026 Shubham Mallick. All rights reserved.</p>
     </div>
   `;
 }

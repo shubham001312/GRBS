@@ -1,4 +1,4 @@
-<!-- Version: 2.0 | Last Updated: June 9, 2026 -->
+<!-- Version: 3.0.0 | Last Updated: June 10, 2026 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=3.0.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
@@ -93,27 +93,82 @@
   <div id="toast-container"></div>
 
   <!-- JS (load order matters) -->
-  <script src="js/data.js"></script>
-  <script src="js/state.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/roadmap.js"></script>
-  <script src="js/projects.js"></script>
-  <script src="js/progress.js"></script>
-  <script src="js/goals.js"></script>
-  <script src="js/about.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/data.js?v=3.0.0"></script>
+  <script src="js/state.js?v=3.0.0"></script>
+  <script src="js/dashboard.js?v=3.0.0"></script>
+  <script src="js/roadmap.js?v=3.0.0"></script>
+  <script src="js/projects.js?v=3.0.0"></script>
+  <script src="js/progress.js?v=3.0.0"></script>
+  <script src="js/goals.js?v=3.0.0"></script>
+  <script src="js/about.js?v=3.0.0"></script>
+  <script src="js/app.js?v=3.0.0"></script>
+
+  <!-- Update Available Banner -->
+  <div id="update-banner" class="update-banner hidden">
+    <span>🔄 New version available!</span>
+    <button onclick="applyUpdate()" class="update-btn">Refresh Now</button>
+    <button onclick="dismissUpdate()" class="update-dismiss">✕</button>
+  </div>
 
   <!-- PWA Service Worker Registration -->
   <script>
+    // === PWA Update Detection ===
+    let deferredUpdate = null;
+    let swRegistration = null;
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').then(reg => {
+          swRegistration = reg;
           console.log('SW registered:', reg.scope);
+
+          // Check for updates every 30 minutes
+          setInterval(() => {
+            if (reg.waiting) {
+              showUpdateBanner();
+            } else {
+              reg.update().catch(() => {});
+            }
+          }, 30 * 60 * 1000);
+
+          // Listen for new SW installing
+          reg.addEventListener('updatefound', () => {
+            const newSW = reg.installing;
+            if (!newSW) return;
+            newSW.addEventListener('statechange', () => {
+              if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+                showUpdateBanner();
+              }
+            });
+          });
         }).catch(err => console.warn('SW registration failed:', err));
+      });
+
+      // Listen for SW_UPDATE message from service worker
+      navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data?.type === 'SW_UPDATED') {
+          showUpdateBanner();
+        }
       });
     }
 
-    // Offline/Online detection
+    function showUpdateBanner() {
+      const banner = document.getElementById('update-banner');
+      if (banner) banner.classList.remove('hidden');
+    }
+
+    function applyUpdate() {
+      if (swRegistration?.waiting) {
+        swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      }
+      window.location.reload();
+    }
+
+    function dismissUpdate() {
+      document.getElementById('update-banner')?.classList.add('hidden');
+    }
+
+    // === Offline/Online detection ===
     const offlineBanner = document.getElementById('offline-banner');
     function updateOnlineStatus() {
       if (navigator.onLine) {

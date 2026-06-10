@@ -1,7 +1,10 @@
-// GRBS PWA Service Worker — v2.0
-// Caches static assets for offline support
+// GRBS PWA Service Worker — v3.0
+// Updated: June 10, 2026 — auto-update support, cache versioning
 
-const CACHE_NAME = 'grbs-v2';
+// Increment this version on every deployment to force cache invalidation
+const APP_VERSION = '3.0.0';
+const CACHE_NAME = `grbs-cache-${APP_VERSION}`;
+const PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -31,11 +34,10 @@ const CDN_ASSETS = [
 
 // Install — cache all static assets
 self.addEventListener('install', event => {
+  console.log(`[SW] Installing v${APP_VERSION}`);
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      // Cache static assets first (critical)
       return cache.addAll(STATIC_ASSETS).then(() => {
-        // Try to cache CDN assets but don't fail install if they can't be fetched
         return Promise.allSettled(
           CDN_ASSETS.map(url => cache.add(url).catch(() => null))
         );
@@ -46,19 +48,27 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate — clean up old caches
+// Activate — clean up ALL old caches and notify tabs
 self.addEventListener('activate', event => {
+  console.log(`[SW] Activating v${APP_VERSION}`);
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
         keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+          .filter(key => key === CACHE_NAME ? false : key.startsWith(PREVIOUS_CACHE_PREFIX) || key === 'grbs-v1' || key === 'grbs-v2')
+          .map(key => {
+            console.log(`[SW] Deleting old cache: ${key}`);
+            return caches.delete(key);
+          })
       )
-    )
+    ).then(() => self.clients.claim())
+    .then(() => self.clients.matchAll({ type: 'window' }))
+    .then(clients => {
+      clients.forEach(client => {
+        client.postMessage({ type: 'SW_UPDATED', version: APP_VERSION });
+      });
+    })
   );
-  // Take control of all open tabs immediately
-  self.clients.claim();
 });
 
 // Fetch — cache-first for static assets, network-first for everything else
@@ -114,6 +124,10 @@ self.addEventListener('fetch', event => {
 // Listen for messages from the main thread
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
+    console.log('[SW] Skip waiting requested');
     self.skipWaiting();
+  }
+  if (event.data && event.data.type === 'GET_VERSION') {
+    event.ports[0]?.postMessage({ version: APP_VERSION });
   }
 });

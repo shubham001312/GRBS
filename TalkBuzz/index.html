@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="TalkBuzz — Free real-time chat app with Google authentication, read receipts, and offline support.">
+  <title>TalkBuzz — Real-time Chat</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icon-192.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/icon-192.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously, linkWithCredential, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getDatabase, ref, push, set, get, update, onValue, onDisconnect, serverTimestamp, query, orderByChild, limitToLast, off, goOffline, goOnline } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCw1wj7dJ9EM2e4Ubji0PSedPNm78xFT58",
+      authDomain: "talkbuzz-6f0e9.firebaseapp.com",
+      projectId: "talkbuzz-6f0e9",
+      storageBucket: "talkbuzz-6f0e9.firebasestorage.app",
+      messagingSenderId: "625350289304",
+      appId: "1:625350289304:web:4d0c32ff69010bc3b3aded",
+      measurementId: "G-JW0L7QBWC3",
+      databaseURL: "https://talkbuzz-6f0e9-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    let analytics;
+    try { analytics = getAnalytics(app); } catch(e) {}
+
+    // Export to window for use by other modules
+    window.FB = { app, auth, db, analytics,
+      // Re-export commonly used functions
+      ref, push, set, get, update, onValue, onDisconnect, serverTimestamp,
+      query, orderByChild, limitToLast, off, goOffline, goOnline,
+      GoogleAuthProvider, signInWithPopup, signInAnonymously, linkWithCredential,
+      onAuthStateChanged, signOut
+    };
+
+    // Signal that Firebase is ready
+    window.dispatchEvent(new Event('firebase-ready'));
+  </script>
+</head>
+<body>
+  <!-- Offline Banner -->
+  <div id="offline-banner" class="offline-banner hidden">📴 You're offline — messages will sync when reconnected</div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-logo">
+      <svg width="64" height="64" viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#6366f1"/>
+            <stop offset="100%" style="stop-color:#22d3ee"/>
+          </linearGradient>
+        </defs>
+        <rect width="100" height="100" rx="24" fill="url(#grad)"/>
+        <path d="M25 35 L50 20 L75 35 L75 55 C75 70 50 85 50 85 C50 85 25 70 25 55Z" fill="white" opacity="0.95"/>
+        <circle cx="40" cy="48" r="4" fill="#6366f1"/>
+        <circle cx="50" cy="48" r="4" fill="#6366f1"/>
+        <circle cx="60" cy="48" r="4" fill="#6366f1"/>
+      </svg>
+    </div>
+    <div class="loading-text">TalkBuzz</div>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- Auth Screen -->
+  <div id="auth-screen" class="screen hidden">
+    <div class="auth-container">
+      <div class="auth-logo">
+        <svg width="80" height="80" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#6366f1"/>
+              <stop offset="100%" style="stop-color:#22d3ee"/>
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="24" fill="url(#grad2)"/>
+          <path d="M25 35 L50 20 L75 35 L75 55 C75 70 50 85 50 85 C50 85 25 70 25 55Z" fill="white" opacity="0.95"/>
+          <circle cx="40" cy="48" r="4" fill="#6366f1"/>
+          <circle cx="50" cy="48" r="4" fill="#6366f1"/>
+          <circle cx="60" cy="48" r="4" fill="#6366f1"/>
+        </svg>
+      </div>
+      <h1 class="auth-title">TalkBuzz</h1>
+      <p class="auth-subtitle">Real-time chat, reimagined</p>
+      <div class="auth-buttons">
+        <button id="btn-google" class="auth-btn google-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Sign in with Google
+        </button>
+        <button id="btn-anonymous" class="auth-btn anonymous-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Continue as Guest
+        </button>
+      </div>
+      <p class="auth-footer">By continuing, you agree to our Terms of Service</p>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app-screen" class="screen hidden">
+    <!-- Sidebar (Rooms) -->
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <svg width="28" height="28" viewBox="0 0 100 100">
+            <defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#6366f1"/><stop offset="100%" style="stop-color:#22d3ee"/></linearGradient></defs>
+            <rect width="100" height="100" rx="24" fill="url(#grad3)"/>
+            <path d="M25 35 L50 20 L75 35 L75 55 C75 70 50 85 50 85 C50 85 25 70 25 55Z" fill="white" opacity="0.95"/>
+          </svg>
+          <span>TalkBuzz</span>
+        </div>
+        <button id="btn-new-room" class="icon-btn" title="New Room">+</button>
+      </div>
+      <div class="sidebar-search">
+        <input type="text" id="search-rooms" placeholder="Search rooms..." autocomplete="off">
+      </div>
+      <div id="room-list" class="room-list"></div>
+      <div class="sidebar-footer">
+        <div id="user-info" class="user-info">
+          <div id="user-avatar" class="user-avatar"></div>
+          <div class="user-details">
+            <div id="user-name" class="user-name"></div>
+            <div id="user-status" class="user-status-text">Online</div>
+          </div>
+        </div>
+        <div class="footer-actions">
+          <button id="btn-admin" class="icon-btn hidden" title="Admin Panel">⚙️</button>
+          <button id="btn-settings" class="icon-btn" title="Settings">👤</button>
+          <button id="btn-logout" class="icon-btn" title="Logout">🚪</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div id="chat-area" class="chat-area">
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state">
+        <svg width="120" height="120" viewBox="0 0 100 100" opacity="0.3">
+          <rect width="100" height="100" rx="24" fill="#6366f1"/>
+          <path d="M25 35 L50 20 L75 35 L75 55 C75 70 50 85 50 85 C50 85 25 70 25 55Z" fill="white" opacity="0.5"/>
+        </svg>
+        <h2>Welcome to TalkBuzz</h2>
+        <p>Select a room or create a new one to start chatting</p>
+      </div>
+
+      <!-- Chat Header -->
+      <div id="chat-header" class="chat-header hidden">
+        <button id="btn-back" class="icon-btn mobile-only">←</button>
+        <div class="chat-header-info">
+          <div id="chat-room-name" class="chat-room-name"></div>
+          <div id="chat-room-status" class="chat-room-status"></div>
+        </div>
+        <div class="chat-header-actions">
+          <button id="btn-room-info" class="icon-btn">ℹ️</button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="messages-container" class="messages-container hidden">
+        <div id="messages" class="messages"></div>
+      </div>
+
+      <!-- Typing Indicator -->
+      <div id="typing-indicator" class="typing-indicator hidden">
+        <span id="typing-text"></span>
+        <div class="typing-dots"><span></span><span></span><span></span></div>
+      </div>
+
+      <!-- Message Input -->
+      <div id="message-input-area" class="message-input-area hidden">
+        <div class="input-wrapper">
+          <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+          <button id="btn-send" class="send-btn" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Panel Modal -->
+  <div id="admin-modal" class="modal-overlay hidden">
+    <div class="modal admin-modal">
+      <div class="modal-header">
+        <h2>⚙️ Admin Panel</h2>
+        <button class="modal-close" onclick="closeAdminModal()">✕</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="broadcast">📢 Broadcast</button>
+        <button class="admin-tab" data-tab="users">👥 Users</button>
+        <button class="admin-tab" data-tab="rooms">🏠 Rooms</button>
+      </div>
+      <div id="admin-content" class="admin-content"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="modal settings-modal">
+      <div class="modal-header">
+        <h2>👤 Settings</h2>
+        <button class="modal-close" onclick="closeSettingsModal()">✕</button>
+      </div>
+      <div class="settings-content">
+        <div id="settings-profile" class="settings-section"></div>
+        <div class="settings-section">
+          <h3>ℹ️ About TalkBuzz</h3>
+          <p class="about-text">A real-time chat application built with Firebase. Features include read receipts, typing indicators, offline support, and admin controls.</p>
+          <p class="version-text">Version 1.0.0 · June 2026</p>
+        </div>
+        <div class="settings-section">
+          <h3>🔗 Links</h3>
+          <a href="https://github.com/shubham001312" target="_blank" class="settings-link">GitHub · @shubham001312</a>
+          <a href="https://linkedin.com/in/shubham-mallick-061298378" target="_blank" class="settings-link">LinkedIn · Shubham Mallick</a>
+          <a href="https://shubham001312.github.io/Shubham-Mallick/" target="_blank" class="settings-link">🌐 Portfolio · shubham001312.github.io</a>
+        </div>
+        <div class="settings-footer">
+          <p>Built with ❤️ by <a href="https://github.com/shubham001312" target="_blank">Shubham Mallick</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Room Modal -->
+  <div id="new-room-modal" class="modal-overlay hidden">
+    <div class="modal new-room-modal">
+      <div class="modal-header">
+        <h2>➕ New Room</h2>
+        <button class="modal-close" onclick="closeNewRoomModal()">✕</button>
+      </div>
+      <div class="new-room-form">
+        <input type="text" id="new-room-name" placeholder="Room name" maxlength="30">
+        <button id="btn-create-room" class="auth-btn">Create Room</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/presence.js"></script>
+  <script src="js/rooms.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        console.log('SW registered:', reg.scope);
+      }).catch(err => console.warn('SW registration failed:', err));
+    }
+  </script>
+</body>
+</html>

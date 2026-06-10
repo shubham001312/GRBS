@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html><body>
+<canvas id="c" width="512" height="512"></canvas>
+<script>
+const c=document.getElementById('ctx');
+const ctx=c.getContext('2d');
+const g=ctx.createLinearGradient(0,0,512,512);
+g.addColorStop(0,'#6366f1');g.addColorStop(1,'#22d3ee');
+ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(0,0,512,512,120);ctx.fill();
+ctx.fillStyle='white';ctx.globalAlpha=0.95;
+ctx.beginPath();ctx.moveTo(130,180);ctx.lineTo(256,100);ctx.lineTo(382,180);ctx.lineTo(382,300);
+ctx.bezierCurveTo(382,380,256,460,256,460);ctx.bezierCurveTo(256,460,130,380,130,300);ctx.closePath();ctx.fill();
+ctx.globalAlpha=1;ctx.fillStyle='#6366f1';
+[210,256,302].forEach(x=>{ctx.beginPath();ctx.arc(x,260,22,0,Math.PI*2);ctx.fill();});
+</script></body></html>
