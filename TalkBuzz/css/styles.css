@@ -391,12 +391,14 @@ input, textarea, button { font-family: inherit; }
   /* App container becomes horizontal */
   .app-container {
     flex-direction: row;
+    overflow: hidden;
   }
 
-  /* Tab bar becomes vertical sidebar */
+  /* Tab bar becomes vertical sidebar on the LEFT */
   .tab-bar {
     position: relative;
     bottom: auto; left: auto; right: auto;
+    order: -1;
     width: 72px;
     height: 100%;
     flex-direction: column;
