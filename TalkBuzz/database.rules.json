@@ -7,10 +7,17 @@
         ".validate": "newData.hasChildren(['name']) || !newData.exists()"
       }
     },
+    "usernames": {
+      ".read": "auth != null",
+      "$username": {
+        ".write": "auth != null && !data.exists()",
+        ".validate": "newData.hasChildren(['uid'])"
+      }
+    },
     "rooms": {
       "$roomId": {
         ".read": "auth != null && root.child('room_members/' + $roomId + '/' + auth.uid).exists()",
-        ".write": "auth != null",
+        ".write": "auth != null && (root.child('room_members/' + $roomId + '/' + auth.uid).exists() || !data.exists())",
         ".validate": "newData.hasChildren(['name', 'type'])",
         "name": {
           ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 30"
@@ -24,7 +31,7 @@
       ".read": "auth != null",
       "$roomId": {
         "$uid": {
-          ".write": "auth != null && root.child('room_members/' + $roomId + '/' + auth.uid).exists()"
+          ".write": "auth != null && (auth.uid === $uid || root.child('room_members/' + $roomId + '/' + auth.uid).exists())"
         }
       }
     },
