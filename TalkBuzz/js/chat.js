@@ -113,6 +113,23 @@ async function sendMessage(text) {
       }
     });
 
+    // Increment unread count for all other members
+    try {
+      const membersSnap = await FB.get(FB.ref(FB.db, `room_members/${currentRoomId}`));
+      const unreadUpdates = {};
+      membersSnap.forEach(memberSnap => {
+        if (memberSnap.key !== currentUser.uid) {
+          const currentCount = (memberSnap.val() && memberSnap.val().unreadCount) || 0;
+          unreadUpdates[`room_members/${currentRoomId}/${memberSnap.key}/unreadCount`] = currentCount + 1;
+        }
+      });
+      if (Object.keys(unreadUpdates).length > 0) {
+        await FB.update(FB.ref(FB.db), unreadUpdates);
+      }
+    } catch (e) {
+      console.warn('Unread count update failed:', e);
+    }
+
     // Clear typing
     updateTyping(currentRoomId, currentUser.uid, false);
   } catch (error) {
@@ -125,10 +142,10 @@ async function updateReadReceipts(roomId) {
   if (!currentUser || !roomId) return;
 
   try {
-    // Update lastRead timestamp
-    const memberRef = FB.ref(FB.db, `room_members/${roomId}/${currentUser.uid}/lastRead`);
+    // Update lastRead timestamp and reset unread count
+    const memberRef = FB.ref(FB.db, `room_members/${roomId}/${currentUser.uid}`);
     const now = Date.now();
-    await FB.set(memberRef, now);
+    await FB.update(memberRef, { lastRead: now, unreadCount: 0 });
 
     // Batch mark all unread messages as read in one Firebase update call
     const updates = {};
