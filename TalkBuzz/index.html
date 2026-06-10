@@ -319,8 +319,16 @@
         </button>
       </nav>
 
-      <!-- ===== CHAT VIEW (Full-screen overlay) ===== -->
+      <!-- ===== CHAT VIEW (Full-screen overlay on mobile, side panel on desktop) ===== -->
       <div id="chat-view" class="chat-view hidden">
+        <div id="chat-placeholder" class="chat-placeholder hidden-desktop">
+          <div class="chat-placeholder-inner">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--border)" stroke-width="1"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <h2>TalkBuzz</h2>
+            <p>Select a chat to start messaging</p>
+          </div>
+        </div>
+        <div id="chat-active" class="chat-active-content hidden">
         <div class="chat-view-header">
           <button class="icon-btn" onclick="closeChatView()">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -345,6 +353,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
             </button>
           </div>
+        </div>
         </div>
       </div>
     </div>

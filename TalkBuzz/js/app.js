@@ -14,6 +14,17 @@ function initApp() {
   // Setup presence
   setupPresence(currentUser.uid);
 
+  // Desktop: show chat-view with placeholder on app load
+  if (isDesktop()) {
+    const chatView = document.getElementById('chat-view');
+    const chatPlaceholder = document.getElementById('chat-placeholder');
+    const chatActive = document.getElementById('chat-active');
+    chatView?.classList.remove('hidden');
+    chatView?.classList.add('active');
+    chatPlaceholder?.classList.remove('hidden');
+    chatActive?.classList.add('hidden');
+  }
+
   // Load rooms (Home tab)
   loadRoomList();
 
@@ -137,12 +148,36 @@ async function createRoomFromModal() {
 }
 
 // ─── Chat View ───
+function isDesktop() {
+  return window.innerWidth >= 768;
+}
+
 function openChatView(roomId) {
   currentRoomId = roomId;
-  document.getElementById('chat-view')?.classList.remove('hidden');
-  document.getElementById('tab-home')?.classList.remove('active');
-  document.getElementById('chat-view')?.classList.add('active');
-  document.querySelector('.tab-bar').style.display = 'none';
+  const chatView = document.getElementById('chat-view');
+  const chatPlaceholder = document.getElementById('chat-placeholder');
+  const chatActive = document.getElementById('chat-active');
+  const tabBar = document.querySelector('.tab-bar');
+
+  if (isDesktop()) {
+    // Desktop: show chat panel inline, hide placeholder
+    chatView?.classList.remove('hidden');
+    chatView?.classList.add('active');
+    chatPlaceholder?.classList.add('hidden');
+    chatActive?.classList.remove('hidden');
+    tabBar.style.display = 'flex';
+    // Highlight the selected chat item
+    document.querySelectorAll('.chat-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.roomId === roomId);
+    });
+  } else {
+    // Mobile: full-screen overlay, hide tab bar
+    chatView?.classList.remove('hidden');
+    chatView?.classList.add('active');
+    chatPlaceholder?.classList.add('hidden');
+    chatActive?.classList.remove('hidden');
+    tabBar.style.display = 'none';
+  }
 
   // Load room name
   const roomRef = FB.ref(FB.db, `rooms/${roomId}`);
@@ -168,10 +203,24 @@ function openChatView(roomId) {
 }
 
 function closeChatView() {
-  document.getElementById('chat-view')?.classList.add('hidden');
-  document.getElementById('chat-view')?.classList.remove('active');
-  document.querySelector('.tab-bar').style.display = 'flex';
-  switchTab('home');
+  const chatView = document.getElementById('chat-view');
+  const chatPlaceholder = document.getElementById('chat-placeholder');
+  const chatActive = document.getElementById('chat-active');
+
+  if (isDesktop()) {
+    // Desktop: show placeholder, keep chat-view visible
+    chatPlaceholder?.classList.remove('hidden');
+    chatActive?.classList.add('hidden');
+    chatView?.classList.add('active');
+    // Remove active state from all chat items
+    document.querySelectorAll('.chat-item').forEach(item => item.classList.remove('active'));
+  } else {
+    // Mobile: hide chat-view entirely
+    chatView?.classList.add('hidden');
+    chatView?.classList.remove('active');
+    document.querySelector('.tab-bar').style.display = 'flex';
+    switchTab('home');
+  }
 
   // Cleanup
   cleanupMessageListeners();

@@ -371,3 +371,105 @@ input, textarea, button { font-family: inherit; }
 .toast.info { border-color: var(--accent); color: var(--accent); }
 @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-10px); } }
+
+/* === Chat Placeholder (shown when no chat selected on desktop) === */
+.chat-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; }
+.chat-placeholder-inner { text-align: center; opacity: 0.6; }
+.chat-placeholder-inner h2 { font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #6366f1, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-top: 16px; }
+.chat-placeholder-inner p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+.chat-active-content { display: flex; flex-direction: column; height: 100%; }
+.hidden-desktop { display: none; }
+
+/* ============================================
+   Desktop Layout (>=768px)
+   Sidebar tabs + chat list + chat panel side-by-side
+   ============================================ */
+@media (min-width: 768px) {
+  /* Show hidden-desktop elements, hide mobile-only */
+  .hidden-desktop { display: flex; }
+
+  /* App container becomes horizontal */
+  .app-container {
+    flex-direction: row;
+  }
+
+  /* Tab bar becomes vertical sidebar */
+  .tab-bar {
+    position: relative;
+    bottom: auto; left: auto; right: auto;
+    width: 72px;
+    height: 100%;
+    flex-direction: column;
+    border-top: none;
+    border-right: 1px solid var(--border);
+    padding-bottom: 0;
+    justify-content: flex-start;
+    padding-top: 16px;
+    gap: 4px;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+  .tab-btn { width: 100%; padding: 14px 0; }
+  .tab-btn-icon-wrap { position: relative; }
+  .tab-badge { top: -4px; right: -8px; }
+
+  /* Tab panels get fixed-width left column */
+  .tab-panel {
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+    border-right: 1px solid var(--border);
+  }
+
+  /* Chat list: show active state on hover */
+  .chat-item:hover { background: var(--surface-hover); }
+  .chat-item.active { background: rgba(99,102,241,0.15); }
+
+  /* Chat view: inline panel, not overlay */
+  .chat-view {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    flex: 1;
+    animation: none;
+    border-left: none;
+  }
+
+  /* Profile content bottom padding */
+  .profile-content { padding-bottom: 24px; }
+
+  /* Toast position */
+  #toast-container { bottom: 24px; }
+
+  /* Messages: wider bubbles for desktop readability */
+  .messages {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+  .message { max-width: 60%; }
+
+  /* Input area */
+  .message-input-area { padding-bottom: 12px; }
+
+  /* Auth container: larger on desktop */
+  .auth-container { padding: 48px 40px; }
+
+  /* Scrollbar: wider on desktop */
+  ::-webkit-scrollbar { width: 6px; }
+
+  /* Search bar: more padding */
+  .tab-search { padding: 10px 16px; }
+}
+
+@media (min-width: 1024px) {
+  .tab-panel {
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
+  }
+  .tab-title { font-size: 24px; }
+  .chat-placeholder-inner svg { width: 100px; height: 100px; }
+  .chat-placeholder-inner h2 { font-size: 28px; }
+}
