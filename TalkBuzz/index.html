@@ -337,6 +337,9 @@
             <div class="chat-view-name" id="chat-view-name">Room</div>
             <div class="chat-view-status" id="chat-view-status">Online</div>
           </div>
+          <button class="add-people-btn" id="btn-add-people" onclick="showAddPeopleModal()" title="Add People">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          </button>
           <button class="icon-btn" id="btn-chat-admin" onclick="openAdminModal()">⚙️</button>
         </div>
         <div id="messages-container" class="messages-container">
@@ -389,6 +392,24 @@
     </div>
   </div>
 
+  <!-- Add People Modal -->
+  <div id="add-people-modal" class="modal-overlay hidden">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header"><h2>👥 Add People</h2><button class="modal-close" onclick="closeAddPeopleModal()">✕</button></div>
+      <div style="padding:20px">
+        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Search and add people to this chat room.</p>
+        <div class="auth-input-group">
+          <div class="auth-input-wrapper">
+            <svg class="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="add-people-search" placeholder="Search by name or email..." autocomplete="off">
+          </div>
+        </div>
+        <div id="add-people-results" class="people-list" style="max-height:300px;overflow-y:auto;padding:0;margin-top:8px;"></div>
+        <div id="add-people-status" style="font-size:13px;color:var(--muted);text-align:center;margin-top:12px;"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Change Password Modal -->
   <div id="change-pw-modal" class="modal-overlay hidden">
     <div class="modal" style="max-width:400px">
@@ -417,6 +438,17 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').then(reg => {
         console.log('SW registered:', reg.scope);
+        // Listen for SW update messages
+        navigator.serviceWorker.addEventListener('message', (event) => {
+          if (event.data && event.data.type === 'SW_UPDATED') {
+            const banner = document.createElement('div');
+            banner.className = 'update-banner';
+            banner.innerHTML = '<span>New version available!</span><button onclick="window.location.reload()">Update Now</button>';
+            document.body.prepend(banner);
+          }
+        });
+        // Check for new SW every 60s
+        setInterval(() => { reg.update().catch(() => {}); }, 60000);
       }).catch(err => console.warn('SW registration failed:', err));
     }
   </script>

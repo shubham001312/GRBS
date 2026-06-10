@@ -1,5 +1,5 @@
-// TalkBuzz Service Worker — v1.0.1
-const APP_VERSION = '1.0.1';
+// TalkBuzz Service Worker — v4.0.0
+const APP_VERSION = '4.0.0';
 const CACHE_NAME = `talkbuzz-v${APP_VERSION}`;
 const PREVIOUS_CACHE_PREFIX = 'talkbuzz-v';
 const STATIC_ASSETS = [
@@ -12,6 +12,8 @@ const STATIC_ASSETS = [
   './js/rooms.js',
   './js/chat.js',
   './js/admin.js',
+  './js/search.js',
+  './js/profile.js',
   './js/app.js',
   './manifest.json',
   './assets/icon-192.svg',
@@ -34,7 +36,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then(keys =>
       Promise.all(
         keys
-          .filter(key => key !== CACHE_NAME && (key.startsWith(PREVIOUS_CACHE_PREFIX)))
+          .filter(key => key !== CACHE_NAME && key.startsWith(PREVIOUS_CACHE_PREFIX))
           .map(key => {
             console.log(`[SW] Deleting old cache: ${key}`);
             return caches.delete(key);
@@ -48,7 +50,6 @@ self.addEventListener('activate', (event) => {
         });
       });
     }).then(() => {
-      // Take control of all open tabs immediately
       return self.clients.claim();
     })
   );
@@ -65,7 +66,27 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first for static assets
+  // Network-first for same-origin requests (forces updates on old devices)
+  // Falls back to cache when offline
+  if (url.origin === location.origin) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        }
+        return response;
+      }).catch(() => caches.match(event.request).then(cached => {
+        if (cached) return cached;
+        if (event.request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
+      }))
+    );
+    return;
+  }
+
+  // Cache-first for external CDN assets (fonts, icons)
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
@@ -75,10 +96,6 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
         return response;
-      }).catch(() => {
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
       });
     })
   );

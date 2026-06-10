@@ -53,6 +53,9 @@ function loadRoomList() {
   const container = document.getElementById('chat-list');
   if (!container) return;
 
+  // Show skeleton while loading
+  renderSkeletonChatList(container);
+
   // Clean up old listeners before creating new ones
   cleanupRoomListeners();
 
@@ -185,6 +188,19 @@ function listenToRooms(callback) {
   roomListeners.push({ ref: roomsRef, unsub });
 }
 
+function renderSkeletonChatList(container) {
+  if (!container) return;
+  const skeletonHtml = Array(5).fill('').map(() => `
+    <div class="skeleton-chat-item">
+      <div class="skeleton skeleton-avatar"></div>
+      <div class="skeleton-lines">
+        <div class="skeleton skeleton-line short"></div>
+        <div class="skeleton skeleton-line medium"></div>
+      </div>
+    </div>`).join('');
+  container.innerHTML = skeletonHtml;
+}
+
 function renderChatList(container, rooms) {
   if (!container) return;
 
@@ -231,6 +247,101 @@ function renderChatList(container, rooms) {
 
 function goToRoomList() {
   closeChatView();
+}
+
+// ─── Add People to Room ───
+let addPeopleListenerUnsub = null;
+
+function showAddPeopleModal() {
+  if (!currentRoomId || !currentUser) return;
+  document.getElementById('add-people-modal')?.classList.remove('hidden');
+  document.getElementById('add-people-search').value = '';
+  document.getElementById('add-people-results').innerHTML = '';
+  document.getElementById('add-people-status').textContent = '';
+  document.getElementById('add-people-search')?.focus();
+
+  // Listen for search input
+  const searchInput = document.getElementById('add-people-search');
+  searchInput?.removeEventListener('input', handleAddPeopleSearch);
+  searchInput?.addEventListener('input', handleAddPeopleSearch);
+}
+
+function closeAddPeopleModal() {
+  document.getElementById('add-people-modal')?.classList.add('hidden');
+  if (addPeopleListenerUnsub) { addPeopleListenerUnsub(); addPeopleListenerUnsub = null; }
+}
+
+function handleAddPeopleSearch(e) {
+  const query = e.target.value.toLowerCase().trim();
+  const resultsEl = document.getElementById('add-people-results');
+  const statusEl = document.getElementById('add-people-status');
+  if (!resultsEl || !statusEl) return;
+
+  if (!query) { resultsEl.innerHTML = ''; statusEl.textContent = ''; return; }
+
+  statusEl.textContent = 'Searching...';
+  resultsEl.innerHTML = '';
+
+  if (addPeopleListenerUnsub) { addPeopleListenerUnsub(); addPeopleListenerUnsub = null; }
+
+  const usersRef = FB.ref(FB.db, 'users');
+  addPeopleListenerUnsub = FB.onValue(usersRef, (snap) => {
+    const results = [];
+    snap.forEach(child => {
+      const uid = child.key;
+      const data = child.val();
+      if (uid === currentUser.uid) return;
+      const name = (data.name || '').toLowerCase();
+      const email = (data.email || '').toLowerCase();
+      const username = (data.username || '').toLowerCase();
+      if (name.includes(query) || email.includes(query) || username.includes(query)) {
+        results.push({ uid, ...data });
+      }
+    });
+
+    if (results.length === 0) {
+      statusEl.textContent = 'No users found';
+      resultsEl.innerHTML = '';
+      return;
+    }
+
+    statusEl.textContent = `${results.length} user${results.length > 1 ? 's' : ''} found`;
+    resultsEl.innerHTML = results.map(user => {
+      const initials = getInitials(user.name);
+      return `
+        <div class="people-item" onclick="addUserToRoom('${user.uid}', '${escapeHtml(user.name || user.email || 'User')}')">
+          <div class="people-avatar"><span>${initials}</span></div>
+          <div class="people-info">
+            <div class="people-name">${escapeHtml(user.name || 'User')}</div>
+            <div class="people-meta">${escapeHtml(user.email || user.username || '')}</div>
+          </div>
+          <button class="people-chat-btn" title="Add to room">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>`;
+    }).join('');
+  }, () => {});
+}
+
+async function addUserToRoom(uid, userName) {
+  if (!currentRoomId) return;
+  try {
+    const memberRef = FB.ref(FB.db, `room_members/${currentRoomId}/${uid}`);
+    const snap = await FB.get(memberRef);
+    if (snap.exists()) {
+      showToast(`${userName} is already in this room`, 'info');
+      return;
+    }
+    await FB.set(memberRef, {
+      joinedAt: FB.serverTimestamp(),
+      lastRead: FB.serverTimestamp(),
+      unreadCount: 0
+    });
+    showToast(`${userName} added to the room! 🎉`, 'success');
+  } catch (error) {
+    console.error('Add user error:', error);
+    showToast('Failed to add user', 'error');
+  }
 }
 
 function cleanupRoomListeners() {

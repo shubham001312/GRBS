@@ -6,7 +6,23 @@ let messageListeners = [];
 let typingListenerUnsub = null;
 let messagesData = [];
 
+function renderSkeletonMessages(container) {
+  if (!container) return;
+  const skeletonHtml = Array(4).fill('').map((_, i) => {
+    const isOwn = i % 2 === 1;
+    return `
+      <div class="skeleton-msg ${isOwn ? 'own' : 'other'}">
+        <div class="skeleton skeleton-bubble" style="width:${60 + Math.random() * 30}%"></div>
+      </div>`;
+  }).join('');
+  container.innerHTML = skeletonHtml;
+  container.scrollTop = container.scrollHeight;
+}
+
 function loadMessages(roomId) {
+  // Show skeleton while loading
+  renderSkeletonMessages(document.getElementById('messages'));
+
   // Cleanup old message listeners
   messageListeners.forEach(({ unsub }) => { if (typeof unsub === 'function') unsub(); });
   messageListeners = [];

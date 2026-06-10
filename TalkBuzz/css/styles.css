@@ -372,6 +372,61 @@ input, textarea, button { font-family: inherit; }
 @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(-10px); } }
 
+/* === Skeleton Loaders === */
+.skeleton { position: relative; overflow: hidden; background: var(--surface); border-radius: var(--radius-sm); }
+.skeleton::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+.skeleton-chat-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--radius); }
+.skeleton-avatar { width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0; }
+.skeleton-lines { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.skeleton-line { height: 12px; border-radius: 6px; }
+.skeleton-line.short { width: 40%; }
+.skeleton-line.medium { width: 70%; }
+.skeleton-msg { display: flex; flex-direction: column; gap: 4px; max-width: 60%; }
+.skeleton-msg.own { align-self: flex-end; }
+.skeleton-msg.other { align-self: flex-start; }
+.skeleton-bubble { height: 40px; border-radius: 18px; }
+
+/* === Update Banner === */
+.update-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; padding: 12px 16px; background: var(--primary); color: white; text-align: center; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 12px; animation: slideDown 0.3s ease; }
+.update-banner button { background: white; color: var(--primary); border: none; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: transform 0.15s ease; }
+.update-banner button:hover { transform: scale(1.05); }
+
+/* === Smooth Transitions (Global) === */
+.chat-item { transition: background var(--transition), transform 0.15s ease; }
+.chat-item:active { transform: scale(0.98); }
+.people-item { transition: background var(--transition), transform 0.15s ease; }
+.people-item:active { transform: scale(0.98); }
+.menu-item { transition: background var(--transition), transform 0.15s ease; }
+.menu-item:active { transform: scale(0.98); }
+.icon-btn { transition: background var(--transition), transform 0.15s ease; }
+.icon-btn:active { transform: scale(0.9); }
+.modal { animation: modalIn 0.25s ease; }
+@keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.tab-panel { animation: tabFadeIn 0.2s ease; }
+@keyframes tabFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* === Message slide-in for own vs other === */
+.message.own { animation: msgSlideRight 0.2s ease; }
+.message.other { animation: msgSlideLeft 0.2s ease; }
+@keyframes msgSlideRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes msgSlideLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+/* === New message highlight === */
+.message-new { animation: newMsgGlow 0.5s ease; }
+@keyframes newMsgGlow { 0% { box-shadow: 0 0 0 0 rgba(99,102,241,0.4); } 50% { box-shadow: 0 0 0 8px rgba(99,102,241,0); } 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); } }
+
+/* === Add People button in chat header === */
+.add-people-btn { width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(99,102,241,0.15); color: var(--primary); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--transition); flex-shrink: 0; }
+.add-people-btn:hover { background: var(--primary); color: white; transform: scale(1.1); }
+.add-people-btn:active { transform: scale(0.95); }
+
+/* === Member list in add-people modal === */
+.member-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; background: rgba(99,102,241,0.1); color: var(--primary); font-size: 13px; font-weight: 500; border: 1px solid var(--border); }
+.member-chip .remove-member { cursor: pointer; color: var(--danger); font-weight: 700; margin-left: 4px; transition: transform 0.15s ease; }
+.member-chip .remove-member:hover { transform: scale(1.2); }
+
+
 /* === Chat Placeholder (shown when no chat selected on desktop) === */
 .chat-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; }
 .chat-placeholder-inner { text-align: center; opacity: 0.6; }
