@@ -351,14 +351,19 @@ async function checkAdminStatus(uid) {
 function setBtnLoading(btn, loading) {
   if (!btn) return;
   btn.disabled = loading;
-  btn.classList.toggle('btn-loading', loading);
   if (loading) {
-    if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent;
-    btn.textContent = 'Loading...';
+    if (!btn.dataset.originalHtml) btn.dataset.originalHtml = btn.innerHTML;
+    // Hide SVG icons, show spinner
+    btn.querySelectorAll('svg').forEach(s => s.style.display = 'none');
+    const spinner = document.createElement('span');
+    spinner.className = 'btn-spinner';
+    spinner.dataset.spinner = '1';
+    btn.appendChild(spinner);
+    btn.appendChild(document.createTextNode(' Loading...'));
   } else {
-    if (btn.dataset.originalText) {
-      btn.textContent = btn.dataset.originalText;
-      delete btn.dataset.originalText;
+    if (btn.dataset.originalHtml) {
+      btn.innerHTML = btn.dataset.originalHtml;
+      delete btn.dataset.originalHtml;
     }
   }
 }
