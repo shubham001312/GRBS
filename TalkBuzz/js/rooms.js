@@ -8,9 +8,9 @@ let roomListeners = [];
 let roomNameUnsub = null;
 let unreadCounts = {}; // { roomId: count }
 let totalUnread = 0;
-let perRoomListeners = []; // { unsub } for unread + typing per-room listeners
+let perRoomListeners = []; // { roomId, unsub } for unread + typing per-room listeners
 let roomTypingStates = {}; // { roomId: [uid, ...] }
-let lastRoomsCache = []; // cache rooms for badge/typing updates
+let listenedRoomIds = new Set(); // track which rooms already have listeners
 
 async function createRoom(name) {
   if (!name || !name.trim()) {
@@ -58,21 +58,32 @@ function loadRoomList() {
 
   // Listen to rooms list + per-room unread/typing
   listenToRooms((rooms) => {
-    lastRoomsCache = rooms;
     setupPerRoomListeners(rooms);
     renderChatList(container, rooms);
   });
 }
 
-// Listen to unread counts + typing for each room
+// Listen to unread counts + typing for each room (only adds listeners for new rooms)
 function setupPerRoomListeners(rooms) {
-  // Clean up old per-room listeners
-  perRoomListeners.forEach(({ unsub }) => { if (typeof unsub === 'function') unsub(); });
-  perRoomListeners = [];
-
   if (!currentUser) return;
 
+  const currentRoomIds = new Set(rooms.map(r => r.id));
+
+  // Remove listeners for rooms no longer in the list
+  perRoomListeners = perRoomListeners.filter(({ roomId, unsub }) => {
+    if (!currentRoomIds.has(roomId)) {
+      if (typeof unsub === 'function') unsub();
+      listenedRoomIds.delete(roomId);
+      return false;
+    }
+    return true;
+  });
+
+  // Add listeners only for rooms we haven't listened to yet
   rooms.forEach(room => {
+    if (listenedRoomIds.has(room.id)) return;
+    listenedRoomIds.add(room.id);
+
     // --- Unread count listener ---
     const memberRef = FB.ref(FB.db, `room_members/${room.id}/${currentUser.uid}`);
     const unsubMember = FB.onValue(memberRef, (snap) => {
@@ -83,7 +94,7 @@ function setupPerRoomListeners(rooms) {
       updateTabBadge();
       updateChatListBadges();
     }, () => {});
-    perRoomListeners.push({ unsub: unsubMember });
+    perRoomListeners.push({ roomId: room.id, unsub: unsubMember });
 
     // --- Typing listener ---
     const typingRef = FB.ref(FB.db, `typing/${room.id}`);
@@ -96,7 +107,7 @@ function setupPerRoomListeners(rooms) {
       roomTypingStates[room.id] = typingUsers;
       updateChatListTyping(room.id);
     }, () => {});
-    perRoomListeners.push({ unsub: unsubTyping });
+    perRoomListeners.push({ roomId: room.id, unsub: unsubTyping });
   });
 }
 
@@ -118,22 +129,6 @@ function updateTabBadge() {
   }
 }
 
-function updateChatListBadges() {
-  document.querySelectorAll('.chat-item').forEach(item => {
-    const roomId = item.dataset.roomId;
-    const badge = item.querySelector('.chat-badge');
-    if (!badge) return;
-    const count = unreadCounts[roomId] || 0;
-    if (count > 0) {
-      badge.textContent = count > 99 ? '99+' : count;
-      badge.classList.remove('hidden');
-    } else {
-      badge.classList.add('hidden');
-    }
-  });
-}
-
-// Update a single chat item's badge without full re-render
 function updateChatListBadges() {
   document.querySelectorAll('.chat-item').forEach(item => {
     const roomId = item.dataset.roomId;
@@ -247,6 +242,7 @@ function cleanupRoomListeners() {
     if (typeof unsub === 'function') unsub();
   });
   perRoomListeners = [];
+  listenedRoomIds.clear();
   if (roomNameUnsub) { roomNameUnsub(); roomNameUnsub = null; }
   roomTypingStates = {};
   unreadCounts = {};
