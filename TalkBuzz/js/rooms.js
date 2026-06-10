@@ -262,7 +262,7 @@ function showAddPeopleModal() {
   document.getElementById('add-people-status').textContent = '';
   document.getElementById('add-people-search')?.focus();
 
-  // Listen for search input
+  // Listen for search input with debounce
   const searchInput = document.getElementById('add-people-search');
   searchInput?.removeEventListener('input', handleAddPeopleSearch);
   searchInput?.addEventListener('input', handleAddPeopleSearch);
@@ -286,50 +286,61 @@ function handleAddPeopleSearch(e) {
   statusEl.textContent = 'Searching...';
   resultsEl.innerHTML = '';
 
-  if (addPeopleListenerUnsub) { addPeopleListenerUnsub(); addPeopleListenerUnsub = null; }
+  if (addPeopleSearchTimeout) clearTimeout(addPeopleSearchTimeout);    addPeopleSearchTimeout = setTimeout(() => {
+      if (addPeopleListenerUnsub) { addPeopleListenerUnsub(); addPeopleListenerUnsub = null; }
 
-  const usersRef = FB.ref(FB.db, 'users');
-  addPeopleListenerUnsub = FB.onValue(usersRef, (snap) => {
-    const results = [];
-    snap.forEach(child => {
-      const uid = child.key;
-      const data = child.val();
-      if (uid === currentUser.uid) return;
-      const name = (data.name || '').toLowerCase();
-      const email = (data.email || '').toLowerCase();
-      const username = (data.username || '').toLowerCase();
-      if (name.includes(query) || email.includes(query) || username.includes(query)) {
-        results.push({ uid, ...data });
-      }
-    });
+      const usersRef = FB.ref(FB.db, 'users');
+      addPeopleListenerUnsub = FB.onValue(usersRef, (snap) => {
+        const results = [];
+        snap.forEach(child => {
+          const uid = child.key;
+          const data = child.val();
+          if (uid === currentUser.uid) return;
+          const name = (data.name || '').toLowerCase();
+          const email = (data.email || '').toLowerCase();
+          const username = (data.username || '').toLowerCase();
+          if (name.includes(query) || email.includes(query) || username.includes(query)) {
+            results.push({ uid, ...data });
+          }
+        });
 
-    if (results.length === 0) {
-      statusEl.textContent = 'No users found';
-      resultsEl.innerHTML = '';
-      return;
-    }
+        if (results.length === 0) {
+          statusEl.textContent = 'No users found';
+          resultsEl.innerHTML = '';
+          return;
+        }
 
-    statusEl.textContent = `${results.length} user${results.length > 1 ? 's' : ''} found`;
-    resultsEl.innerHTML = results.map(user => {
-      const initials = getInitials(user.name);
-      return `
-        <div class="people-item" onclick="addUserToRoom('${user.uid}', '${escapeHtml(user.name || user.email || 'User')}')">
-          <div class="people-avatar"><span>${initials}</span></div>
-          <div class="people-info">
-            <div class="people-name">${escapeHtml(user.name || 'User')}</div>
-            <div class="people-meta">${escapeHtml(user.email || user.username || '')}</div>
-          </div>
-          <button class="people-chat-btn" title="Add to room">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-        </div>`;
-    }).join('');
-  }, () => {});
+        statusEl.textContent = `${results.length} user${results.length > 1 ? 's' : ''} found`;
+        resultsEl.innerHTML = results.map(user => {
+          const initials = getInitials(user.name);
+          return `
+            <div class="people-item" onclick="addUserToRoom('${user.uid}', '${escapeHtml(user.name || user.email || 'User')}')">
+              <div class="people-avatar"><span>${initials}</span></div>
+              <div class="people-info">
+                <div class="people-name">${escapeHtml(user.name || 'User')}</div>
+                <div class="people-meta">${escapeHtml(user.email || user.username || '')}</div>
+              </div>
+              <button class="people-chat-btn" title="Add to room">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+            </div>`;
+        }).join('');
+      }, () => {});
+    }, 300);
 }
+
+let addPeopleSearchTimeout = null;
 
 async function addUserToRoom(uid, userName) {
   if (!currentRoomId) return;
   try {
+    // Check if room is DM - don't allow adding people to DMs
+    const roomSnap = await FB.get(FB.ref(FB.db, `rooms/${currentRoomId}`));
+    const roomData = roomSnap.val();
+    if (roomData && roomData.type === 'dm') {
+      showToast('Cannot add people to a direct message', 'error');
+      return;
+    }
     const memberRef = FB.ref(FB.db, `room_members/${currentRoomId}/${uid}`);
     const snap = await FB.get(memberRef);
     if (snap.exists()) {
@@ -342,6 +353,7 @@ async function addUserToRoom(uid, userName) {
       unreadCount: 0
     });
     showToast(`${userName} added to the room! 🎉`, 'success');
+    closeAddPeopleModal();
   } catch (error) {
     console.error('Add user error:', error);
     showToast('Failed to add user', 'error');

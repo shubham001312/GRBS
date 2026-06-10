@@ -383,8 +383,8 @@ input, textarea, button { font-family: inherit; }
 .skeleton-line.short { width: 40%; }
 .skeleton-line.medium { width: 70%; }
 .skeleton-msg { display: flex; flex-direction: column; gap: 4px; max-width: 60%; }
-.skeleton-msg.own { align-self: flex-end; }
-.skeleton-msg.other { align-self: flex-start; }
+.skeleton-msg.own { align-self: flex-end; align-items: flex-end; }
+.skeleton-msg.other { align-self: flex-start; align-items: flex-start; }
 .skeleton-bubble { height: 40px; border-radius: 18px; }
 
 /* === Update Banner === */
