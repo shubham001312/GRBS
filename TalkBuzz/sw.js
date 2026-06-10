@@ -1,5 +1,5 @@
-// TalkBuzz Service Worker — v4.2.0
-const APP_VERSION = '4.2.0';
+// TalkBuzz Service Worker — v4.3.0
+const APP_VERSION = '4.3.0';
 const CACHE_NAME = `talkbuzz-v${APP_VERSION}`;
 const PREVIOUS_CACHE_PREFIX = 'talkbuzz-v';
 const STATIC_ASSETS = [
