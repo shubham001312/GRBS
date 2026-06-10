@@ -11,6 +11,7 @@ let totalUnread = 0;
 let perRoomListeners = []; // { roomId, unsub } for unread + typing per-room listeners
 let roomTypingStates = {}; // { roomId: [uid, ...] }
 let listenedRoomIds = new Set(); // track which rooms already have listeners
+let roomDataUnsubs = []; // per-room data listeners for membership-based room loading
 
 async function createRoom(name) {
   if (!name || !name.trim()) {
@@ -49,18 +50,21 @@ async function createRoom(name) {
   }
 }
 
+let roomsInitialized = false;
+
 function loadRoomList() {
   const container = document.getElementById('chat-list');
   if (!container) return;
 
-  // Show skeleton while loading
-  renderSkeletonChatList(container);
+  // If already listening, don't re-create listeners (prevents skeleton flash on tab switch)
+  if (roomsInitialized) return;
 
-  // Clean up old listeners before creating new ones
-  cleanupRoomListeners();
+  // Show skeleton on first load only
+  renderSkeletonChatList(container);
 
   // Listen to rooms list + per-room unread/typing
   listenToRooms((rooms) => {
+    roomsInitialized = true;
     setupPerRoomListeners(rooms);
     renderChatList(container, rooms);
   });
@@ -169,23 +173,52 @@ function updateChatListTyping(roomId) {
 }
 
 function listenToRooms(callback) {
-  const roomsRef = FB.ref(FB.db, 'rooms');
-  const unsub = FB.onValue(roomsRef, (snap) => {
-    const rooms = [];
-    snap.forEach(child => {
-      rooms.push({ id: child.key, ...child.val() });
+  if (!currentUser) return;
+
+  // Listen to room_members to find which rooms the current user belongs to
+  const membersRef = FB.ref(FB.db, 'room_members');
+  const unsub = FB.onValue(membersRef, (snap) => {
+    const userRoomIds = [];
+    snap.forEach(roomSnap => {
+      if (roomSnap.hasChild(currentUser.uid)) {
+        userRoomIds.push(roomSnap.key);
+      }
     });
-    // Sort by last message time (newest first)
-    rooms.sort((a, b) => {
-      const aTime = a.lastMessage?.timestamp || a.createdAt || 0;
-      const bTime = b.lastMessage?.timestamp || b.createdAt || 0;
-      return bTime - aTime;
+
+    // Clean up old per-room data listeners
+    roomDataUnsubs.forEach(fn => { if (typeof fn === 'function') fn(); });
+    roomDataUnsubs = [];
+
+    if (userRoomIds.length === 0) {
+      callback([]);
+      return;
+    }
+
+    // Listen to each room the user is a member of
+    const roomsMap = {};
+    userRoomIds.forEach(roomId => {
+      const roomRef = FB.ref(FB.db, `rooms/${roomId}`);
+      const unsubRoom = FB.onValue(roomRef, (roomSnap) => {
+        if (roomSnap.exists()) {
+          roomsMap[roomId] = { id: roomId, ...roomSnap.val() };
+        } else {
+          delete roomsMap[roomId];
+        }
+        // Emit sorted rooms
+        const rooms = Object.values(roomsMap);
+        rooms.sort((a, b) => {
+          const aTime = a.lastMessage?.timestamp || a.createdAt || 0;
+          const bTime = b.lastMessage?.timestamp || b.createdAt || 0;
+          return bTime - aTime;
+        });
+        callback(rooms);
+      }, () => {});
+      roomDataUnsubs.push(unsubRoom);
     });
-    callback(rooms);
   }, (error) => {
-    console.error('Rooms listener error:', error);
+    console.error('Room memberships listener error:', error);
   });
-  roomListeners.push({ ref: roomsRef, unsub });
+  roomListeners.push({ ref: membersRef, unsub });
 }
 
 function renderSkeletonChatList(container) {
@@ -211,7 +244,11 @@ function renderChatList(container, rooms) {
       <div class="empty-tab">
         <div class="empty-tab-icon">💬</div>
         <p>No chats yet</p>
-        <span>Tap ✏️ to start a new conversation</span>
+        <span>Start a conversation with someone!</span>
+        <button class="primary-btn" style="width:auto;margin-top:16px;padding:12px 24px" onclick="switchTab('search')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Find People
+        </button>
       </div>`;
     return;
   }
@@ -286,7 +323,10 @@ function handleAddPeopleSearch(e) {
   statusEl.textContent = 'Searching...';
   resultsEl.innerHTML = '';
 
-  if (addPeopleSearchTimeout) clearTimeout(addPeopleSearchTimeout);    addPeopleSearchTimeout = setTimeout(() => {
+  if (addPeopleSearchTimeout) clearTimeout(addPeopleSearchTimeout);
+    addPeopleSearchTimeout = setTimeout(() => {
+      // Guard: bail if the modal was closed while debounce was pending
+      if (document.getElementById('add-people-modal')?.classList.contains('hidden')) return;
       if (addPeopleListenerUnsub) { addPeopleListenerUnsub(); addPeopleListenerUnsub = null; }
 
       const usersRef = FB.ref(FB.db, 'users');
@@ -365,6 +405,8 @@ function cleanupRoomListeners() {
     if (typeof unsub === 'function') unsub();
   });
   roomListeners = [];
+  roomDataUnsubs.forEach(fn => { if (typeof fn === 'function') fn(); });
+  roomDataUnsubs = [];
   perRoomListeners.forEach(({ unsub }) => {
     if (typeof unsub === 'function') unsub();
   });
@@ -375,5 +417,6 @@ function cleanupRoomListeners() {
   roomTypingStates = {};
   unreadCounts = {};
   totalUnread = 0;
+  roomsInitialized = false;
   updateTabBadge();
 }

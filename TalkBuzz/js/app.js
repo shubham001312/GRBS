@@ -109,6 +109,11 @@ function setupEventListeners() {
     }
   });
 
+  // Send button click handler
+  document.getElementById('btn-send')?.addEventListener('click', () => {
+    sendMessageFromInput();
+  });
+
   // Modal close on overlay click
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
@@ -121,6 +126,8 @@ function sendMessageFromInput() {
   const input = document.getElementById('message-input');
   const text = input?.value?.trim();
   if (!text) return;
+  if (!currentUser) { showToast('You must be signed in to send messages', 'error'); return; }
+  if (!currentRoomId) { showToast('No chat selected', 'error'); return; }
   sendMessage(text);
   input.value = '';
   input.style.height = 'auto';

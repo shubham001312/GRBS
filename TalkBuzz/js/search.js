@@ -69,13 +69,16 @@ function renderPeopleList(users, query) {
     container.innerHTML = `
       <div class="empty-tab">
         <div class="empty-tab-icon">🔍</div>
-        <p>${query ? 'No users found' : 'No users yet'}</p>
-        <span>${query ? 'Try a different search' : 'Invite friends to join TalkBuzz!'}</span>
+        <p>${query ? 'No users found' : 'No other users yet'}</p>
+        <span>${query ? 'Try a different search term' : 'Share TalkBuzz with friends to get started!'}</span>
       </div>`;
     return;
   }
 
-  container.innerHTML = users.map(user => {
+  // Show suggestion text above results when no query (showing all users)
+  const suggestionHtml = !query ? `<div style="padding:8px 14px;font-size:12px;color:var(--muted);font-weight:500;">All Users (${users.length})</div>` : '';
+
+  container.innerHTML = suggestionHtml + users.map(user => {
     const isOnline = user.status === 'online';
     const avatar = user.avatar
       ? `<img src="${escapeHtml(user.avatar)}" alt="">`
@@ -103,21 +106,24 @@ function renderPeopleList(users, query) {
 async function startChatWithUser(userId) {
   if (!currentUser) return showToast('Sign in to start chatting', 'error');
 
-  // Check if a DM room already exists between these users
-  const roomsRef = FB.ref(FB.db, 'rooms');
-  const snap = await FB.get(roomsRef);
+  // Check if a DM room already exists between these users via room_members
+  const membersRef = FB.ref(FB.db, 'room_members');
+  const membersSnap = await FB.get(membersRef);
   let existingRoomId = null;
 
-  snap.forEach(child => {
-    const room = child.val();
-    if (room.type === 'dm') {
-      const members = room.members || {};
-      const memberUids = Object.keys(members);
-      if (memberUids.includes(currentUser.uid) && memberUids.includes(userId)) {
-        existingRoomId = child.key;
+  // For each room in room_members, check if both users are members and room is DM
+  for (const roomSnap of membersSnap.children) {
+    const roomId = roomSnap.key;
+    if (roomSnap.hasChild(currentUser.uid) && roomSnap.hasChild(userId)) {
+      // Verify it's a DM room
+      const roomDataSnap = await FB.get(FB.ref(FB.db, `rooms/${roomId}`));
+      const roomData = roomDataSnap.val();
+      if (roomData && roomData.type === 'dm') {
+        existingRoomId = roomId;
+        break;
       }
     }
-  });
+  }
 
   if (existingRoomId) {
     openChatView(existingRoomId);
@@ -130,19 +136,31 @@ async function startChatWithUser(userId) {
 
   // Create DM room
   try {
+    const roomsRef = FB.ref(FB.db, 'rooms');
     const newRoomRef = FB.push(roomsRef);
     const roomId = newRoomRef.key;
-    await FB.set(newRoomRef, {
+
+    // Write room data and membership entries in parallel
+    const updates = {};
+    updates[`rooms/${roomId}`] = {
       name: targetName,
       type: 'dm',
       createdAt: FB.serverTimestamp(),
       createdBy: currentUser.uid,
-      members: {
-        [currentUser.uid]: { joinedAt: FB.serverTimestamp() },
-        [userId]: { joinedAt: FB.serverTimestamp() }
-      },
       lastMessage: null
-    });
+    };
+    updates[`room_members/${roomId}/${currentUser.uid}`] = {
+      joinedAt: FB.serverTimestamp(),
+      lastRead: FB.serverTimestamp(),
+      unreadCount: 0
+    };
+    updates[`room_members/${roomId}/${userId}`] = {
+      joinedAt: FB.serverTimestamp(),
+      lastRead: FB.serverTimestamp(),
+      unreadCount: 0
+    };
+
+    await FB.update(FB.ref(FB.db), updates);
 
     showToast(`Chat started with ${targetName}! 💬`, 'success');
     openChatView(roomId);

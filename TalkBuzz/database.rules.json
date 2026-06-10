@@ -1,0 +1,75 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['name']) || !newData.exists()"
+      }
+    },
+    "rooms": {
+      "$roomId": {
+        ".read": "auth != null && root.child('room_members/' + $roomId + '/' + auth.uid).exists()",
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['name', 'type'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 30"
+        },
+        "type": {
+          ".validate": "newData.isString() && (newData.val() === 'group' || newData.val() === 'dm')"
+        }
+      }
+    },
+    "room_members": {
+      ".read": "auth != null",
+      "$roomId": {
+        "$uid": {
+          ".write": "auth != null && root.child('room_members/' + $roomId + '/' + auth.uid).exists()"
+        }
+      }
+    },
+    "messages": {
+      "$roomId": {
+        ".read": "auth != null && root.child('room_members/' + $roomId + '/' + auth.uid).exists()",
+        ".write": "auth != null && root.child('room_members/' + $roomId + '/' + auth.uid).exists()",
+        "$messageId": {
+          ".validate": "newData.hasChildren(['text', 'sender', 'timestamp'])",
+          "text": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 2000"
+          },
+          "sender": {
+            ".validate": "newData.isString() && newData.val() === auth.uid"
+          },
+          "senderName": {
+            ".validate": "newData.isString() && newData.val().length <= 50"
+          },
+          "timestamp": {
+            ".validate": "newData.val() <= now + 10000"
+          },
+          "type": {
+            ".validate": "newData.isString() && (newData.val() === 'text' || newData.val() === 'image' || newData.val() === 'system')"
+          }
+        }
+      }
+    },
+    "typing": {
+      "$roomId": {
+        "$uid": {
+          ".read": "auth != null && root.child('room_members/' + $roomId + '/' + auth.uid).exists()",
+          ".write": "auth != null && auth.uid === $uid && root.child('room_members/' + $roomId + '/' + auth.uid).exists()",
+          ".validate": "newData.isNumber() || !newData.exists()"
+        }
+      }
+    },
+    "admin": {
+      "credentials": {
+        ".read": "auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin'",
+        ".write": "auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin'"
+      },
+      "broadcasts": {
+        ".read": "auth != null",
+        ".write": "auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin'"
+      }
+    }
+  }
+}

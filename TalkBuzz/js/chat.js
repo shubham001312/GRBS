@@ -5,6 +5,7 @@
 let messageListeners = [];
 let typingListenerUnsub = null;
 let messagesData = [];
+let lastRenderedMsgCount = 0; // Track count to avoid re-animating on non-message updates
 
 function renderSkeletonMessages(container) {
   if (!container) return;
@@ -12,7 +13,7 @@ function renderSkeletonMessages(container) {
     const isOwn = i % 2 === 1;
     return `
       <div class="skeleton-msg ${isOwn ? 'own' : 'other'}">
-        <div class="skeleton skeleton-bubble" style="width:${60 + Math.random() * 30}%"></div>
+        <div class="skeleton skeleton-bubble"></div>
       </div>`;
   }).join('');
   container.innerHTML = skeletonHtml;
@@ -22,6 +23,9 @@ function renderSkeletonMessages(container) {
 function loadMessages(roomId) {
   // Show skeleton while loading
   renderSkeletonMessages(document.getElementById('messages'));
+
+  // Reset animation tracking for new room
+  lastRenderedMsgCount = 0;
 
   // Cleanup old message listeners
   messageListeners.forEach(({ unsub }) => { if (typeof unsub === 'function') unsub(); });
@@ -69,7 +73,7 @@ function renderMessages(container, messages) {
   let html = '';
   let lastDate = '';
 
-  messages.forEach((msg) => {
+  messages.forEach((msg, idx) => {
     const msgDate = formatDate(msg.timestamp);
     if (msgDate !== lastDate) {
       html += `<div class="message-date-divider"><span>${msgDate}</span></div>`;
@@ -79,8 +83,13 @@ function renderMessages(container, messages) {
     const isOwn = msg.sender === currentUser?.uid;
     const statusHtml = isOwn ? getReadStatusHtml(msg) : '';
 
+    // Only animate the very last message when a NEW message actually arrived
+    const isNewest = idx === messages.length - 1 && messages.length > lastRenderedMsgCount;
+    const newClass = isNewest ? ' message-new' : '';
+    const glowClass = isNewest ? ' message-new-glow' : '';
+
     html += `
-      <div class="message ${isOwn ? 'own' : 'other'}" data-msg-id="${msg.id}">
+      <div class="message ${isOwn ? 'own' : 'other'}${newClass}${glowClass}" data-msg-id="${msg.id}">
         ${!isOwn && msg.type !== 'system' ? `<div class="message-sender">${escapeHtml(msg.senderName || 'Unknown')}</div>` : ''}
         <div class="message-bubble">${escapeHtml(msg.text)}</div>
         <div class="message-meta">
@@ -92,6 +101,7 @@ function renderMessages(container, messages) {
   });
 
   container.innerHTML = html;
+  lastRenderedMsgCount = messages.length;
   scrollToBottom();
 }
 
