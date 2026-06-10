@@ -140,27 +140,28 @@ async function startChatWithUser(userId) {
     const newRoomRef = FB.push(roomsRef);
     const roomId = newRoomRef.key;
 
-    // Write room data and membership entries in parallel
-    const updates = {};
-    updates[`rooms/${roomId}`] = {
+    // Step 1: Create room + add current user as member (must be first so current user IS a member)
+    const step1 = {};
+    step1[`rooms/${roomId}`] = {
       name: targetName,
       type: 'dm',
       createdAt: FB.serverTimestamp(),
       createdBy: currentUser.uid,
       lastMessage: null
     };
-    updates[`room_members/${roomId}/${currentUser.uid}`] = {
+    step1[`room_members/${roomId}/${currentUser.uid}`] = {
       joinedAt: FB.serverTimestamp(),
       lastRead: FB.serverTimestamp(),
       unreadCount: 0
     };
-    updates[`room_members/${roomId}/${userId}`] = {
-      joinedAt: FB.serverTimestamp(),
-      lastRead: FB.serverTimestamp(),
-      unreadCount: 0
-    };
+    await FB.update(FB.ref(FB.db), step1);
 
-    await FB.update(FB.ref(FB.db), updates);
+    // Step 2: Add other user as member (now current user IS a member, so rule passes)
+    await FB.set(FB.ref(FB.db, `room_members/${roomId}/${userId}`), {
+      joinedAt: FB.serverTimestamp(),
+      lastRead: FB.serverTimestamp(),
+      unreadCount: 0
+    });
 
     showToast(`Chat started with ${targetName}! 💬`, 'success');
     openChatView(roomId);
