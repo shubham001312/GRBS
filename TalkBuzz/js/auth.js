@@ -352,12 +352,11 @@ function setBtnLoading(btn, loading) {
   if (!btn) return;
   btn.disabled = loading;
   if (loading) {
-    if (!btn.dataset.originalHtml) btn.dataset.originalHtml = btn.innerHTML;
-    // Hide SVG icons, show spinner
+    btn.dataset.originalHtml = btn.innerHTML;
+    // Hide SVGs, show spinner
     btn.querySelectorAll('svg').forEach(s => s.style.display = 'none');
     const spinner = document.createElement('span');
     spinner.className = 'btn-spinner';
-    spinner.dataset.spinner = '1';
     btn.appendChild(spinner);
     btn.appendChild(document.createTextNode(' Loading...'));
   } else {
