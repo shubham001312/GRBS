@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://talkbuzz-6f0e9.web.app/sitemap.xml
+
+User-agent: Googlebot
+Allow: /

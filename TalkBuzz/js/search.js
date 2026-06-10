@@ -166,8 +166,12 @@ async function startChatWithUser(userId) {
     } catch (step2Error) {
       // Rollback: clean up the room and our membership since we couldn't add the other user
       console.warn('Step 2 failed, rolling back room:', step2Error);
-      await FB.set(FB.ref(FB.db, `rooms/${roomId}`), null);
-      await FB.set(FB.ref(FB.db, `room_members/${roomId}`), null);
+      try {
+        await FB.set(FB.ref(FB.db, `rooms/${roomId}`), null);
+        await FB.set(FB.ref(FB.db, `room_members/${roomId}/${currentUser.uid}`), null);
+      } catch (rollbackErr) {
+        console.error('Rollback also failed:', rollbackErr);
+      }
       throw step2Error;
     }
 
