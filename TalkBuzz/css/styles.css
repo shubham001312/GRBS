@@ -453,6 +453,9 @@ input, textarea, button { font-family: inherit; }
   /* Input area */
   .message-input-area { padding-bottom: 12px; }
 
+  /* Hide back button on desktop (no need in sidebar layout) */
+  .chat-view-header .icon-btn:first-child { display: none; }
+
   /* Auth container: larger on desktop */
   .auth-container { padding: 48px 40px; }
 
