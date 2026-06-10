@@ -1,5 +1,6 @@
 // ============================================
-// TalkBuzz — Main App Init
+// TalkBuzz v3.0 — Main App Init
+// 3-Tab Layout: Home, Search, Profile + Chat Overlay
 // ============================================
 
 let appInitialized = false;
@@ -13,24 +14,25 @@ function initApp() {
   // Setup presence
   setupPresence(currentUser.uid);
 
-  // Load user info in sidebar
-  loadUserInfo();
-
-  // Load rooms
+  // Load rooms (Home tab)
   loadRoomList();
+
+  // Init Search tab
+  initSearch();
+
+  // Init Profile tab
+  initProfile();
 
   // Setup event listeners
   setupEventListeners();
 
   // Check admin status
   checkAdminStatus(currentUser.uid).then(isAdmin => {
-    const adminBtn = document.getElementById('btn-admin');
-    if (adminBtn) {
-      adminBtn.classList.toggle('hidden', !isAdmin);
-    }
+    const adminBtn = document.getElementById('btn-chat-admin');
+    if (adminBtn) adminBtn.classList.toggle('hidden', !isAdmin);
   });
 
-  // Offline detection — don't call goOffline/goOnline, Firebase handles its own connection
+  // Offline detection
   window.addEventListener('online', () => {
     document.getElementById('offline-banner')?.classList.add('hidden');
     showToast('You\'re back online! 🌐', 'success');
@@ -46,90 +48,44 @@ function initApp() {
   });
 }
 
-function loadUserInfo() {
-  const avatarEl = document.getElementById('user-avatar');
-  const nameEl = document.getElementById('user-name');
-
-  if (!avatarEl || !nameEl) return;
-
-  if (currentUser?.photoURL) {
-    avatarEl.innerHTML = `<img src="${currentUser.photoURL}" alt="avatar">`;
-  } else {
-    avatarEl.textContent = getInitials(currentUserData?.name);
-  }
-  nameEl.textContent = currentUserData?.name || 'User';
+// ─── Tab Navigation ───
+function switchTab(tabName) {
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabName);
+  });
+  // Update tab panels
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.toggle('active', panel.id === `tab-${tabName}`);
+  });
+  // Refresh data when switching tabs
+  if (tabName === 'home') loadRoomList();
+  if (tabName === 'search') { const input = document.getElementById('people-search'); if (input) input.value = ''; filterPeople(''); }
+  if (tabName === 'profile') loadProfileData();
 }
 
-function loadRoomList() {
-  const container = document.getElementById('room-list');
-  const searchInput = document.getElementById('search-rooms');
-
-  listenToRooms((rooms) => {
-    renderRoomList(container, rooms);
-  });
-
-  // Search filter
-  searchInput?.addEventListener('input', (e) => {
+// ─── Event Listeners ───
+function setupEventListeners() {
+  // Home search filter
+  const homeSearch = document.getElementById('home-search');
+  homeSearch?.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase();
-    container?.querySelectorAll('.room-item').forEach(item => {
-      const name = item.querySelector('.room-name')?.textContent?.toLowerCase() || '';
+    document.querySelectorAll('.chat-item').forEach(item => {
+      const name = item.querySelector('.chat-name')?.textContent?.toLowerCase() || '';
       item.style.display = name.includes(query) ? 'flex' : 'none';
     });
   });
-}
 
-function renderRoomList(container, rooms) {
-  if (!container) return;
-  container.innerHTML = rooms.map(room => {
-    const lastMsg = room.lastMessage;
-    const lastMsgText = lastMsg ? `${lastMsg.senderName}: ${lastMsg.text}` : 'No messages yet';
-    return `
-      <div class="room-item ${room.id === currentRoomId ? 'active' : ''}" data-room-id="${room.id}" onclick="selectRoom('${room.id}')">
-        <div class="room-icon">💬</div>
-        <div class="room-info">
-          <div class="room-name">${escapeHtml(room.name)}</div>
-          <div class="room-last-msg">${escapeHtml(lastMsgText)}</div>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function setupEventListeners() {
-  // Sidebar buttons
-  document.getElementById('btn-new-room')?.addEventListener('click', () => {
-    document.getElementById('new-room-modal')?.classList.remove('hidden');
-  });
-  document.getElementById('btn-create-room')?.addEventListener('click', async () => {
-    const name = document.getElementById('new-room-name')?.value?.trim();
-    if (name) {
-      const roomId = await createRoom(name);
-      if (roomId) {
-        document.getElementById('new-room-name').value = '';
-        closeNewRoomModal();
-      }
-    }
-  });
-  document.getElementById('btn-admin')?.addEventListener('click', openAdminModal);
-  document.getElementById('btn-settings')?.addEventListener('click', openSettingsModal);
-  document.getElementById('btn-logout')?.addEventListener('click', logout);
-
-  // Chat
-  document.getElementById('btn-back')?.addEventListener('click', goToRoomList);
-  document.getElementById('btn-send')?.addEventListener('click', sendMessageFromInput);
+  // Chat back button
+  document.getElementById('btn-chat-admin')?.addEventListener('click', openAdminModal);
 
   // Message input
   const msgInput = document.getElementById('message-input');
   msgInput?.addEventListener('input', () => {
-    // Auto-resize
     msgInput.style.height = 'auto';
     msgInput.style.height = Math.min(msgInput.scrollHeight, 120) + 'px';
-
-    // Enable/disable send button
     const sendBtn = document.getElementById('btn-send');
     if (sendBtn) sendBtn.disabled = !msgInput.value.trim();
-
-    // Typing indicator
     if (currentRoomId && currentUser) {
       updateTyping(currentRoomId, currentUser.uid, msgInput.value.trim().length > 0);
     }
@@ -161,29 +117,70 @@ function sendMessageFromInput() {
   if (sendBtn) sendBtn.disabled = true;
 }
 
-function openSettingsModal() {
-  const modal = document.getElementById('settings-modal');
-  const profile = document.getElementById('settings-profile');
-  if (!modal || !profile) return;
-
-  profile.innerHTML = `
-    <h3>👤 Profile</h3>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-      <div class="user-avatar" style="width:48px;height:48px;font-size:18px;">
-        ${currentUser?.photoURL ? `<img src="${currentUser.photoURL}" alt="avatar">` : getInitials(currentUserData?.name)}
-      </div>
-      <div>
-        <div style="font-weight:600;">${escapeHtml(currentUserData?.name || 'User')}</div>
-        <div style="font-size:12px;color:var(--muted);">${escapeHtml(currentUserData?.email || 'Guest')}</div>
-      </div>
-    </div>
-  `;
-  modal.classList.remove('hidden');
+// ─── New Room Modal ───
+function showNewRoomModal() {
+  document.getElementById('new-room-modal')?.classList.remove('hidden');
+  document.getElementById('new-room-name')?.focus();
+}
+function closeNewRoomModal() {
+  document.getElementById('new-room-modal')?.classList.add('hidden');
+}
+async function createRoomFromModal() {
+  const name = document.getElementById('new-room-name')?.value?.trim();
+  if (!name) return showToast('Enter a room name', 'error');
+  const roomId = await createRoom(name);
+  if (roomId) {
+    document.getElementById('new-room-name').value = '';
+    closeNewRoomModal();
+    openChatView(roomId);
+  }
 }
 
-function closeSettingsModal() { document.getElementById('settings-modal')?.classList.add('hidden'); }
-function closeNewRoomModal() { document.getElementById('new-room-modal')?.classList.add('hidden'); }
+// ─── Chat View ───
+function openChatView(roomId) {
+  currentRoomId = roomId;
+  document.getElementById('chat-view')?.classList.remove('hidden');
+  document.getElementById('tab-home')?.classList.remove('active');
+  document.getElementById('chat-view')?.classList.add('active');
+  document.querySelector('.tab-bar').style.display = 'none';
 
+  // Load room name
+  const roomRef = FB.ref(FB.db, `rooms/${roomId}`);
+  if (roomNameUnsub) { roomNameUnsub(); roomNameUnsub = null; }
+  roomNameUnsub = FB.onValue(roomRef, (snap) => {
+    const room = snap.val();
+    if (room) {
+      document.getElementById('chat-view-name').textContent = room.name;
+      document.getElementById('chat-view-status').textContent = room.type === 'dm' ? 'Direct Message' : 'Group Chat';
+    }
+  }, () => {});
+
+  // Mark as read
+  if (currentUser) {
+    FB.set(FB.ref(FB.db, `room_members/${roomId}/${currentUser.uid}/lastRead`), FB.serverTimestamp()).catch(() => {});
+  }
+
+  // Load messages
+  loadMessages(roomId);
+
+  // Focus input
+  setTimeout(() => document.getElementById('message-input')?.focus(), 100);
+}
+
+function closeChatView() {
+  document.getElementById('chat-view')?.classList.add('hidden');
+  document.getElementById('chat-view')?.classList.remove('active');
+  document.querySelector('.tab-bar').style.display = 'flex';
+  switchTab('home');
+
+  // Cleanup
+  cleanupMessageListeners();
+  currentRoomId = null;
+  const msgs = document.getElementById('messages');
+  if (msgs) msgs.innerHTML = '';
+}
+
+// ─── Cleanup ───
 function cleanupListeners() {
   cleanupRoomListeners();
   cleanupMessageListeners();

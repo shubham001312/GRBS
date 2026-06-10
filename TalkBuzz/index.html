@@ -16,13 +16,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";import { getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously,
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth, GoogleAuthProvider, signInWithPopup, signInAnonymously,
       createUserWithEmailAndPassword, signInWithEmailAndPassword,
-      sendPasswordResetEmail, onAuthStateChanged, signOut
+      sendPasswordResetEmail, updateProfile, onAuthStateChanged, signOut
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
       getDatabase, ref, push, set, get, update, onValue, onDisconnect,
-      serverTimestamp, query, orderByChild, limitToLast, off
+      serverTimestamp, query, orderByChild, limitToLast, off, orderByKey, startAt, endAt
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 
@@ -46,10 +48,10 @@
     window.FB = {
       app, auth, db, analytics,
       ref, push, set, get, update, onValue, onDisconnect, serverTimestamp,
-      query, orderByChild, limitToLast, off,
+      query, orderByChild, limitToLast, off, orderByKey, startAt, endAt,
       GoogleAuthProvider, signInWithPopup, signInAnonymously,
       createUserWithEmailAndPassword, signInWithEmailAndPassword,
-      sendPasswordResetEmail, onAuthStateChanged, signOut
+      sendPasswordResetEmail, updateProfile, onAuthStateChanged, signOut
     };
 
     window.dispatchEvent(new Event('firebase-ready'));
@@ -90,13 +92,10 @@
       </div>
       <h1 class="auth-title">TalkBuzz</h1>
       <p class="auth-subtitle">Real-time chat, reimagined</p>
-
-      <!-- Auth Tabs -->
       <div class="auth-tabs">
-        <button class="auth-tab active" data-auth-tab="signin" id="tab-signin">Sign In</button>
-        <button class="auth-tab" data-auth-tab="signup" id="tab-signup">Sign Up</button>
+        <button class="auth-tab active" data-auth-tab="signin">Sign In</button>
+        <button class="auth-tab" data-auth-tab="signup">Sign Up</button>
       </div>
-
       <!-- Sign In Form -->
       <div id="form-signin" class="auth-form">
         <div class="auth-input-group">
@@ -111,19 +110,12 @@
           <div class="auth-input-wrapper">
             <svg class="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             <input type="password" id="signin-password" placeholder="Enter password" autocomplete="current-password">
-            <button type="button" class="password-toggle" onclick="togglePassword('signin-password', this)" aria-label="Toggle password visibility">
-              <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </button>
+            <button type="button" class="password-toggle" onclick="togglePassword('signin-password', this)"><svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
           </div>
         </div>
-        <button id="btn-signin" class="auth-btn primary-btn" onclick="signInWithEmail()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-          Sign In
-        </button>
+        <button id="btn-signin" class="auth-btn primary-btn" onclick="signInWithEmail()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Sign In</button>
         <button class="auth-link-btn" onclick="showForgotPassword()">Forgot password?</button>
       </div>
-
       <!-- Sign Up Form -->
       <div id="form-signup" class="auth-form hidden">
         <div class="auth-input-group">
@@ -147,10 +139,7 @@
           <div class="auth-input-wrapper">
             <svg class="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             <input type="password" id="signup-password" placeholder="Min 6 characters" autocomplete="new-password">
-            <button type="button" class="password-toggle" onclick="togglePassword('signup-password', this)" aria-label="Toggle password visibility">
-              <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </button>
+            <button type="button" class="password-toggle" onclick="togglePassword('signup-password', this)"><svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
           </div>
           <div id="password-strength" class="password-strength"></div>
         </div>
@@ -159,31 +148,15 @@
           <div class="auth-input-wrapper">
             <svg class="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             <input type="password" id="signup-confirm" placeholder="Repeat password" autocomplete="new-password">
-            <button type="button" class="password-toggle" onclick="togglePassword('signup-confirm', this)" aria-label="Toggle password visibility">
-              <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </button>
+            <button type="button" class="password-toggle" onclick="togglePassword('signup-confirm', this)"><svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
           </div>
         </div>
-        <button id="btn-signup" class="auth-btn primary-btn" onclick="signUpWithEmail()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-          Create Account
-        </button>
+        <button id="btn-signup" class="auth-btn primary-btn" onclick="signUpWithEmail()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> Create Account</button>
       </div>
-
-      <!-- Divider -->
       <div class="auth-divider"><span>or</span></div>
-
-      <!-- Social & Guest -->
       <div class="auth-buttons">
-        <button id="btn-google" class="auth-btn google-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-          Sign in with Google
-        </button>
-        <button id="btn-anonymous" class="auth-btn anonymous-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Continue as Guest
-        </button>
+        <button id="btn-google" class="auth-btn google-btn"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg> Sign in with Google</button>
+        <button id="btn-anonymous" class="auth-btn anonymous-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Continue as Guest</button>
       </div>
       <p class="auth-footer">By continuing, you agree to our Terms of Service</p>
     </div>
@@ -192,12 +165,9 @@
   <!-- Forgot Password Modal -->
   <div id="forgot-modal" class="modal-overlay hidden">
     <div class="modal" style="max-width:400px">
-      <div class="modal-header">
-        <h2>🔑 Reset Password</h2>
-        <button class="modal-close" onclick="closeForgotPassword()">✕</button>
-      </div>
+      <div class="modal-header"><h2>🔑 Reset Password</h2><button class="modal-close" onclick="closeForgotPassword()">✕</button></div>
       <div style="padding:20px">
-        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Enter your email address and we'll send you a link to reset your password.</p>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Enter your email and we'll send you a reset link.</p>
         <div class="auth-input-group">
           <label for="forgot-email">Email</label>
           <div class="auth-input-wrapper">
@@ -205,82 +175,173 @@
             <input type="email" id="forgot-email" placeholder="your@email.com">
           </div>
         </div>
-        <button class="auth-btn primary-btn" style="width:100%;margin-top:12px" onclick="sendResetEmail()">
-          Send Reset Link
-        </button>
+        <button class="auth-btn primary-btn" style="width:100%;margin-top:12px" onclick="sendResetEmail()">Send Reset Link</button>
         <div id="forgot-status" class="forgot-status"></div>
       </div>
     </div>
   </div>
 
-  <!-- Main App -->
+  <!-- ==================== MAIN APP (3-Tab Layout) ==================== -->
   <div id="app-screen" class="screen hidden">
-    <!-- Sidebar (Rooms) -->
-    <div id="sidebar" class="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-brand">
-          <svg width="28" height="28" viewBox="0 0 100 100">
-            <defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#6366f1"/><stop offset="100%" style="stop-color:#22d3ee"/></linearGradient></defs>
-            <rect width="100" height="100" rx="24" fill="url(#grad3)"/>
-            <path d="M25 35 L50 20 L75 35 L75 55 C75 70 50 85 50 85 C50 85 25 70 25 55Z" fill="white" opacity="0.95"/>
-          </svg>
-          <span>TalkBuzz</span>
+    <div class="app-container">
+
+      <!-- ===== HOME TAB ===== -->
+      <div id="tab-home" class="tab-panel active">
+        <div class="tab-header">
+          <h1 class="tab-title">TalkBuzz</h1>
+          <button class="icon-btn" onclick="showNewRoomModal()" title="New Chat">✏️</button>
         </div>
-        <button id="btn-new-room" class="icon-btn" title="New Room">+</button>
-      </div>
-      <div class="sidebar-search">
-        <input type="text" id="search-rooms" placeholder="Search rooms..." autocomplete="off">
-      </div>
-      <div id="room-list" class="room-list"></div>
-      <div class="sidebar-footer">
-        <div id="user-info" class="user-info">
-          <div id="user-avatar" class="user-avatar"></div>
-          <div class="user-details">
-            <div id="user-name" class="user-name"></div>
-            <div id="user-status" class="user-status-text">Online</div>
+        <div class="tab-search">
+          <div class="search-bar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="home-search" placeholder="Search chats..." autocomplete="off">
           </div>
         </div>
-        <div class="footer-actions">
-          <button id="btn-admin" class="icon-btn hidden" title="Admin Panel">⚙️</button>
-          <button id="btn-settings" class="icon-btn" title="Settings">👤</button>
-          <button id="btn-logout" class="icon-btn" title="Logout">🚪</button>
+        <div id="chat-list" class="chat-list">
+          <div class="empty-tab">
+            <div class="empty-tab-icon">💬</div>
+            <p>No chats yet</p>
+            <span>Tap ✏️ to start a new conversation</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Chat Area -->
-    <div id="chat-area" class="chat-area">
-      <div id="empty-state" class="empty-state">
-        <svg width="120" height="120" viewBox="0 0 100 100" opacity="0.3">
-          <rect width="100" height="100" rx="24" fill="#6366f1"/>
-          <path d="M25 35 L50 20 L75 35 L75 55 C75 70 50 85 50 85 C50 85 25 70 25 55Z" fill="white" opacity="0.5"/>
-        </svg>
-        <h2>Welcome to TalkBuzz</h2>
-        <p>Select a room or create a new one to start chatting</p>
-      </div>
-      <div id="chat-header" class="chat-header hidden">
-        <button id="btn-back" class="icon-btn mobile-only">←</button>
-        <div class="chat-header-info">
-          <div id="chat-room-name" class="chat-room-name"></div>
-          <div id="chat-room-status" class="chat-room-status"></div>
+      <!-- ===== SEARCH TAB ===== -->
+      <div id="tab-search" class="tab-panel">
+        <div class="tab-header">
+          <h1 class="tab-title">Find People</h1>
         </div>
-        <div class="chat-header-actions">
-          <button id="btn-room-info" class="icon-btn">ℹ️</button>
+        <div class="tab-search">
+          <div class="search-bar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="people-search" placeholder="Search by name, username, or email..." autocomplete="off">
+          </div>
+        </div>
+        <div id="people-list" class="people-list">
+          <div class="empty-tab">
+            <div class="empty-tab-icon">🔍</div>
+            <p>Search for people</p>
+            <span>Find users by name, username, or email</span>
+          </div>
         </div>
       </div>
-      <div id="messages-container" class="messages-container hidden">
-        <div id="messages" class="messages"></div>
-      </div>
-      <div id="typing-indicator" class="typing-indicator hidden">
-        <span id="typing-text"></span>
-        <div class="typing-dots"><span></span><span></span><span></span></div>
-      </div>
-      <div id="message-input-area" class="message-input-area hidden">
-        <div class="input-wrapper">
-          <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
-          <button id="btn-send" class="send-btn" disabled>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+
+      <!-- ===== PROFILE TAB ===== -->
+      <div id="tab-profile" class="tab-panel">
+        <div class="tab-header">
+          <h1 class="tab-title">Profile</h1>
+        </div>
+        <div class="profile-content">
+          <div class="profile-card">
+            <div class="profile-avatar" id="profile-avatar"></div>
+            <h2 class="profile-name" id="profile-name">User</h2>
+            <p class="profile-email" id="profile-email">user@email.com</p>
+            <span class="profile-username" id="profile-username">@username</span>
+          </div>
+
+          <div class="profile-section">
+            <h3>Bio</h3>
+            <div class="bio-editor">
+              <textarea id="bio-input" placeholder="Write something about yourself..." maxlength="200" rows="3"></textarea>
+              <div class="bio-actions">
+                <span id="bio-char-count" class="bio-char-count">0/200</span>
+                <button class="btn-sm primary-btn" onclick="saveBio()">Save Bio</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h3>Account</h3>
+            <div class="profile-menu">
+              <button class="menu-item" onclick="showChangePasswordModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                <span>Change Password</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button class="menu-item" onclick="toggleNotifications()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                <span>Notifications</span>
+                <span class="menu-toggle" id="notif-toggle">ON</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h3>Links</h3>
+            <div class="profile-menu">
+              <a href="https://github.com/shubham001312" target="_blank" class="menu-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                <span>GitHub · @shubham001312</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="https://linkedin.com/in/shubham-mallick-061298378" target="_blank" class="menu-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                <span>LinkedIn · Shubham Mallick</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a href="https://shubham001312.github.io/Shubham-Mallick/" target="_blank" class="menu-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                <span>Portfolio</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h3>About</h3>
+            <p class="about-text">TalkBuzz v2.0 — Real-time chat with read receipts, typing indicators, offline support, and admin controls.</p>
+            <p class="version-text">Built with ❤️ by Shubham Mallick</p>
+          </div>
+
+          <button class="logout-btn" onclick="logout()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
           </button>
+        </div>
+      </div>
+
+      <!-- ===== BOTTOM TAB BAR ===== -->
+      <nav class="tab-bar">
+        <button class="tab-btn active" data-tab="home" onclick="switchTab('home')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span>Chats</span>
+        </button>
+        <button class="tab-btn" data-tab="search" onclick="switchTab('search')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search</span>
+        </button>
+        <button class="tab-btn" data-tab="profile" onclick="switchTab('profile')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Profile</span>
+        </button>
+      </nav>
+
+      <!-- ===== CHAT VIEW (Full-screen overlay) ===== -->
+      <div id="chat-view" class="chat-view hidden">
+        <div class="chat-view-header">
+          <button class="icon-btn" onclick="closeChatView()">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="chat-view-info">
+            <div class="chat-view-name" id="chat-view-name">Room</div>
+            <div class="chat-view-status" id="chat-view-status">Online</div>
+          </div>
+          <button class="icon-btn" id="btn-chat-admin" onclick="openAdminModal()">⚙️</button>
+        </div>
+        <div id="messages-container" class="messages-container">
+          <div id="messages" class="messages"></div>
+        </div>
+        <div id="typing-indicator" class="typing-indicator hidden">
+          <span id="typing-text"></span>
+          <div class="typing-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="message-input-area">
+          <div class="input-wrapper">
+            <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+            <button id="btn-send" class="send-btn" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -289,10 +350,7 @@
   <!-- Admin Panel Modal -->
   <div id="admin-modal" class="modal-overlay hidden">
     <div class="modal admin-modal">
-      <div class="modal-header">
-        <h2>⚙️ Admin Panel</h2>
-        <button class="modal-close" onclick="closeAdminModal()">✕</button>
-      </div>
+      <div class="modal-header"><h2>⚙️ Admin Panel</h2><button class="modal-close" onclick="closeAdminModal()">✕</button></div>
       <div class="admin-tabs">
         <button class="admin-tab active" data-tab="broadcast">📢 Broadcast</button>
         <button class="admin-tab" data-tab="users">👥 Users</button>
@@ -302,43 +360,31 @@
     </div>
   </div>
 
-  <!-- Settings Modal -->
-  <div id="settings-modal" class="modal-overlay hidden">
-    <div class="modal settings-modal">
-      <div class="modal-header">
-        <h2>👤 Settings</h2>
-        <button class="modal-close" onclick="closeSettingsModal()">✕</button>
-      </div>
-      <div class="settings-content">
-        <div id="settings-profile" class="settings-section"></div>
-        <div class="settings-section">
-          <h3>ℹ️ About TalkBuzz</h3>
-          <p class="about-text">A real-time chat application built with Firebase. Features include read receipts, typing indicators, offline support, and admin controls.</p>
-          <p class="version-text">Version 2.0.0 · June 2026</p>
+  <!-- New Room Modal -->
+  <div id="new-room-modal" class="modal-overlay hidden">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header"><h2>✏️ New Chat</h2><button class="modal-close" onclick="closeNewRoomModal()">✕</button></div>
+      <div style="padding:20px">
+        <div class="auth-input-group">
+          <label for="new-room-name">Room Name</label>
+          <div class="auth-input-wrapper">
+            <svg class="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <input type="text" id="new-room-name" placeholder="e.g. General, Friends, Project..." maxlength="30" autocomplete="off">
+          </div>
         </div>
-        <div class="settings-section">
-          <h3>🔗 Links</h3>
-          <a href="https://github.com/shubham001312" target="_blank" class="settings-link">GitHub · @shubham001312</a>
-          <a href="https://linkedin.com/in/shubham-mallick-061298378" target="_blank" class="settings-link">LinkedIn · Shubham Mallick</a>
-          <a href="https://shubham001312.github.io/Shubham-Mallick/" target="_blank" class="settings-link">🌐 Portfolio · shubham001312.github.io</a>
-        </div>
-        <div class="settings-footer">
-          <p>Built with ❤️ by <a href="https://github.com/shubham001312" target="_blank">Shubham Mallick</a></p>
-        </div>
+        <button class="primary-btn" style="width:100%;margin-top:8px" onclick="createRoomFromModal()">Create Room</button>
       </div>
     </div>
   </div>
 
-  <!-- New Room Modal -->
-  <div id="new-room-modal" class="modal-overlay hidden">
-    <div class="modal new-room-modal">
-      <div class="modal-header">
-        <h2>➕ New Room</h2>
-        <button class="modal-close" onclick="closeNewRoomModal()">✕</button>
-      </div>
-      <div class="new-room-form">
-        <input type="text" id="new-room-name" placeholder="Room name" maxlength="30">
-        <button id="btn-create-room" class="auth-btn">Create Room</button>
+  <!-- Change Password Modal -->
+  <div id="change-pw-modal" class="modal-overlay hidden">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header"><h2>🔑 Change Password</h2><button class="modal-close" onclick="closeChangePasswordModal()">✕</button></div>
+      <div style="padding:20px">
+        <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">We'll send a password reset link to your email.</p>
+        <button class="primary-btn" style="width:100%" onclick="sendPasswordResetForUser()">Send Reset Link</button>
+        <div id="change-pw-status" class="forgot-status"></div>
       </div>
     </div>
   </div>
@@ -352,6 +398,8 @@
   <script src="js/rooms.js"></script>
   <script src="js/chat.js"></script>
   <script src="js/admin.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/profile.js"></script>
   <script src="js/app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {

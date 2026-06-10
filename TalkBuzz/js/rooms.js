@@ -1,5 +1,6 @@
 // ============================================
-// TalkBuzz — Room Management
+// TalkBuzz v3.0 — Chat List (Home Tab)
+// WhatsApp-style chat list with avatars, last message, time
 // ============================================
 
 let currentRoomId = null;
@@ -29,20 +30,30 @@ async function createRoom(name) {
       lastMessage: null
     });
 
-    // Add creator as member
     await FB.set(FB.ref(FB.db, `room_members/${roomId}/${currentUser.uid}`), {
       joinedAt: FB.serverTimestamp(),
       lastRead: FB.serverTimestamp()
     });
 
     showToast('Room created! 🎉', 'success');
-    selectRoom(roomId);
     return roomId;
   } catch (error) {
     console.error('Create room error:', error);
-    showToast('Failed to create room. Please try again.', 'error');
+    showToast('Failed to create room', 'error');
     return null;
   }
+}
+
+function loadRoomList() {
+  const container = document.getElementById('chat-list');
+  if (!container) return;
+
+  // Clean up old listeners before creating new ones
+  cleanupRoomListeners();
+
+  listenToRooms((rooms) => {
+    renderChatList(container, rooms);
+  });
 }
 
 function listenToRooms(callback) {
@@ -52,6 +63,7 @@ function listenToRooms(callback) {
     snap.forEach(child => {
       rooms.push({ id: child.key, ...child.val() });
     });
+    // Sort by last message time (newest first)
     rooms.sort((a, b) => {
       const aTime = a.lastMessage?.timestamp || a.createdAt || 0;
       const bTime = b.lastMessage?.timestamp || b.createdAt || 0;
@@ -60,60 +72,53 @@ function listenToRooms(callback) {
     callback(rooms);
   }, (error) => {
     console.error('Rooms listener error:', error);
-    showToast('Failed to load rooms', 'error');
   });
   roomListeners.push({ ref: roomsRef, unsub });
 }
 
-async function selectRoom(roomId) {
-  if (!roomId) return;
-  currentRoomId = roomId;
+function renderChatList(container, rooms) {
+  if (!container) return;
 
-  // Clean up old room name listener
-  if (roomNameUnsub) { roomNameUnsub(); roomNameUnsub = null; }
-
-  // Mark as read
-  if (currentUser) {
-    const memberRef = FB.ref(FB.db, `room_members/${roomId}/${currentUser.uid}/lastRead`);
-    await FB.set(memberRef, FB.serverTimestamp()).catch(err => {
-      console.warn('Mark as read failed:', err);
-    });
+  if (rooms.length === 0) {
+    container.innerHTML = `
+      <div class="empty-tab">
+        <div class="empty-tab-icon">💬</div>
+        <p>No chats yet</p>
+        <span>Tap ✏️ to start a new conversation</span>
+      </div>`;
+    return;
   }
 
-  // Update UI
-  document.querySelectorAll('.room-item').forEach(el => {
-    el.classList.toggle('active', el.dataset.roomId === roomId);
-  });
+  container.innerHTML = rooms.map(room => {
+    const lastMsg = room.lastMessage;
+    const lastMsgText = lastMsg ? `${lastMsg.senderName || ''}: ${lastMsg.text || ''}` : 'No messages yet';
+    const timeStr = lastMsg ? formatTime(lastMsg.timestamp) : '';
+    const isActive = room.id === currentRoomId;
 
-  // Show chat UI
-  document.getElementById('empty-state')?.classList.add('hidden');
-  document.getElementById('chat-header')?.classList.remove('hidden');
-  document.getElementById('messages-container')?.classList.remove('hidden');
-  document.getElementById('message-input-area')?.classList.remove('hidden');
+    // For DM rooms, try to show the other user's avatar
+    const isDM = room.type === 'dm';
+    const avatarHtml = isDM
+      ? `<div class="chat-avatar"><span>${getInitials(room.name)}</span><span class="dm-dot online"></span></div>`
+      : `<div class="chat-avatar" style="background:linear-gradient(135deg,#f97316,#eab308)"><span>🏠</span></div>`;
 
-  // Load room name
-  const roomRef = FB.ref(FB.db, `rooms/${roomId}`);
-  roomNameUnsub = FB.onValue(roomRef, (snap) => {
-    const room = snap.val();
-    if (room) {
-      document.getElementById('chat-room-name').textContent = room.name;
-      document.getElementById('chat-room-status').textContent = room.type === 'group' ? 'Group Chat' : 'Direct Message';
-    }
-  }, (error) => {
-    console.warn('Room name listener error:', error);
-  });
-
-  // Load messages
-  loadMessages(roomId);
-
-  // Mobile: hide sidebar
-  if (window.innerWidth <= 768) {
-    document.getElementById('sidebar')?.classList.add('hidden-mobile');
-  }
+    return `
+      <div class="chat-item ${isActive ? 'active' : ''}" onclick="openChatView('${room.id}')">
+        ${avatarHtml}
+        <div class="chat-content">
+          <div class="chat-top">
+            <span class="chat-name">${escapeHtml(room.name || 'Room')}</span>
+            <span class="chat-time">${timeStr}</span>
+          </div>
+          <div class="chat-bottom">
+            <span class="chat-last-msg">${escapeHtml(lastMsgText)}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
 }
 
 function goToRoomList() {
-  document.getElementById('sidebar')?.classList.remove('hidden-mobile');
+  closeChatView();
 }
 
 function cleanupRoomListeners() {
