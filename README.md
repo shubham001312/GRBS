@@ -5,9 +5,7 @@
 ### *Your complete 18-phase roadmap from zero to production-grade AI engineer*
 
 [![Website](https://img.shields.io/badge/🌐_Visit-Site-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/shubham001312/GRBS)
-[![GitHub Stars](https://img.shields.io/github/stars/shubham001312/GRBS?style=for-the-badge&color=yellow)](https://github.com/shubham001312/GRBS/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/shubham001312/GRBS?style=for-the-badge&color=purple)](https://github.com/shubham001312/GRBS/network/members)
-[![License](https://img.shields.io/github/license/shubham001312/GRBS?style=for-the-badge&color=green)](https://github.com/shubham001312/GRBS/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/shubham001312/GRBS?style=for-the-badge&color=yellow)](https://img.shields.io/github/license/shubham001312/GRBS?style=for-the-badge&color=green)](https://github.com/shubham001312/GRBS/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge)](https://github.com/shubham001312/GRBS/pulls)
 [![Contributions](https://img.shields.io/badge/Contributions-Welcome-orange?style=for-the-badge)](https://github.com/shubham001312/GRBS/blob/main/CONTRIBUTING.md)
 
