@@ -99,10 +99,12 @@ function updateProjectStatus(projectId, newStatus) {
     project.status = newStatus;
     if (newStatus === 'done') {
       showToast('🎉 Project marked as Done!', 'success');
+      triggerMilestoneConfetti();
     } else if (newStatus === 'deployed') {
       showToast('🚀 Project deployed!', 'success');
-      triggerConfetti();
+      triggerBigConfetti();
     }
+    saveState();
     renderProjects();
   }
 }

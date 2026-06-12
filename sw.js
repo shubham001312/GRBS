@@ -1,11 +1,10 @@
-// GRBS PWA Service Worker — v4.1
-// Updated: June 12, 2026 — cloud sync, notes, weekly digest, AI timeline
+// GRBS PWA Service Worker - v5.0
+// Updated: June 12, 2026 - 12 new UI features
 
-// Increment this version on every deployment to force cache invalidation
-const APP_VERSION = '4.1.0';
-const CACHE_NAME = `grbs-cache-${APP_VERSION}`;
-const PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
-const STATIC_ASSETS = [
+var APP_VERSION = '5.0.0';
+var CACHE_NAME = 'grbs-cache-' + APP_VERSION;
+var PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
+var STATIC_ASSETS = [
   './',
   './index.html',
   './css/styles.css',
@@ -21,6 +20,16 @@ const STATIC_ASSETS = [
   './js/notes.js',
   './js/weekly-digest.js',
   './js/ai-timeline.js',
+  './js/command-palette.js',
+  './js/achievements.js',
+  './js/smart-recommendations.js',
+  './js/difficulty-predictor.js',
+  './js/resource-ratings.js',
+  './js/command-palette.js',
+  './js/achievements.js',
+  './js/smart-recommendations.js',
+  './js/difficulty-predictor.js',
+  './js/resource-ratings.js',
   './js/app.js',
   './manifest.json',
   './assets/icon-192.png',
@@ -29,92 +38,61 @@ const STATIC_ASSETS = [
   './assets/icon-512.svg'
 ];
 
-// External CDN assets to cache
-const CDN_ASSETS = [
+var CDN_ASSETS = [
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Lora:wght@400;500;600;700&display=swap',
   'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
   'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js'
 ];
 
-// Install — cache all static assets
-self.addEventListener('install', event => {
-  console.log(`[SW] Installing v${APP_VERSION}`);
+self.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(STATIC_ASSETS).then(() => {
-        return Promise.allSettled(
-          CDN_ASSETS.map(url => cache.add(url).catch(() => null))
-        );
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(STATIC_ASSETS).then(function() {
+        return Promise.allSettled(CDN_ASSETS.map(function(url) { return cache.add(url).catch(function() { return null; }); }));
       });
     })
   );
-  // Activate immediately without waiting for old SW to die
   self.skipWaiting();
 });
 
-// Activate — clean up ALL old caches and notify tabs
-self.addEventListener('activate', event => {
-  console.log(`[SW] Activating v${APP_VERSION}`);
+self.addEventListener('activate', function(event) {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key === CACHE_NAME ? false : key.startsWith(PREVIOUS_CACHE_PREFIX) || key === 'grbs-v1' || key === 'grbs-v2')
-          .map(key => {
-            console.log(`[SW] Deleting old cache: ${key}`);
-            return caches.delete(key);
-          })
-      )
-    ).then(() => self.clients.claim())
-    .then(() => self.clients.matchAll({ type: 'window' }))
-    .then(clients => {
-      clients.forEach(client => {
-        client.postMessage({ type: 'SW_UPDATED', version: APP_VERSION });
-      });
+    caches.keys().then(function(keys) {
+      return Promise.all(
+        keys.filter(function(key) { return key !== CACHE_NAME && (key.indexOf(PREVIOUS_CACHE_PREFIX) === 0 || key === 'grbs-v1' || key === 'grbs-v2'); }).map(function(key) { return caches.delete(key); })
+      );
+    }).then(function() { return self.clients.claim(); })
+    .then(function() { return self.clients.matchAll({ type: 'window' }); })
+    .then(function(clients) {
+      clients.forEach(function(client) { client.postMessage({ type: 'SW_UPDATED', version: APP_VERSION }); });
     })
   );
 });
 
-// Fetch — cache-first for static assets, network-first for everything else
-self.addEventListener('fetch', event => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  // Only handle same-origin requests for caching
-  // Let cross-origin requests pass through (CDN fonts, etc.)
-  if (url.origin !== location.origin && !CDN_ASSETS.some(a => request.url.startsWith(a.split('?')[0]))) {
-    return;
-  }
-
-  // For navigation requests (HTML pages), try network first, fall back to cache
+self.addEventListener('fetch', function(event) {
+  var request = event.request;
+  var url = new URL(request.url);
+  if (url.origin !== location.origin) return;
   if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(request)
-        .then(response => {
-          // Cache the fresh HTML
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-          return response;
-        })
-        .catch(() => caches.match('./index.html'))
+      fetch(request).then(function(response) {
+        var clone = response.clone();
+        caches.open(CACHE_NAME).then(function(cache) { cache.put(request, clone); });
+        return response;
+      }).catch(function() { return caches.match('./index.html'); })
     );
     return;
   }
-
-  // For static assets and CDN resources — cache first, network fallback
   event.respondWith(
-    caches.match(request).then(cached => {
+    caches.match(request).then(function(cached) {
       if (cached) return cached;
-
-      return fetch(request).then(response => {
-        // Cache successful responses for same-origin or CDN
+      return fetch(request).then(function(response) {
         if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+          var clone = response.clone();
+          caches.open(CACHE_NAME).then(function(cache) { cache.put(request, clone); });
         }
         return response;
-      }).catch(() => {
-        // Offline and not in cache — return a simple offline response
+      }).catch(function() {
         if (request.destination === 'script' || request.destination === 'style') {
           return new Response('/* Offline */', {
             headers: { 'Content-Type': request.destination === 'script' ? 'application/javascript' : 'text/css' }
@@ -125,13 +103,7 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Listen for messages from the main thread
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    console.log('[SW] Skip waiting requested');
-    self.skipWaiting();
-  }
-  if (event.data && event.data.type === 'GET_VERSION') {
-    event.ports[0]?.postMessage({ version: APP_VERSION });
-  }
+self.addEventListener('message', function(event) {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
+  if (event.data && event.data.type === 'GET_VERSION' && event.ports && event.ports[0]) event.ports[0].postMessage({ version: APP_VERSION });
 });

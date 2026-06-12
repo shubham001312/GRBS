@@ -154,6 +154,10 @@ function markMilestoneDone(phaseId, milestoneId) {
   if (!stateData) return;
   
   stateData.milestonesDone[milestoneId] = !stateData.milestonesDone[milestoneId];
+  if (stateData.milestonesDone[milestoneId]) {
+    showToast('🏆 Milestone achieved!', 'gold');
+    triggerMilestoneConfetti();
+  }
   saveState();
 }
 
@@ -454,4 +458,70 @@ function getActivityData() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEYS.activity) || '{}');
   } catch (e) { return {}; }
+}
+
+// ============================================
+// ESTIMATED COMPLETION DATE
+// ============================================
+
+function getEstimatedCompletionDate() {
+  var activityData = getActivityData();
+  var today = new Date();
+  var totalRemaining = 0;
+  PHASES.forEach(function(phase) {
+    var stateData = appState.phases.find(function(p) { return p.id === phase.id; });
+    phase.topics.forEach(function(t) {
+      if (!stateData || !stateData.topicsDone[t.id]) {
+        totalRemaining += (t.hours || 4);
+      }
+    });
+  });
+  var recentTopics = 0;
+  for (var i = 0; i < 28; i++) {
+    var d = new Date(today);
+    d.setDate(d.getDate() - i);
+    var dateStr = d.toISOString().split('T')[0];
+    recentTopics += (activityData[dateStr] || 0);
+  }
+  var avgHoursPerDay = recentTopics > 0 ? (totalRemaining / Math.max(recentTopics, 1)) * 4 : 4;
+  var daysNeeded = Math.ceil(totalRemaining / 4);
+  if (recentTopics > 0) {
+    var daysForRecent = 28;
+    var topicsPerDay = recentTopics / daysForRecent;
+    daysNeeded = Math.ceil(totalRemaining / (topicsPerDay * 4));
+  }
+  var completionDate = new Date(today);
+  completionDate.setDate(completionDate.getDate() + Math.min(daysNeeded, 1825));
+  return {
+    date: completionDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+    daysLeft: Math.min(daysNeeded, 1825),
+    hoursLeft: totalRemaining
+  };
+}
+
+function renderEstimatedCompletion(containerId) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  var est = getEstimatedCompletionDate();
+  container.innerHTML = '<div class="career-path"><h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">📅 Estimated Completion</h3><div style="display:flex;gap:12px;flex-wrap:wrap;"><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.date + '</div><div class="stat-lbl">Projected Date</div></div><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.daysLeft + '</div><div class="stat-lbl">Days Left</div></div><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.hoursLeft + 'h</div><div class="stat-lbl">Hours Left</div></div></div></div>';
+}
+
+// ============================================
+// ENHANCED MILESTONE CONFETTI
+// ============================================
+
+function triggerMilestoneConfetti() {
+  if (typeof confetti === 'function') {
+    confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#22D3A5', '#F59E0B', '#E84545'] });
+  }
+}
+
+function triggerBigConfetti() {
+  if (typeof confetti === 'function') {
+    confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 }, colors: ['#22D3A5', '#F59E0B', '#E84545', '#818cf8'] });
+    setTimeout(function() {
+      confetti({ particleCount: 80, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#22D3A5', '#F59E0B'] });
+      confetti({ particleCount: 80, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#E84545', '#818cf8'] });
+    }, 200);
+  }
 }

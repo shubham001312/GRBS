@@ -53,9 +53,10 @@ function showApp() {
   if (content) content.style.display = '';
   if (nav) nav.style.display = '';
 
-  // Set up navigation and search first
+  // Set up navigation, search, and command palette
   setupNavigation();
   setupSearch();
+  if (typeof setupCommandPalette === 'function') setupCommandPalette();
 
   // Switch to the saved tab (or default to dashboard)
   const savedTab = appState.currentTab || 'dashboard';
@@ -174,3 +175,117 @@ function goToSearchResult(phaseId) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 100);
 }
+
+// ============================================
+// KEYBOARD SHORTCUTS
+// ============================================
+
+document.addEventListener('keydown', function(e) {
+  // Only handle if no input/textarea is focused
+  var tag = document.activeElement ? document.activeElement.tagName : '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+  // Tab switching with number keys
+  if (e.key === '1') { switchTab('dashboard'); }
+  if (e.key === '2') { switchTab('roadmap'); }
+  if (e.key === '3') { switchTab('projects'); }
+  if (e.key === '4') { switchTab('progress'); }
+  if (e.key === '5') { switchTab('goals'); }
+  if (e.key === '6') { switchTab('about'); }
+  if (e.key === '/') { e.preventDefault(); document.getElementById('search-input') && document.getElementById('search-input').focus(); }
+});
+
+// ============================================
+// TOUCH GESTURES
+// ============================================
+
+(function() {
+  var touchStartX = 0;
+  var touchStartY = 0;
+  var touchEndX = 0;
+  var touchEndY = 0;
+  var tabOrder = ['dashboard', 'roadmap', 'projects', 'progress', 'goals', 'about'];
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    var diffX = touchEndX - touchStartX;
+    var diffY = touchEndY - touchStartY;
+    if (Math.abs(diffX) < 60 || Math.abs(diffY) > Math.abs(diffX)) return;
+    if (Math.abs(diffX) < 100) return;
+    var currentIdx = tabOrder.indexOf(appState.currentTab);
+    if (currentIdx === -1) currentIdx = 0;
+    if (diffX < 0 && currentIdx < tabOrder.length - 1) {
+      switchTab(tabOrder[currentIdx + 1]);
+    } else if (diffX > 0 && currentIdx > 0) {
+      switchTab(tabOrder[currentIdx - 1]);
+    }
+  }
+})();
+
+// ============================================
+// COMMAND PALETTE (Ctrl+K)
+// ============================================
+
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    toggleCommandPalette();
+  }
+  if (e.key === 'Escape') {
+    closeCommandPalette();
+  }
+});
+
+// ============================================
+// TOUCH GESTURES (Swipe to switch tabs)
+// ============================================
+
+var touchStartX = 0;
+var touchStartY = 0;
+var touchStartTime = 0;
+var isSwiping = false;
+
+document.addEventListener('touchstart', function(e) {
+  if (e.target.closest('.command-palette-overlay') || e.target.closest('input') || e.target.closest('textarea') || e.target.closest('select')) return;
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  touchStartTime = Date.now();
+  isSwiping = false;
+}, { passive: true });
+
+document.addEventListener('touchmove', function(e) {
+  if (touchStartX === 0) return;
+  var dx = e.touches[0].clientX - touchStartX;
+  var dy = e.touches[0].clientY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) {
+    isSwiping = true;
+  }
+}, { passive: true });
+
+document.addEventListener('touchend', function(e) {
+  if (!isSwiping) return;
+  var touchEndX = e.changedTouches[0].clientX;
+  var dx = touchEndX - touchStartX;
+  var elapsed = Date.now() - touchStartTime;
+  touchStartX = 0;
+  touchStartY = 0;
+  isSwiping = false;
+  if (elapsed > 500) return;
+  var tabOrder = ['dashboard', 'roadmap', 'projects', 'progress', 'goals', 'about'];
+  var currentIdx = tabOrder.indexOf(appState.currentTab);
+  if (dx < -60 && currentIdx < tabOrder.length - 1) {
+    switchTab(tabOrder[currentIdx + 1]);
+  } else if (dx > 60 && currentIdx > 0) {
+    switchTab(tabOrder[currentIdx - 1]);
+  }
+}, { passive: true });
