@@ -1,8 +1,8 @@
-// GRBS PWA Service Worker — v4.0
-// Updated: June 12, 2026 — refined roadmap v4.0 with Personal AI Assistant thread
+// GRBS PWA Service Worker — v4.1
+// Updated: June 12, 2026 — cloud sync, notes, weekly digest, AI timeline
 
 // Increment this version on every deployment to force cache invalidation
-const APP_VERSION = '4.0.0';
+const APP_VERSION = '4.1.0';
 const CACHE_NAME = `grbs-cache-${APP_VERSION}`;
 const PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
 const STATIC_ASSETS = [
@@ -17,6 +17,10 @@ const STATIC_ASSETS = [
   './js/progress.js',
   './js/goals.js',
   './js/about.js',
+  './js/gist-sync.js',
+  './js/notes.js',
+  './js/weekly-digest.js',
+  './js/ai-timeline.js',
   './js/app.js',
   './manifest.json',
   './assets/icon-192.png',

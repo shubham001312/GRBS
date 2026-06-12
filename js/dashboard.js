@@ -96,6 +96,22 @@ function renderDashboard() {
       `).join('')}
     </div>` : ''}
 
+    <!-- Weekly Digest -->
+    <div class="section-title">📋 Weekly Digest</div>
+    <div id="weekly-digest"></div>
+
+    <!-- AI Assistant Timeline -->
+    <div class="section-title">🤖 AI Assistant Evolution</div>
+    <div id="ai-timeline"></div>
+
+    <!-- Recent Notes -->
+    <div class="section-title">📝 Recent Notes</div>
+    <div id="recent-notes"></div>
+
+    <!-- Cloud Sync -->
+    <div class="section-title">☁️ Cloud Sync</div>
+    <div id="gist-sync-section"></div>
+
     <!-- Export / Import -->
     <div class="section-title">⚙️ Data</div>
     <div class="toolbar">
@@ -104,6 +120,14 @@ function renderDashboard() {
       <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
     </div>
   `;
+
+  // Render async sections after DOM
+  setTimeout(() => {
+    renderWeeklyDigest('weekly-digest');
+    renderAITimeline('ai-timeline');
+    renderRecentNotes('recent-notes', 5);
+    gistSyncSetup();
+  }, 100);
 }
 
 // renderMeter is defined in state.js as a shared utility

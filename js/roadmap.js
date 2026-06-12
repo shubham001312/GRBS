@@ -63,18 +63,23 @@ function renderPhaseCard(phase) {
 
         <!-- Topics -->
         <div class="section-title">📖 Topics</div>
-        ${phase.topics.map(topic => `
-          <div class="topic-row ${stateData?.topicsDone[topic.id] ? 'done' : ''}">
+        ${phase.topics.map(topic => {
+          const hasNote = getNote(topic.id).text ? true : false;
+          return `
+          <div class="topic-row ${stateData?.topicsDone[topic.id] ? 'done' : ''}" data-topic-id="${topic.id}">
             <div class="topic-check">
               <input type="checkbox" ${stateData?.topicsDone[topic.id] ? 'checked' : ''}
                 onchange="markTopicDone(${phase.id},'${topic.id}')">
             </div>
             <div class="topic-info">
               <div class="topic-name">${topic.title}</div>
-              <div style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);">${topic.hours}h</div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);">${topic.hours}h</span>
+                <span onclick="event.stopPropagation();toggleNoteEditor('${topic.id}',${phase.id})" style="cursor:pointer;font-size:12px;" title="Add note">${hasNote ? '📝' : '📓'}</span>
+              </div>
             </div>
           </div>
-        `).join('')}
+        `;}).join('')}
 
         <!-- Resources -->
         <div class="resources-section">
