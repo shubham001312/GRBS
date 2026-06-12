@@ -37,21 +37,21 @@ function renderDashboard() {
 
   container.innerHTML += '<div class="stats-row"><div class="stat-chip"><div class="stat-val">' + topicsDone + '/' + totalTopics + '</div><div class="stat-lbl">Topics</div></div><div class="stat-chip"><div class="stat-val">' + projectsDone + '/' + totalProjects + '</div><div class="stat-lbl">Projects</div></div><div class="stat-chip"><div class="stat-val">🔥 ' + appState.streak + '</div><div class="stat-lbl">Day Streak</div></div></div>';
 
-  container.innerHTML += '<div class="section-title">📈 Readiness Scores</div><div class="meter-group">' + renderMeter('Internship Readiness', readiness.internship) + renderMeter('Placement Readiness', readiness.placement) + renderMeter('AI Engineer Readiness', readiness.aiEngineer) + renderMeter('LLM Engineer Readiness', readiness.llmEngineer) + renderMeter('GPT Builder Readiness', readiness.gptBuilder) + renderMeter('Interview Readiness', readiness.interview) + renderMeter('Project Portfolio', readiness.projectPortfolio) + '</div>';
+  container.innerHTML += '<div class="section-title">Readiness Scores</div><div class="meter-group">' + renderMeter('Internship Readiness', readiness.internship) + renderMeter('Placement Readiness', readiness.placement) + renderMeter('AI Engineer Readiness', readiness.aiEngineer) + renderMeter('LLM Engineer Readiness', readiness.llmEngineer) + renderMeter('GPT Builder Readiness', readiness.gptBuilder) + renderMeter('Interview Readiness', readiness.interview) + renderMeter('Project Portfolio', readiness.projectPortfolio) + '</div>';
 
   if (focusTopics.length > 0) {
     container.innerHTML += '<div class="focus-panel"><div class="focus-title">Today\'s Focus - Phase ' + activePhase.id + '</div>' + focusTopics.map(function(t) { return '<div class="focus-item"><span class="fi-name">' + t.title + '</span><button class="fi-btn" onclick="markTopicDone(' + t.phaseId + ',\'' + t.id + '\')">Mark Done</button></div>'; }).join('') + '</div>';
   }
 
-  container.innerHTML += '<div class="section-title">📅 Estimated Completion</div><div id="estimated-completion"></div>';
-  container.innerHTML += '<div class="section-title">🧠 Smart Recommendations</div><div id="smart-recs"></div>';
+  container.innerHTML += '<div class="section-title">Estimated Completion</div><div id="estimated-completion"></div>';
+  container.innerHTML += '<div class="section-title">Smart Recommendations</div><div id="smart-recs"></div>';
   container.innerHTML += '<div class="section-title">📐 Difficulty Predictor</div><div id="difficulty-pred"></div>';
-  container.innerHTML += '<div class="section-title">🏅 Achievements</div><div id="achievements-section"></div>';
+  container.innerHTML += '<div class="section-title">Achievements</div><div id="achievements-section"></div>';
   container.innerHTML += '<div class="section-title">📋 Weekly Digest</div><div id="weekly-digest"></div>';
-  container.innerHTML += '<div class="section-title">🤖 AI Assistant Evolution</div><div id="ai-timeline"></div>';
-  container.innerHTML += '<div class="section-title">📝 Recent Notes</div><div id="recent-notes"></div>';
-  container.innerHTML += '<div class="section-title">+ Cloud Sync</div><div id="gist-sync-section"></div>';
-  container.innerHTML += '<div class="section-title">+ Data</div><div class="toolbar"><button onclick="exportData()">Export JSON</button><button onclick="document.getElementById(\"import-file\").click()">Import JSON</button><input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)"></div>';
+  container.innerHTML += '<div class="section-title">AI Assistant Evolution</div><div id="ai-timeline"></div>';
+  container.innerHTML += '<div class="section-title">Recent Notes</div><div id="recent-notes"></div>';
+  container.innerHTML += '<div class="section-title">Cloud Sync</div><div id="gist-sync-section"></div>';
+  container.innerHTML += '<div class="section-title">Data</div><div class="toolbar"><button onclick="exportData()">Export JSON</button><button onclick="document.getElementById(\"import-file\").click()">Import JSON</button><input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)"></div>';
 
   setTimeout(function() {
     renderEstimatedCompletion('estimated-completion');
