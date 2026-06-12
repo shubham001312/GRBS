@@ -16,7 +16,7 @@ function renderDependencyGraph() {
     var completion = getPhaseCompletion(phase.id);
     var status = getPhaseStatus(phase.id);
     var cls = status === 'completed' ? 'completed' : (status === 'active' || status === 'inprogress') ? 'active' : 'locked';
-    lines.push('<div class="dep-graph-node ' + cls + '" onclick="expandedPhase=' + phase.id + ';renderRoadmap();">' + phase.emoji + ' P' + phase.id + ' ' + completion + '%</div>');
+    lines.push('<div class="dep-graph-node ' + cls + '" onclick="expandedPhase=' + phase.id + ';renderRoadmap();">' + icon(phase.icon) + ' P' + phase.id + ' ' + completion + '%</div>');
     if (phase.dependency !== null) {
       lines.push('<span style="font-size:10px;color:var(--text-muted);">→</span>');
     }
@@ -45,7 +45,7 @@ function renderPhaseCard(phase) {
   var lines = [];
   lines.push('<div class="phase-card ' + (status === 'locked' ? 'locked' : '') + ' ' + (isExpanded ? 'open' : '') + '" data-phase-id="' + phase.id + '">');
   lines.push('<div class="phase-header" onclick="togglePhase(' + phase.id + ')">');
-  lines.push('<div class="ph-left"><span class="ph-emoji">' + phase.emoji + '</span><div class="ph-info"><div class="ph-title">Phase ' + phase.id + ': ' + phase.title + '</div><div class="ph-meta">' + formatHours(phase.hours) + 'h · ' + phase.topics.length + ' topics · ' + doneHours + '/' + totalHours + 'h done' + (phase.dependency !== null ? ' · Depends on P' + phase.dependency : '') + '</div></div></div>');
+  lines.push('<div class="ph-left"><span class="ph-emoji">' + icon(phase.icon) + '</span><div class="ph-info"><div class="ph-title">Phase ' + phase.id + ': ' + phase.title + '</div><div class="ph-meta">' + formatHours(phase.hours) + 'h · ' + phase.topics.length + ' topics · ' + doneHours + '/' + totalHours + 'h done' + (phase.dependency !== null ? ' · Depends on P' + phase.dependency : '') + '</div></div></div>');
   lines.push('<div class="ph-right"><span class="ph-status ' + st.cls + '">' + st.label + '</span>');
   lines.push('<div class="mini-ring"><svg viewBox="0 0 40 40"><circle class="ring-bg" cx="20" cy="20" r="16" /><circle class="ring-fill" cx="20" cy="20" r="16" stroke-dasharray="' + ringDash + '" stroke-dashoffset="' + ringOffset + '" /></svg><span class="mini-pct">' + completion + '%</span></div>');
   lines.push('<span class="ph-arrow">▼</span></div></div>');
@@ -61,9 +61,9 @@ function renderPhaseCard(phase) {
       lines.push('<div class="topic-check"><input type="checkbox" ' + (done ? 'checked' : '') + ' onchange="markTopicDone(' + phase.id + ',\'' + topic.id + '\')"></div>');
       lines.push('<div class="topic-info"><div class="topic-name">' + topic.title + '</div>');
       lines.push('<div style="display:flex;align-items:center;gap:6px;">');
-      lines.push('<span style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);">⏱️ ' + (topic.hours || 4) + 'h</span>');
+      lines.push('<span style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);">' + (topic.hours || 4) + 'h</span>');
       if (typeof getNote === 'function') {
-        lines.push('<span onclick="event.stopPropagation();toggleNoteEditor(\'' + topic.id + '\',' + phase.id + ')" style="cursor:pointer;font-size:12px;" title="Add note">' + (hasNote ? '📝' : '📓') + '</span>');
+        lines.push('<span onclick="event.stopPropagation();toggleNoteEditor(\'' + topic.id + '\',' + phase.id + ')" style="cursor:pointer;font-size:12px;" title="Add note">' + (hasNote ? icon('note') : icon('clip')) + '</span>');
       }
       lines.push('</div></div></div>');
     });
@@ -78,7 +78,7 @@ function renderPhaseCard(phase) {
     });
     lines.push('</div></div>');
     lines.push('<div class="resources-section"><h4>Projects</h4>');
-    var stars = ['⭐','⭐⭐','⭐⭐⭐','⭐⭐⭐⭐','⭐⭐⭐⭐⭐'];
+    var stars = [icon('star'),icon('star')+icon('star'),icon('star')+icon('star')+icon('star'),icon('star')+icon('star')+icon('star')+icon('star'),icon('star')+icon('star')+icon('star')+icon('star')+icon('star')];
     phase.projects.forEach(function(p, i) {
       lines.push('<div class="topic-row"><div class="topic-info"><div class="topic-name">' + (stars[i] || '') + ' ' + p.name + '</div><div style="font-size:11px;color:var(--text-dim);">' + p.level + '</div></div></div>');
     });
@@ -98,27 +98,27 @@ function renderPhaseCard(phase) {
 }
 
 function getLevelIcon(level) {
-  if (!level) return '📎';
-  if (level.indexOf('🇮🇳') !== -1) return '🇮🇳';
-  if (level === 'Video' || level === '📹 Video') return '🎬';
-  if (level === 'Best') return '⭐';
-  if (level === 'Visual' || level.indexOf('Visual') !== -1) return '👁️';
-  if (level === 'Paper' || level.indexOf('Paper') !== -1) return '📄';
-  if (level === 'Blog' || level.indexOf('Blog') !== -1) return '📝';
-  if (level === 'Docs' || level.indexOf('Docs') !== -1) return '📖';
-  if (level === 'Course' || level.indexOf('Course') !== -1) return '🎓';
-  if (level === 'Full playlist' || level === '🎵 Playlist') return '🎵';
-  if (level === 'Full build' || level.indexOf('build') !== -1) return '🔨';
-  if (level === 'Series' || level.indexOf('Series') !== -1) return '📚';
-  if (level === 'Dataset') return '📊';
-  if (level === 'Book' || level.indexOf('Book') !== -1) return '📖';
-  if (level === 'Beginner') return '🟢';
-  if (level === 'Intermediate') return '🟡';
-  if (level === 'Advanced') return '🔴';
-  if (level === 'Internship') return '💼';
-  if (level === 'Placement') return '🏢';
-  if (level.indexOf('🇬🇧') !== -1) return '🇬🇧';
-  return '📎';
+  if (!level) return icon('clip');
+  if (level.indexOf('Hindi') !== -1 || level.indexOf('IN') !== -1) return icon('flag');
+  if (level === 'Video' || level.indexOf('Video') !== -1) return icon('video');
+  if (level === 'Best') return icon('star');
+  if (level === 'Visual' || level.indexOf('Visual') !== -1) return icon('eye');
+  if (level === 'Paper' || level.indexOf('Paper') !== -1) return icon('fileText');
+  if (level === 'Blog' || level.indexOf('Blog') !== -1) return icon('note');
+  if (level === 'Docs' || level.indexOf('Docs') !== -1) return icon('book');
+  if (level === 'Course' || level.indexOf('Course') !== -1) return icon('graduationCap');
+  if (level === 'Full playlist' || level.indexOf('Playlist') !== -1) return icon('music');
+  if (level === 'Full build' || level.indexOf('build') !== -1) return icon('hammer');
+  if (level === 'Series' || level.indexOf('Series') !== -1) return icon('bookOpen');
+  if (level === 'Dataset') return icon('barChart');
+  if (level === 'Book' || level.indexOf('Book') !== -1) return icon('book');
+  if (level === 'Beginner') return icon('beginner');
+  if (level === 'Intermediate') return icon('intermediate');
+  if (level === 'Advanced') return icon('advanced');
+  if (level === 'Internship') return icon('briefcase');
+  if (level === 'Placement') return icon('building');
+  if (level.indexOf('English') !== -1 || level.indexOf('EN') !== -1) return icon('globe');
+  return icon('clip');
 }
 
 function togglePhase(phaseId) {

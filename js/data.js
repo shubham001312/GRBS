@@ -15,7 +15,7 @@ function genTopics(groupId, items) {
 const PHASES = [
   // ===== PHASE 0: Engineer Foundations =====
   {
-    id: 0, emoji: '🛠️', title: 'Engineer Foundations',
+    id: 0, icon: 'wrench', title: 'Engineer Foundations',
     hours: 120, dependency: null, color: '#6366f1',
     objective: 'Build the computational literacy and tooling that every AI engineer relies on daily.',
     interviewRelevance: 'High — every tech interview tests CS basics',
@@ -37,7 +37,7 @@ const PHASES = [
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=8XBtAjKwCm4', label: 'Anuj Bhaiya — OS In One Shot' },
       { level: '🇮🇳 Hindi', url: 'https://youtu.be/xw_OuOhjauw', label: 'Knowledge Gate — OS' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=qiQR5rTSshw', label: 'freeCodeCamp — Networking Fundamentals' },
-      { level: '🇮🇳 Hindi', url: 'https://youtu.be/xw_OuOhjauw', label: 'Apna College — Networking Basics' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=gfwMYLQaZP0', label: 'Apna College — Networking Basics' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=ZtqBQ68cfJc', label: 'freeCodeCamp — Linux for Beginners' },
       { level: '🇮🇳 Hindi', url: 'https://youtu.be/sD0K1xaVqoE', label: 'CodeWithHarry — Linux Full Course' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=RGOj5yH7evk', label: 'freeCodeCamp — Git & GitHub' },
@@ -63,7 +63,7 @@ const PHASES = [
 
   // ===== PHASE 1: Programming Mastery =====
   {
-    id: 1, emoji: '💻', title: 'Programming Mastery',
+    id: 1, icon: 'code', title: 'Programming Mastery',
     hours: 200, dependency: 0, color: '#818cf8',
     objective: 'Become fluent in Python and C, master OOP, async coding, and solve algorithmic problems.',
     interviewRelevance: 'Critical — Python coding rounds in every AI/ML interview',
@@ -89,7 +89,7 @@ const PHASES = [
       { level: '🇬🇧 Intermediate', url: 'https://www.youtube.com/watch?v=Ej_02ICOIgs', label: 'Corey Schafer — Python OOP' },
       { level: '🇮🇳 Hindi', url: 'https://youtu.be/UrsmFxEIp5k', label: 'CodeWithHarry — Python Complete' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=KJgsSFOSQv0', label: 'freeCodeCamp — C Full Course' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?virqDefGbCJ8', label: 'CodeWithHarry — C Language' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLu0W_9lII9aiXlHcLx-mDH1Qul38wD3aR', label: 'CodeWithHarry — C Language' },
       { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BEO', label: 'Striver — A2Z DSA Sheet' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=pkYVOmU3MgA', label: 'freeCodeCamp — Data Structures' },
       { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=5_3o7qCkBM8', label: 'Apna College — DSA Full Course' },
@@ -115,7 +115,7 @@ const PHASES = [
 
   // ===== PHASE 2: Mathematics for AI =====
   {
-    id: 2, emoji: '🧮', title: 'Mathematics for AI',
+    id: 2, icon: 'calculator', title: 'Mathematics for AI',
     hours: 100, dependency: 1, color: '#0ea5e9',
     objective: 'Internalise the math that powers neural networks — linear algebra, calculus, probability, optimisation.',
     interviewRelevance: 'Medium-High — ML interviews test math intuition',
@@ -162,7 +162,7 @@ const PHASES = [
 
   // ===== PHASE 3: Software Engineering =====
   {
-    id: 3, emoji: '🏗️', title: 'Software Engineering',
+    id: 3, icon: 'server', title: 'Software Engineering',
     hours: 100, dependency: 1, color: '#06b6d4',
     objective: 'Understand OS, networking, databases, and build production-ready backends.',
     interviewRelevance: 'Very High — Asked directly in internship/placement rounds',
@@ -183,12 +183,12 @@ const PHASES = [
       { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=xw_OuOhjauw', label: 'Knowledge Gate — OS' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=IPvYjXCsTg8', label: 'Kunal Kushwaha — Networking' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=HXV3zeQKqGY', label: 'freeCodeCamp — SQL Full Course' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=ERCMXc8x7mc', label: 'Apna College — SQL' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=On9eSN3F8w0', label: 'Apna College — SQL' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=bssWKAX74uA', label: 'Traversy Media — PostgreSQL' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/playlist?list=PLMCXHnjXnTnvo6alSjVkgxV-VH6EPyvoX', label: 'Gaurav Sen — System Design' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=0sOvCWFmrtA', label: 'freeCodeCamp — FastAPI Full Course' },
       { level: '📖 Docs', url: 'https://fastapi.tiangolo.com/tutorial/', label: 'FastAPI Tutorial (Official)' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=YjDQ3kZp0hI', label: 'CodeWithHarry — FastAPI Hindi' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=52c7Kxp_14E', label: 'CodeWithHarry — FastAPI Hindi' },
     ],
     projects: [
       { id: 'p3_proj0', name: 'Producer-consumer program with Python threading', level: 'Beginner' },
@@ -208,7 +208,7 @@ const PHASES = [
 
   // ===== PHASE 4: Frontend & AI Interface =====
   {
-    id: 4, emoji: '🎨', title: 'Frontend & AI Interface',
+    id: 4, icon: 'palette', title: 'Frontend & AI Interface',
     hours: 80, dependency: 1, color: '#f43f5e',
     objective: 'Build beautiful, interactive interfaces for your AI products — tailored for model interaction.',
     interviewRelevance: 'Low-Medium (portfolio matters for AI roles)',
@@ -224,7 +224,7 @@ const PHASES = [
     resources: [
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=mU6anWqZJcc', label: 'freeCodeCamp — Web Dev Full Course' },
       { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/playlist?list=PLwgFb6VsUj_lQTpQKDtLXKXElQychT_2j', label: 'Thapa Technical — HTML CSS JS' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=ERCMXc8x7mc', label: 'CodeWithHTML — HTML in One Shot' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=HcOc7P5BMi4', label: 'Apna College — HTML in One Shot' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=RVFAyFWO4go', label: 'Dave Gray — React Full Course 2024' },
       { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=Q62KgbuOv0c', label: 'CodeWithHarry — React Tutorial' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=BCg4U1FzODs', label: 'Traversy Media — TypeScript' },
@@ -249,7 +249,7 @@ const PHASES = [
 
   // ===== PHASE 5: Data Science Foundations =====
   {
-    id: 5, emoji: '📊', title: 'Data Science Foundations',
+    id: 5, icon: 'barChart', title: 'Data Science Foundations',
     hours: 70, dependency: 2, color: '#10b981',
     objective: 'Manipulate, clean, explore, and visualise data — the language of machine learning.',
     interviewRelevance: 'High — Data cleaning skills tested in ML interviews',
@@ -267,13 +267,13 @@ const PHASES = [
     ],
     resources: [
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=QUT1VHiLmmI', label: 'freeCodeCamp — NumPy Full Course' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=Gtq9vL7_mZs', label: 'CodeWithHarry — NumPy Tutorial' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=Rbh1rieb3zc', label: 'CodeWithHarry — NumPy Tutorial' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=vmEHCJofslg', label: 'Corey Schafer — Pandas Tutorial' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=e60ItwlZTKM', label: 'Keith Galli — Complete Pandas' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=3Xc3CA655Y4', label: 'Corey Schafer — Matplotlib' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=6GUZXDef2U0', label: 'freeCodeCamp — Seaborn Tutorial' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=Qn1KAFmGt0Y', label: 'CampusX — Data Cleaning Hindi' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=uoF9HkEa4jQ', label: 'CampusX — Seaborn Hindi' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=-HnN8GBINnc', label: 'CampusX — Data Cleaning Hindi' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=DWVLRhnuGqI', label: 'CampusX — Seaborn Hindi' },
       { level: '🎓 Course', url: 'https://www.kaggle.com/learn', label: 'Kaggle Learn — Free Micro-Courses' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=rGx1QNdYzvs', label: 'Ken Jee — EDA with Python' },
     ],
@@ -295,7 +295,7 @@ const PHASES = [
 
   // ===== PHASE 6: Machine Learning =====
   {
-    id: 6, emoji: '🤖', title: 'Machine Learning',
+    id: 6, icon: 'cog', title: 'Machine Learning',
     hours: 120, dependency: 2, color: '#f59e0b',
     objective: 'Build, evaluate, and deploy classical ML models end-to-end. Your internship gateway.',
     interviewRelevance: 'Very High — core of every ML/AI interview',
@@ -323,7 +323,7 @@ const PHASES = [
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=FgakZw6K1QQ', label: 'StatQuest — PCA' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=7eh4d6sabA0', label: 'StatQuest — Cross Validation' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=L8BOrIbZ9d8', label: 'StatQuest — Decision Trees' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=tEdqxW6hOh8', label: 'Krish Naik — SHAP Values' },
+      { level: '🇬🇧 Intermediate', url: 'https://www.youtube.com/watch?v=gS67R5b0L3s', label: 'Krish Naik — SHAP Values Explained' },
     ],
     projects: [
       { id: 'p6_proj0', name: 'Iris classification with 5 different algorithms (compare metrics)', level: 'Beginner' },
@@ -343,7 +343,7 @@ const PHASES = [
 
   // ===== PHASE 7: Deep Learning =====
   {
-    id: 7, emoji: '🧠', title: 'Deep Learning',
+    id: 7, icon: 'brain', title: 'Deep Learning',
     hours: 140, dependency: 6, color: '#ef4444',
     objective: 'Neural networks from scratch, backpropagation, and PyTorch mastery.',
     interviewRelevance: 'High — DL is core for AI/ML roles',
@@ -368,8 +368,8 @@ const PHASES = [
       { level: '🇬🇧 Intermediate', url: 'https://www.youtube.com/watch?v=YRhxdVk_sIs', label: 'Karpathy — CNN Stanford CS231n' },
       { level: '🇬🇧 Intermediate', url: 'https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ', label: 'Karpathy — Neural Networks Zero to Hero' },
       { level: '🎓 Course', url: 'https://course.fast.ai/', label: 'fast.ai — Practical Deep Learning' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=bfS7KsVCmIQ', label: 'Krish Naik — Deep Learning Complete' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=aircAruvnKk', label: 'Krish Naik — Neural Network Hindi' },
+      { level: '🎓 Course', url: 'https://www.youtube.com/playlist?list=PLZoTAELRMXVPGU70ZGsckrMdr0FteeRUi', label: 'Krish Naik — Deep Learning Complete' },
+      { level: '🇬🇧 Visual', url: 'https://www.youtube.com/watch?v=aircAruvnKk', label: '3Blue1Brown — Neural Networks' },
     ],
     projects: [
       { id: 'p7_proj0', name: 'NumPy neural network on MNIST (no frameworks)', level: 'Beginner' },
@@ -389,7 +389,7 @@ const PHASES = [
 
   // ===== PHASE 8: NLP Foundations =====
   {
-    id: 8, emoji: '💬', title: 'NLP Foundations',
+    id: 8, icon: 'chat', title: 'NLP Foundations',
     hours: 90, dependency: 7, color: '#ec4899',
     objective: 'Classical NLP, modern embeddings, and Hugging Face mastery.',
     interviewRelevance: 'High — NLP is core for LLM roles',
@@ -410,7 +410,7 @@ const PHASES = [
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=viZrOnJclY0', label: 'StatQuest — Word Embeddings' },
       { level: '🇬🇧 Intermediate', url: 'https://www.youtube.com/watch?v=-9vVhYEXeyQ', label: 'Yannic Kilcher — BERT' },
       { level: '🎓 Course', url: 'https://huggingface.co/learn/nlp-course/chapter1/1', label: 'Hugging Face — NLP Course (Official)' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=sPo92xJtFmE', label: 'Krish Naik — BERT Hindi' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=aYECVm8rpkw', label: 'Krish Naik — BERT Hindi' },
     ],
     projects: [
       { id: 'p8_proj0', name: 'Sentiment classifier (TF-IDF vs Word2Vec comparison)', level: 'Beginner' },
@@ -430,7 +430,7 @@ const PHASES = [
 
   // ===== PHASE 9: Transformers Deep Dive =====
   {
-    id: 9, emoji: '🔮', title: 'Transformers Deep Dive',
+    id: 9, icon: 'gem', title: 'Transformers Deep Dive',
     hours: 100, dependency: 7, color: '#8b5cf6',
     objective: 'Implement the Transformer from scratch — the most important phase for LLMs.',
     interviewRelevance: 'Critical — every modern AI role tests Transformer knowledge',
@@ -453,7 +453,7 @@ const PHASES = [
       { level: '📝 Blog', url: 'https://jalammar.github.io/illustrated-transformer/', label: 'Jay Alammar — Illustrated Transformer' },
       { level: '🔨 Full build', url: 'https://www.youtube.com/watch?v=kCc8FmEb1nY', label: "Karpathy — Let's build GPT ⭐ESSENTIAL" },
       { level: '📝 Blog', url: 'https://lilianweng.github.io/posts/2018-06-24-attention/', label: 'Lilian Weng — Attention? Attention!' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=tEyzcJkl5C0', label: 'Krish Naik — Transformer Hindi' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=SlbbvhO3jKY', label: 'Krish Naik — Transformer Hindi' },
     ],
     projects: [
       { id: 'p9_proj0', name: 'Implement scaled dot-product attention from scratch', level: 'Beginner' },
@@ -473,7 +473,7 @@ const PHASES = [
 
   // ===== PHASE 10: Build GPT From Scratch =====
   {
-    id: 10, emoji: '⚙️', title: 'Build GPT From Scratch',
+    id: 10, icon: 'cog', title: 'Build GPT From Scratch',
     hours: 150, dependency: 9, color: '#a855f7',
     objective: 'Build, train, and evaluate a GPT-2 level language model from first principles.',
     interviewRelevance: 'Critical — proves deep LLM understanding',
@@ -513,7 +513,7 @@ const PHASES = [
 
   // ===== PHASE 11: LLM Engineering =====
   {
-    id: 11, emoji: '🎯', title: 'LLM Engineering',
+    id: 11, icon: 'target', title: 'LLM Engineering',
     hours: 120, dependency: 9, color: '#d946ef',
     objective: 'Fine-tune, quantize, and deploy large language models in production.',
     interviewRelevance: 'Very High — LLM Engineer roles are actively hiring',
@@ -536,7 +536,7 @@ const PHASES = [
       { level: '📹 Video', url: 'https://www.youtube.com/watch?v=_3FctggJ9r4', label: 'PTQ, GPTQ, AWQ, GGUF Explained' },
       { level: '📖 Docs', url: 'https://ollama.ai/', label: 'Ollama Documentation' },
       { level: '📹 Video', url: 'https://www.youtube.com/watch?v=zbHh0HcDqoI', label: 'NetworkChuck — Ollama Quickstart' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=E0f8JpKrN9o', label: 'Krish Naik — LoRA Hindi' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=SrYXAd4nMvQ', label: 'Krish Naik — LoRA & QLoRA Hindi' },
       { level: '🇬🇧 Intermediate', url: 'https://www.youtube.com/watch?v=G2j0ewnCmHQ', label: 'Sebastian Raschka — Instruction Tuning' },
     ],
     projects: [
@@ -557,7 +557,7 @@ const PHASES = [
 
   // ===== PHASE 12: RAG & AI Agents =====
   {
-    id: 12, emoji: '🧬', title: 'RAG & AI Agents',
+    id: 12, icon: 'dna', title: 'RAG & AI Agents',
     hours: 90, dependency: 10, color: '#c084fc',
     objective: 'Production-grade retrieval-augmented generation systems and autonomous agents.',
     interviewRelevance: 'Very High — RAG is the #1 deployed AI pattern',
@@ -574,12 +574,12 @@ const PHASES = [
     ],
     resources: [
       { level: '📹 Video', url: 'https://www.youtube.com/watch?v=tcqEUSNCn8I', label: 'Sam Witteveen — LangChain + RAG' },
-      { level: '📹 Video', url: 'https://www.youtube.com/watch?v=dN0lsF2NvmE', label: 'Vector Databases Explained' },
+      { level: '📹 Video', url: 'https://www.youtube.com/watch?v=4pUYfY-b5CQ', label: 'Vector Databases Explained' },
       { level: '🎓 Course', url: 'https://www.youtube.com/watch?v=HSZ_uaif57o', label: 'freeCodeCamp — LangChain Full Course' },
       { level: '🎵 Playlist', url: 'https://www.youtube.com/playlist?list=PLfaIDFEXuae2LXbO1_PKyVJiQ23ZztA0x', label: 'LangChain — RAG from Scratch' },
       { level: '📹 Video', url: 'https://www.youtube.com/watch?v=DWUdGhRrv2c', label: 'Data Independent — LangChain Agents' },
-      { level: '📹 Video', url: 'https://www.youtube.com/watch?v=14tHMNdgkOE', label: 'James Briggs — Sentence Transformers' },
-      { level: '📹 Video', url: 'https://www.youtube.com/watch?v=9exBQaVhK0o', label: 'Greg Kamradt — Chunking for RAG' },
+      { level: '📹 Video', url: 'https://www.youtube.com/watch?v=aSx0jg9ZILo', label: 'James Briggs — Sentence Transformers' },
+      { level: '📹 Video', url: 'https://www.youtube.com/watch?v=8OJC21T2SL4', label: 'Greg Kamradt — Chunking for RAG' },
     ],
     projects: [
       { id: 'p12_proj0', name: 'PDF Q&A chatbot using FAISS + LLM', level: 'Beginner' },
@@ -599,7 +599,7 @@ const PHASES = [
 
   // ===== PHASE 13: Backend for AI Products =====
   {
-    id: 13, emoji: '⚡', title: 'Backend for AI Products',
+    id: 13, icon: 'zap', title: 'Backend for AI Products',
     hours: 80, dependency: 1, color: '#10b981',
     objective: 'Build production-grade, secure, and scalable backends to serve your AI assistants.',
     interviewRelevance: 'High — backend skills are essential for deployment',
@@ -620,7 +620,7 @@ const PHASES = [
       { level: '📖 Docs', url: 'https://fastapi.tiangolo.com/async/', label: 'FastAPI Async (Official)' },
       { level: '📖 Docs', url: 'https://fastapi.tiangolo.com/websockets/', label: 'FastAPI WebSockets (Official)' },
       { level: '📹 Video', url: 'https://www.youtube.com/watch?v=YK8mXlUZQ4Q', label: 'ArjanCodes — Server-Sent Events' },
-      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=YjDQ3kZp0hI', label: 'CodeWithHarry — FastAPI Hindi' },
+      { level: '🇮🇳 Hindi', url: 'https://www.youtube.com/watch?v=52c7Kxp_14E', label: 'CodeWithHarry — FastAPI Hindi' },
     ],
     projects: [
       { id: 'p13_proj0', name: 'REST API serving your ML model from Phase 6', level: 'Beginner' },
@@ -640,7 +640,7 @@ const PHASES = [
 
   // ===== PHASE 14: Deployment & MLOps =====
   {
-    id: 14, emoji: '🚀', title: 'Deployment & MLOps',
+    id: 14, icon: 'rocket', title: 'Deployment & MLOps',
     hours: 80, dependency: 13, color: '#f43f5e',
     objective: 'Ship your AI products to the world and keep them running reliably.',
     interviewRelevance: 'High — deployment experience differentiates candidates',
@@ -706,7 +706,7 @@ PHASES.forEach(phase => {
 const CAREER_PATHS = [
   {
     title: 'Internship Roadmap',
-    emoji: '💼',
+    icon: 'briefcase',
     target: 'Before 3rd Year',
     description: 'Get a paid internship with strong Python + ML + deployment skills.',
     steps: [
@@ -719,7 +719,7 @@ const CAREER_PATHS = [
   },
   {
     title: 'Placement Roadmap',
-    emoji: '🏢',
+    icon: 'building',
     target: 'Before End of 7th Semester',
     description: 'Full-stack AI engineer with system design + DSA + 5+ deployed projects.',
     steps: [
@@ -731,7 +731,7 @@ const CAREER_PATHS = [
   },
   {
     title: 'AI Engineer Path',
-    emoji: '🤖',
+    icon: 'cog',
     target: 'Specialized Track',
     description: 'End-to-end AI products: models + APIs + deployment + monitoring.',
     steps: [
@@ -746,7 +746,7 @@ const CAREER_PATHS = [
   },
   {
     title: 'LLM Specialist Path',
-    emoji: '🧠',
+    icon: 'brain',
     target: 'Specialized Track',
     description: 'Fine-tuned models on HuggingFace + open-source LLM contributions.',
     steps: [
@@ -760,7 +760,7 @@ const CAREER_PATHS = [
   },
   {
     title: 'GPT Builder Path',
-    emoji: '🔮',
+    icon: 'gem',
     target: 'Specialized Track',
     description: 'Build GPT-2 reproduction from first principles.',
     steps: [

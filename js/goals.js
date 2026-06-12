@@ -7,13 +7,13 @@ function renderGoals() {
   if (!container) return;
 
   container.innerHTML = `
-    <div class="section-title">🎯 Career Goals</div>
+    <div class="section-title">Career Goals</div>
 
     <!-- Career Paths -->
     ${CAREER_PATHS.map(cp => `
       <div class="career-path">
         <div class="cp-header">
-          <span class="cp-emoji">${cp.emoji}</span>
+          <span class="cp-emoji">${icon(cp.icon)}</span>
           <div>
             <div class="cp-title">${cp.title}</div>
             <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">${cp.target}</div>
@@ -27,7 +27,7 @@ function renderGoals() {
             const isDone = completion === 100;
             return `
               <div class="cp-step ${isDone ? 'done' : ''}">
-                <div class="step-title">${phaseData?.emoji || '📌'} ${step.label}</div>
+                <div class="step-title">${icon(phaseData ? phaseData.icon : 'target')} ${step.label}</div>
                 <div class="step-desc">${completion}% complete</div>
               </div>
             `;
@@ -37,10 +37,10 @@ function renderGoals() {
     `).join('')}
 
     <!-- Priority Goals -->
-    <div class="section-title" style="margin-top:20px;">🏆 Priority Goals</div>
+    <div class="section-title" style="margin-top:20px;">Priority Goals</div>
     <div class="career-path">
       <div class="cp-header">
-        <span class="cp-emoji">🤖</span>
+        <span class="cp-emoji">${icon('cog')}</span>
         <div class="cp-title">Priority 1: Build Personal AI Assistant (v0 → v12)</div>
       </div>
       <div style="font-size:12px;color:var(--text-muted);margin:4px 0 8px;">Evolve from CLI chatbot → RAG agent → production-grade AI. One project thread across all 15 phases.</div>
@@ -50,7 +50,7 @@ function renderGoals() {
     </div>
     <div class="career-path">
       <div class="cp-header">
-        <span class="cp-emoji">💼</span>
+        <span class="cp-emoji">${icon('briefcase')}</span>
         <div class="cp-title">Priority 2: Paid Internship Before 3rd Year</div>
       </div>
       <div class="meter-group" style="margin-top:8px;">
@@ -59,7 +59,7 @@ function renderGoals() {
     </div>
     <div class="career-path">
       <div class="cp-header">
-        <span class="cp-emoji">🏢</span>
+        <span class="cp-emoji">${icon('building')}</span>
         <div class="cp-title">Priority 3: Placement-Ready by Semester 7</div>
       </div>
       <div class="meter-group" style="margin-top:8px;">
@@ -68,7 +68,7 @@ function renderGoals() {
     </div>
     <div class="career-path">
       <div class="cp-header">
-        <span class="cp-emoji">🤖</span>
+        <span class="cp-emoji">${icon('brain')}</span>
         <div class="cp-title">Priority 4: Become AI Engineer</div>
       </div>
       <div class="meter-group" style="margin-top:8px;">
@@ -77,7 +77,7 @@ function renderGoals() {
     </div>
 
     <!-- Study Timeline -->
-    <div class="section-title" style="margin-top:20px;">📅 Study Timeline</div>
+    <div class="section-title" style="margin-top:20px;">Study Timeline</div>
     <div class="career-path">
       <div class="cp-timeline">
         <div class="cp-step done">
@@ -108,12 +108,12 @@ function renderGoals() {
     </div>
 
     <!-- Study Habits -->
-    <div class="section-title" style="margin-top:20px;">⏰ Study Habits</div>
+    <div class="section-title" style="margin-top:20px;">Study Habits</div>
     <div class="career-path">
-      <div class="topic-row"><div class="topic-info"><div class="topic-name">📚 Daily Study Time: 4-5 hours outside college</div></div></div>
-      <div class="topic-row"><div class="topic-info"><div class="topic-name">💻 Hardware: RTX 3050 — local GPU training</div></div></div>
-      <div class="topic-row"><div class="topic-info"><div class="topic-name">🎯 Focus: AI, LLMs, AI Products, Software Engineering</div></div></div>
-      <div class="topic-row"><div class="topic-info"><div class="topic-name">📊 CGPA Target: 7.5+ → 8+</div></div></div>
+      <div class="topic-row"><div class="topic-info">          <div class="topic-name">Daily Study Time: 4-5 hours outside college</div></div></div>
+      <div class="topic-row"><div class="topic-info">          <div class="topic-name">Hardware: RTX 3050 — local GPU training</div></div></div>
+      <div class="topic-row"><div class="topic-info">          <div class="topic-name">Focus: AI, LLMs, AI Products, Software Engineering</div></div></div>
+      <div class="topic-row"><div class="topic-info">          <div class="topic-name">CGPA Target: 7.5+ → 8+</div></div></div>
     </div>
   `;
 }

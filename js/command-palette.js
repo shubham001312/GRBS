@@ -35,26 +35,26 @@ function renderCommandResults(query) {
   if (!list) return;
   var q = (query || '').toLowerCase().trim();
   var commands = [
-    { icon: '📊', label: 'Go to Dashboard', action: "switchTab('dashboard');closeCommandPalette();" },
-    { icon: '🗺️', label: 'Go to Roadmap', action: "switchTab('roadmap');closeCommandPalette();" },
-    { icon: '🏗️', label: 'Go to Projects', action: "switchTab('projects');closeCommandPalette();" },
-    { icon: '📈', label: 'Go to Progress', action: "switchTab('progress');closeCommandPalette();" },
-    { icon: '🎯', label: 'Go to Goals', action: "switchTab('goals');closeCommandPalette();" },
-    { icon: '👤', label: 'Go to About', action: "switchTab('about');closeCommandPalette();" },
-    { icon: '🔍', label: 'Focus Search', action: "closeCommandPalette();document.getElementById('search-input')&&document.getElementById('search-input').focus();" },
-    { icon: '📥', label: 'Export Data', action: "closeCommandPalette();exportData();" },
-    { icon: '📤', label: 'Import Data', action: "closeCommandPalette();document.getElementById('import-file')&&document.getElementById('import-file').click();" }
+    { icon: icon('chart'), label: 'Go to Dashboard', action: "switchTab('dashboard');closeCommandPalette();" },
+    { icon: icon('roadmap'), label: 'Go to Roadmap', action: "switchTab('roadmap');closeCommandPalette();" },
+    { icon: icon('projects'), label: 'Go to Projects', action: "switchTab('projects');closeCommandPalette();" },
+    { icon: icon('chart'), label: 'Go to Progress', action: "switchTab('progress');closeCommandPalette();" },
+    { icon: icon('target'), label: 'Go to Goals', action: "switchTab('goals');closeCommandPalette();" },
+    { icon: icon('user'), label: 'Go to About', action: "switchTab('about');closeCommandPalette();" },
+    { icon: icon('search'), label: 'Focus Search', action: "closeCommandPalette();document.getElementById('search-input')&&document.getElementById('search-input').focus();" },
+    { icon: icon('download'), label: 'Export Data', action: "closeCommandPalette();exportData();" },
+    { icon: icon('upload'), label: 'Import Data', action: "closeCommandPalette();document.getElementById('import-file')&&document.getElementById('import-file').click();" }
   ];
   PHASES.forEach(function(phase) {
     commands.push({
-      icon: phase.emoji,
+      icon: icon(phase.icon),
       label: 'Phase ' + phase.id + ': ' + phase.title,
       action: "closeCommandPalette();switchTab('roadmap');setTimeout(function(){expandedPhase=" + phase.id + ";renderRoadmap();var el=document.querySelector('[data-phase-id=\"" + phase.id + "\"]');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},100);"
     });
   });
   ALL_PROJECTS.forEach(function(p) {
     if (p.status === 'inprogress') {
-      commands.push({ icon: '🔨', label: 'Continue: ' + p.name.substring(0, 40), action: "closeCommandPalette();switchTab('projects');" });
+      commands.push({ icon: icon('hammer'), label: 'Continue: ' + p.name.substring(0, 40), action: "closeCommandPalette();switchTab('projects');" });
     }
   });
   var filtered = q ? commands.filter(function(c) { return c.label.toLowerCase().indexOf(q) !== -1; }) : commands.slice(0, 15);

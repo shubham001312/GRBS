@@ -28,7 +28,7 @@ function getEarnedAchievements() {
   });
   if (newlyEarned.length > 0) {
     localStorage.setItem('grbs_achievements', JSON.stringify(stored));
-    newlyEarned.forEach(function(a) { showToast('Achievement Unlocked: ' + a.icon + ' ' + a.title, 'gold'); });
+    newlyEarned.forEach(function(a) { showToast('Achievement Unlocked: ' + icon(a.icon) + ' ' + a.title, 'gold'); });
   }
   return stored;
 }
@@ -42,6 +42,6 @@ function renderAchievements(containerId) {
   container.innerHTML = '<div class="career-path"><h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">Achievements (' + earned.length + '/' + ACHIEVEMENTS.length + ')</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;">' +
   ACHIEVEMENTS.map(function(a) {
     var isEarned = earned.indexOf(a.id) !== -1;
-    return '<div style="text-align:center;padding:12px 8px;border-radius:10px;background:var(--bg);border:1px solid ' + (isEarned ? 'var(--accent-2)' : 'var(--border)') + ';opacity:' + (isEarned ? '1' : '0.4') + ';"><div style="font-size:24px;margin-bottom:4px;">' + (isEarned ? a.icon : '🔒') + '</div><div style="font-size:11px;font-weight:600;">' + a.title + '</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px;">' + a.desc + '</div></div>';
+    return '<div style="text-align:center;padding:12px 8px;border-radius:10px;background:var(--bg);border:1px solid ' + (isEarned ? 'var(--accent-2)' : 'var(--border)') + ';opacity:' + (isEarned ? '1' : '0.4') + ';"><div style="font-size:24px;margin-bottom:4px;">' + (isEarned ? icon(a.icon) : icon('lock')) + '</div><div style="font-size:11px;font-weight:600;">' + a.title + '</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px;">' + a.desc + '</div></div>';
   }).join('') + '</div></div>';
 }

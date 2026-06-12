@@ -13,7 +13,7 @@ function getSmartRecommendations() {
       var incompleteTopics = phase.topics.filter(function(t) { return !stateData || !stateData.topicsDone[t.id]; });
       if (incompleteTopics.length > 0) {
         var next = incompleteTopics[0];
-        recs.push({ icon: phase.emoji, title: 'Continue ' + phase.title, detail: 'Next: ' + next.title + ' (' + (next.hours || 4) + 'h)', priority: 'high', action: 'switchTab("roadmap");expandedPhase=' + phase.id + ';renderRoadmap();' });
+        recs.push({ icon: icon(phase.icon), title: 'Continue ' + phase.title, detail: 'Next: ' + next.title + ' (' + (next.hours || 4) + 'h)', priority: 'high', action: 'switchTab("roadmap");expandedPhase=' + phase.id + ';renderRoadmap();' });
         break;
       }
     }

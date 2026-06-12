@@ -72,7 +72,7 @@ function renderWeeklyDigest(containerId) {
   const maxDay = Math.max(...weekDays.map(d => d.count), 1);
   container.innerHTML = `
     <div class="career-path">
-      <h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">📋 Weekly Digest</h3>
+      <h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">${icon('calendar')} Weekly Digest</h3>
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px;">
         ${weekDays.map(d => {
           const intensity = d.count === 0 ? 0 : Math.ceil((d.count / maxDay) * 4);
@@ -94,16 +94,16 @@ function renderWeeklyDigest(containerId) {
           <div class="stat-lbl">Activities</div>
         </div>
         <div class="stat-chip">
-          <div class="stat-val">🔥 ${stats.streak}</div>
+          <div class="stat-val">${icon('flame')} ${stats.streak}</div>
           <div class="stat-lbl">Streak</div>
         </div>
       </div>
       <div style="font-size:12px;color:var(--text-muted);line-height:1.8;">
-        <div>📊 <strong>Overall Progress:</strong> ${stats.overall}%</div>
-        <div>🎓 <strong>Topics Completed:</strong> ${getTopicsCompleted()}/${getTotalTopics()}</div>
-        ${stats.mostActivePhase ? `<div>🔥 <strong>Most Active Phase:</strong> ${stats.mostActivePhase.emoji} ${stats.mostActivePhase.title}</div>` : ''}
-        <div>📈 <strong>Internship Readiness:</strong> ${stats.readiness.internship}%</div>
-        <div>📈 <strong>Placement Readiness:</strong> ${stats.readiness.placement}%</div>
+        <div><strong>Overall Progress:</strong> ${stats.overall}%</div>
+        <div><strong>Topics Completed:</strong> ${getTopicsCompleted()}/${getTotalTopics()}</div>
+        ${stats.mostActivePhase ? `<div><strong>Most Active Phase:</strong> ${icon(stats.mostActivePhase.icon)} ${stats.mostActivePhase.title}</div>` : ''}
+        <div><strong>Internship Readiness:</strong> ${stats.readiness.internship}%</div>
+        <div><strong>Placement Readiness:</strong> ${stats.readiness.placement}%</div>
       </div>
     </div>
   `;

@@ -1,4 +1,4 @@
-<!-- Version: 5.0.0 | Last Updated: June 12, 2026 -->
+<!-- Version: 6.0.0 | Last Updated: June 12, 2026 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=5.0.0">
+  <link rel="stylesheet" href="css/styles.css?v=6.0.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
@@ -33,20 +33,20 @@
   <div class="command-palette-overlay" id="command-palette">
     <div class="command-palette">
       <div class="cp-header">
-        <span class="cp-icon-search">🔍</span>
+        <span class="cp-icon-search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
         <input type="text" id="cp-input" placeholder="Search commands, phases, projects..." oninput="renderCommandResults(this.value)">
       </div>
       <div class="cp-results" id="cp-results"></div>
-      <div class="cp-hint">Ctrl+K to toggle · ↑↓ to navigate · Enter to select · Esc to close</div>
+      <div class="cp-hint">Ctrl+K to toggle</div>
     </div>
   </div>
 
   <header class="app-header">
-    <div class="logo">⚡ GRBS</div>
+    <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> GRBS</div>
     <div class="header-actions">
       <span class="phase-indicator" id="current-phase">Phase 0</span>
       <span class="sync-indicator" id="sync-indicator">Saved</span>
-      <button id="btn-theme" class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+      <button id="btn-theme" class="icon-btn" onclick="toggleTheme()" title="Toggle theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     </div>
   </header>
 
@@ -65,40 +65,41 @@
   </main>
 
   <nav class="bottom-nav" id="app-nav" style="display:none;">
-    <button class="nav-item active" data-tab="dashboard"><span class="nav-icon">📊</span><span class="nav-label">Dashboard</span></button>
-    <button class="nav-item" data-tab="roadmap"><span class="nav-icon">🗺️</span><span class="nav-label">Roadmap</span></button>
-    <button class="nav-item" data-tab="projects"><span class="nav-icon">🏗️</span><span class="nav-label">Projects</span></button>
-    <button class="nav-item" data-tab="progress"><span class="nav-icon">📈</span><span class="nav-label">Progress</span></button>
-    <button class="nav-item" data-tab="goals"><span class="nav-icon">🎯</span><span class="nav-label">Goals</span></button>
-    <button class="nav-item" data-tab="about"><span class="nav-icon">👤</span><span class="nav-label">About</span></button>
+    <button class="nav-item active" data-tab="dashboard"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span><span class="nav-label">Dashboard</span></button>
+    <button class="nav-item" data-tab="roadmap"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span><span class="nav-label">Roadmap</span></button>
+    <button class="nav-item" data-tab="projects"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><span class="nav-label">Projects</span></button>
+    <button class="nav-item" data-tab="progress"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="nav-label">Progress</span></button>
+    <button class="nav-item" data-tab="goals"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><span class="nav-label">Goals</span></button>
+    <button class="nav-item" data-tab="about"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nav-label">About</span></button>
   </nav>
 
   <div id="offline-banner" class="offline-banner hidden">Offline - changes saved locally</div>
   <div id="toast-container"></div>
 
-  <script src="js/data.js?v=5.0.0"></script>
-  <script src="js/state.js?v=5.0.0"></script>
-  <script src="js/gist-sync.js?v=5.0.0"></script>
-  <script src="js/notes.js?v=5.0.0"></script>
-  <script src="js/weekly-digest.js?v=5.0.0"></script>
-  <script src="js/ai-timeline.js?v=5.0.0"></script>
-  <script src="js/command-palette.js?v=5.0.0"></script>
-  <script src="js/achievements.js?v=5.0.0"></script>
-  <script src="js/smart-recommendations.js?v=5.0.0"></script>
-  <script src="js/difficulty-predictor.js?v=5.0.0"></script>
-  <script src="js/resource-ratings.js?v=5.0.0"></script>
-  <script src="js/dashboard.js?v=5.0.0"></script>
-  <script src="js/roadmap.js?v=5.0.0"></script>
-  <script src="js/projects.js?v=5.0.0"></script>
-  <script src="js/progress.js?v=5.0.0"></script>
-  <script src="js/goals.js?v=5.0.0"></script>
-  <script src="js/about.js?v=5.0.0"></script>
-  <script src="js/app.js?v=5.0.0"></script>
+  <script src="js/icons.js?v=6.0.0"></script>
+  <script src="js/data.js?v=6.0.0"></script>
+  <script src="js/state.js?v=6.0.0"></script>
+  <script src="js/gist-sync.js?v=6.0.0"></script>
+  <script src="js/notes.js?v=6.0.0"></script>
+  <script src="js/weekly-digest.js?v=6.0.0"></script>
+  <script src="js/ai-timeline.js?v=6.0.0"></script>
+  <script src="js/command-palette.js?v=6.0.0"></script>
+  <script src="js/achievements.js?v=6.0.0"></script>
+  <script src="js/smart-recommendations.js?v=6.0.0"></script>
+  <script src="js/difficulty-predictor.js?v=6.0.0"></script>
+  <script src="js/resource-ratings.js?v=6.0.0"></script>
+  <script src="js/dashboard.js?v=6.0.0"></script>
+  <script src="js/roadmap.js?v=6.0.0"></script>
+  <script src="js/projects.js?v=6.0.0"></script>
+  <script src="js/progress.js?v=6.0.0"></script>
+  <script src="js/goals.js?v=6.0.0"></script>
+  <script src="js/about.js?v=6.0.0"></script>
+  <script src="js/app.js?v=6.0.0"></script>
 
   <div id="update-banner" class="update-banner hidden">
     <span>New version available!</span>
     <button onclick="applyUpdate()" class="update-btn">Refresh Now</button>
-    <button onclick="dismissUpdate()" class="update-dismiss">✕</button>
+    <button onclick="dismissUpdate()" class="update-dismiss">x</button>
   </div>
 
   <script>

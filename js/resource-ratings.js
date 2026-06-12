@@ -27,7 +27,7 @@ function renderResourceRating(url, compact) {
   var current = getResourceRating(url);
   if (compact) {
     var stars = '';
-    for (var i = 1; i <= 5; i++) { stars += i <= current ? '⭐' : '☆'; }
+    for (var i = 1; i <= 5; i++) { stars += i <= current ? icon('star') : icon('starEmpty'); }
     return '<span class="resource-stars" onclick="event.stopPropagation();cycleResourceRating(\"' + encodeURIComponent(url) + '\")" title="Rate this resource" style="cursor:pointer;font-size:11px;">' + (current > 0 ? stars : '☆☆☆☆☆') + '</span>';
   }
   var starsHtml = '';
@@ -43,7 +43,7 @@ function cycleResourceRating(encodedUrl) {
   var next = current >= 5 ? 0 : current + 1;
   if (next > 0) {
     setResourceRating(url, next);
-    showToast('⭐ Rated ' + next + '/5', 'success');
+    showToast('Rated ' + next + '/5', 'success');
   } else {
     var ratings = getResourceRatings();
     delete ratings[url];

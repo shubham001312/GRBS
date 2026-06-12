@@ -29,7 +29,7 @@ function getDifficultyPredictions() {
     var avgHoursPerTopic = totalHours / phase.topics.length;
     var daysNeeded = pacePerDay > 0 ? Math.ceil(remaining / pacePerDay) : 999;
     var difficulty = avgHoursPerTopic > 8 ? 'Hard' : avgHoursPerTopic > 5 ? 'Medium' : 'Easy';
-    predictions.push({ phaseId: phase.id, emoji: phase.emoji, title: phase.title, remaining: remaining, total: phase.topics.length, totalHours: totalHours, avgHours: avgHoursPerTopic.toFixed(1), daysNeeded: daysNeeded, difficulty: difficulty });
+    predictions.push({ phaseId: phase.id, emoji: icon(phase.icon), title: phase.title, remaining: remaining, total: phase.topics.length, totalHours: totalHours, avgHours: avgHoursPerTopic.toFixed(1), daysNeeded: daysNeeded, difficulty: difficulty });
   }
   return predictions;
 }
@@ -47,7 +47,7 @@ function renderDifficultyPredictor(containerId) {
     var bg = p.difficulty === 'Hard' ? 'var(--red-dim)' : p.difficulty === 'Medium' ? 'var(--amber-dim)' : 'var(--green-dim)';
     return '<div style="padding:10px;border-radius:8px;background:' + bg + ';border:1px solid ' + color + ';">' +
     '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">' +
-    '<span style="font-size:16px;">' + p.emoji + '</span>' +
+    '<span style="font-size:16px;">' + icon(p.icon) + '</span>' +
     '<span style="font-size:12px;font-weight:600;">P' + p.phaseId + '</span>' +
     '<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:' + color + ';color:white;margin-left:auto;">' + p.difficulty + '</span></div>' +
     '<div style="font-size:11px;color:var(--text-muted);">' + p.remaining + '/' + p.total + ' topics · ~' + p.daysNeeded + ' days</div>' +

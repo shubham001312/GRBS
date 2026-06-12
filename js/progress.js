@@ -66,7 +66,7 @@ function renderBarChart() {
   barChart = new Chart(canvas.getContext('2d'), {
     type: 'bar',
     data: {
-      labels: PHASES.map(function(p) { return p.emoji + ' P' + p.id; }),
+      labels: PHASES.map(function(p) { return icon(p.icon) + ' P' + p.id; }),
       datasets: [{ label: 'Completion %', data: completions, backgroundColor: colors, borderColor: colors, borderWidth: 1 }]
     },
     options: {
