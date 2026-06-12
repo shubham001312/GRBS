@@ -24,13 +24,13 @@
   --amber-dim: rgba(245,158,11,0.15);
   --red-dim: rgba(239,68,68,0.15);
   --radius: 8px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --shadow: 0 1px 4px rgba(0,0,0,0.04);
   --font-heading: 'Lora', serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'Space Mono', monospace;
   --transition: 0.2s ease;
-  --nav-height: 64px;
-  --header-height: 56px;
+  --nav-height: 56px;
+  --header-height: 48px;
 }
 
 /* === Reset === */
@@ -64,7 +64,6 @@ h1, h2, h3, h4 { font-family: var(--font-heading); }
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 16px; height: var(--header-height);
   background: var(--bg-card); border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow);
 }
 .app-header .logo {
   display: flex; align-items: center; gap: 8px;
@@ -99,7 +98,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); }
 /* === Tab Content === */
 main {
   max-width: 600px; margin: 0 auto;
-  padding: 16px; min-height: calc(100vh - var(--header-height) - var(--nav-height));
+  padding: 12px 16px; min-height: calc(100vh - var(--header-height) - var(--nav-height));
 }
 .tab-content { display: none; }
 .tab-content.active { display: block; animation: fadeIn 0.2s ease; }
@@ -129,10 +128,8 @@ main {
 /* === Cards === */
 .card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 16px;
-  box-shadow: var(--shadow); transition: all var(--transition);
+  border-radius: var(--radius); padding: 14px;
 }
-.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
 
 /* === Progress Ring === */
 .progress-ring-wrap {
@@ -184,10 +181,10 @@ main {
 }
 .stats-row::-webkit-scrollbar { display: none; }
 .stat-chip {
-  flex-shrink: 0; padding: 10px 14px;
+  flex-shrink: 0; padding: 8px 12px;
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); text-align: center;
-  min-width: 100px; box-shadow: var(--shadow);
+  min-width: 90px;
 }
 .stat-chip .stat-val {
   font-family: var(--font-mono); font-size: 18px; font-weight: 700;
@@ -224,15 +221,15 @@ main {
 /* === Phase Cards (Roadmap) === */
 .phase-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); margin-bottom: 12px;
-  overflow: hidden; box-shadow: var(--shadow); transition: all var(--transition);
+  border-radius: var(--radius); margin-bottom: 8px;
+  overflow: hidden;
 }
 .phase-card.locked { opacity: 0.5; }
 .phase-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 16px; cursor: pointer;
+  padding: 10px 14px; cursor: pointer;
   transition: background var(--transition);
-  min-height: 56px;
+  min-height: 48px;
 }
 .phase-header:hover { background: var(--bg); }
 .phase-header .ph-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
@@ -338,10 +335,9 @@ main {
 .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 .project-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 14px;
-  margin-bottom: 10px; box-shadow: var(--shadow); transition: all var(--transition);
+  border-radius: var(--radius); padding: 12px;
+  margin-bottom: 8px;
 }
-.project-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
 .pc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
 .pc-title { font-size: 14px; font-weight: 600; flex: 1; }
 .pc-phase { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
@@ -366,8 +362,7 @@ main {
 /* === Progress Tab === */
 .chart-container {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 16px; margin-bottom: 16px;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius); padding: 14px; margin-bottom: 12px;
 }
 .chart-title {
   font-family: var(--font-mono); font-size: 12px; font-weight: 700;
@@ -387,8 +382,7 @@ main {
 /* === Goals Tab === */
 .career-path {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 16px; margin-bottom: 16px;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius); padding: 14px; margin-bottom: 12px;
 }
 .cp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .cp-emoji { font-size: 24px; }
@@ -436,10 +430,10 @@ main {
   padding: 0 16px; position: relative;
 }
 .search-input {
-  width: 100%; padding: 10px 16px; font-size: 14px;
+  width: 100%; padding: 8px 14px; font-size: 14px;
   background: var(--bg-card); color: var(--text);
   border: 1px solid var(--border); border-radius: var(--radius);
-  margin-bottom: 4px; box-shadow: var(--shadow);
+  margin-bottom: 4px;
 }
 .search-input::placeholder { color: var(--text-muted); }
 .search-results {
@@ -504,9 +498,9 @@ main {
 
 /* === Section Titles === */
 .section-title {
-  font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
   color: var(--text-muted); text-transform: uppercase;
-  letter-spacing: 0.06em; margin-bottom: 12px;
+  letter-spacing: 0.06em; margin-bottom: 10px;
 }
 
 /* === Toolbar (Export/Import) === */
@@ -514,11 +508,11 @@ main {
   display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
 }
 .toolbar button {
-  padding: 8px 16px; border-radius: var(--radius);
+  padding: 6px 14px; border-radius: var(--radius);
   font-size: 12px; font-family: var(--font-mono); font-weight: 600;
   background: var(--bg-card); border: 1px solid var(--border);
   color: var(--text-muted); transition: all var(--transition);
-  min-height: 40px; box-shadow: var(--shadow);
+  min-height: 36px;
 }
 .toolbar button:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -620,7 +614,7 @@ main {
   to { opacity: 1; max-height: 2000px; }
 }
 .phase-card { transition: all 0.3s ease; }
-.phase-card:hover:not(.locked) { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.phase-card:hover:not(.locked) { border-color: var(--accent); }
 
 /* === Achievement Badges === */
 .achievement-badge { transition: transform 0.2s ease; }

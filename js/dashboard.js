@@ -50,8 +50,8 @@ function renderDashboard() {
   container.innerHTML += '<div class="section-title">📋 Weekly Digest</div><div id="weekly-digest"></div>';
   container.innerHTML += '<div class="section-title">🤖 AI Assistant Evolution</div><div id="ai-timeline"></div>';
   container.innerHTML += '<div class="section-title">📝 Recent Notes</div><div id="recent-notes"></div>';
-  container.innerHTML += '<div class="section-title">☁️ Cloud Sync</div><div id="gist-sync-section"></div>';
-  container.innerHTML += '<div class="section-title">⚙️ Data</div><div class="toolbar"><button onclick="exportData()">Export JSON</button><button onclick="document.getElementById(\"import-file\").click()">Import JSON</button><input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)"></div>';
+  container.innerHTML += '<div class="section-title">+ Cloud Sync</div><div id="gist-sync-section"></div>';
+  container.innerHTML += '<div class="section-title">+ Data</div><div class="toolbar"><button onclick="exportData()">Export JSON</button><button onclick="document.getElementById(\"import-file\").click()">Import JSON</button><input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)"></div>';
 
   setTimeout(function() {
     renderEstimatedCompletion('estimated-completion');

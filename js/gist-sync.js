@@ -20,7 +20,7 @@ async function gistSyncSetup() {
   if (!container) return;
   container.innerHTML = `
     <div class="career-path">
-      <h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:8px;">☁️ Cloud Sync (GitHub Gist)</h3>
+      <h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:8px;"> Cloud Sync (GitHub Gist)</h3>
       <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Save your progress to a private GitHub Gist so you never lose data.</p>
       <div style="margin-bottom:12px;">
         <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px;">GitHub Personal Access Token</label>
@@ -55,7 +55,7 @@ function gistSyncSetStatus(msg) {
 async function gistSyncUpload() {
   const config = getGistConfig();
   const pat = config.pat;
-  if (!pat) { showToast('❌ Enter your GitHub PAT first', 'error'); return; }
+  if (!pat) { showToast(' Enter your GitHub PAT first', 'error'); return; }
   gistSyncSetStatus('Uploading...');
   try {
     const syncData = {
@@ -98,11 +98,11 @@ async function gistSyncUpload() {
     const data = await resp.json();
     saveGistConfig({ ...config, gistId: data.id });
     document.getElementById('gist-id').value = data.id;
-    gistSyncSetStatus('✅ Synced! Gist: ' + data.id);
-    showToast('☁️ Progress uploaded!', 'success');
+    gistSyncSetStatus(' Synced! Gist: ' + data.id);
+    showToast(' Progress uploaded!', 'success');
   } catch (err) {
-    gistSyncSetStatus('❌ Failed: ' + err.message);
-    showToast('❌ Sync failed', 'error');
+    gistSyncSetStatus(' Failed: ' + err.message);
+    showToast(' Sync failed', 'error');
   }
 }
 
@@ -110,8 +110,8 @@ async function gistSyncDownload() {
   const config = getGistConfig();
   const pat = config.pat;
   const gistId = config.gistId;
-  if (!pat) { showToast('❌ Enter your GitHub PAT first', 'error'); return; }
-  if (!gistId) { showToast('❌ No Gist ID — upload first', 'error'); return; }
+  if (!pat) { showToast(' Enter your GitHub PAT first', 'error'); return; }
+  if (!gistId) { showToast(' No Gist ID — upload first', 'error'); return; }
   gistSyncSetStatus('Downloading...');
   try {
     const resp = await fetch('https://api.github.com/gists/' + gistId, {
@@ -138,11 +138,11 @@ async function gistSyncDownload() {
     if (remote.activity) localStorage.setItem('grbs_activity', JSON.stringify(remote.activity));
     if (remote.username) setUsername(remote.username);
     saveState();
-    gistSyncSetStatus('✅ Downloaded! Last synced: ' + (remote.syncedAt || 'unknown'));
-    showToast('☁️ Progress downloaded!', 'success');
+    gistSyncSetStatus(' Downloaded! Last synced: ' + (remote.syncedAt || 'unknown'));
+    showToast(' Progress downloaded!', 'success');
     renderCurrentTab();
   } catch (err) {
-    gistSyncSetStatus('❌ Failed: ' + err.message);
-    showToast('❌ Download failed', 'error');
+    gistSyncSetStatus(' Failed: ' + err.message);
+    showToast(' Download failed', 'error');
   }
 }

@@ -38,7 +38,7 @@ function getSmartRecommendations() {
   if (state.streak >= 7) {
     recs.push({ icon: '🔥', title: 'Amazing ' + state.streak + '-day streak!', detail: 'Keep it up - consistency is key', priority: 'medium', action: '' });
   } else if (state.streak === 0) {
-    recs.push({ icon: '⚠️', title: 'Start a streak today', detail: 'Complete at least one topic to begin', priority: 'high', action: 'switchTab("dashboard");' });
+    recs.push({ icon: 'settings', title: 'Start a streak today', detail: 'Complete at least one topic to begin', priority: 'high', action: 'switchTab("dashboard");' });
   }
 
   // Project suggestions
