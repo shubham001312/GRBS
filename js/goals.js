@@ -40,8 +40,18 @@ function renderGoals() {
     <div class="section-title" style="margin-top:20px;">🏆 Priority Goals</div>
     <div class="career-path">
       <div class="cp-header">
+        <span class="cp-emoji">🤖</span>
+        <div class="cp-title">Priority 1: Build Personal AI Assistant (v0 → v12)</div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin:4px 0 8px;">Evolve from CLI chatbot → RAG agent → production-grade AI. One project thread across all 15 phases.</div>
+      <div class="meter-group" style="margin-top:8px;">
+        ${renderMeter('Personal AI Progress', calculatePersonalAIProgress())}
+      </div>
+    </div>
+    <div class="career-path">
+      <div class="cp-header">
         <span class="cp-emoji">💼</span>
-        <div class="cp-title">Priority 1: Paid Internship Before 3rd Year</div>
+        <div class="cp-title">Priority 2: Paid Internship Before 3rd Year</div>
       </div>
       <div class="meter-group" style="margin-top:8px;">
         ${renderMeter('Internship Readiness', calculateReadiness().internship)}
@@ -50,7 +60,7 @@ function renderGoals() {
     <div class="career-path">
       <div class="cp-header">
         <span class="cp-emoji">🏢</span>
-        <div class="cp-title">Priority 2: Placement-Ready by Semester 7</div>
+        <div class="cp-title">Priority 3: Placement-Ready by Semester 7</div>
       </div>
       <div class="meter-group" style="margin-top:8px;">
         ${renderMeter('Placement Readiness', calculateReadiness().placement)}
@@ -59,7 +69,7 @@ function renderGoals() {
     <div class="career-path">
       <div class="cp-header">
         <span class="cp-emoji">🤖</span>
-        <div class="cp-title">Priority 3: Become AI Engineer</div>
+        <div class="cp-title">Priority 4: Become AI Engineer</div>
       </div>
       <div class="meter-group" style="margin-top:8px;">
         ${renderMeter('AI Engineer Readiness', calculateReadiness().aiEngineer)}

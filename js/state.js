@@ -172,6 +172,23 @@ function checkPhaseUnlocks(completedPhaseId) {
 // READINESS CALCULATIONS
 // ============================================
 
+function calculatePersonalAIProgress() {
+  // Personal AI Assistant projects: p1_proj4 (v0), p3_proj4 (v1), p4_proj1 (v2), p5_proj2 (v3),
+  // p6_proj3 (v4), p7_proj2 (v5), p8_proj2 (v6), p9_proj3 (v7), p10_proj2 (v8),
+  // p11_proj2 (v9), p12_proj2 (v10), p13_proj2 (v11), p14_proj2 (v12)
+  const aiProjectIds = [
+    'p1_proj4', 'p3_proj4', 'p4_proj1', 'p5_proj2', 'p6_proj3',
+    'p7_proj2', 'p8_proj2', 'p9_proj3', 'p10_proj2', 'p11_proj2',
+    'p12_proj2', 'p13_proj2', 'p14_proj2'
+  ];
+  let done = 0;
+  aiProjectIds.forEach(id => {
+    const proj = ALL_PROJECTS.find(p => p.id === id);
+    if (proj && (proj.status === 'done' || proj.status === 'deployed')) done++;
+  });
+  return Math.round((done / aiProjectIds.length) * 100);
+}
+
 function calculateReadiness() {
   const c = (phaseId) => getPhaseCompletion(phaseId) / 100;
   
