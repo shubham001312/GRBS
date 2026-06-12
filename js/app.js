@@ -65,7 +65,7 @@ function showApp() {
 
 // Theme is light-only (original GRBS color scheme)
 function applyTheme() {}
-function toggleTheme() { showToast('Light mode only 🌞', 'info'); }
+function toggleTheme() { showToast('Light mode only', 'info'); }
 
 // ============================================
 // NAVIGATION
@@ -118,7 +118,7 @@ function updatePhaseIndicator() {
   }
   if (!activePhase) {
     const completed = PHASES.filter(p => getPhaseStatus(p.id) === 'completed');
-    indicator.textContent = completed.length === PHASES.length ? 'All Done! 🎉' : `Phase 0: ${PHASES[0]?.title || ''}`;
+    indicator.textContent = completed.length === PHASES.length ? 'All Done!' : `Phase 0: ${PHASES[0]?.title || ''}`;
   } else {
     indicator.textContent = `Phase ${activePhase.id}: ${activePhase.title}`;
   }
