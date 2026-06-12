@@ -58,21 +58,52 @@ async function gistSyncUpload() {
   if (!pat) { showToast('❌ Enter your GitHub PAT first', 'error'); return; }
   gistSyncSetStatus('Uploading...');
   try {
+    const syncData = {
+      phases: appState.phases,
+      projects: ALL_PROJECTS.map(p => ({ id: p.id, status: p.status })),
+      streak: appState.streak,
+      lastActivity: appState.lastActivity,
+      notes: JSON.parse(localStorage.getItem('grbs_notes') || '{}'),
+      activity: JSON.parse(localStorage.getItem('grbs_activity') || '{}'),
+      username: getUsername(),
+      syncedAt: new Date().toISOString()
+    };
     const payload = {
       description: 'GRBS Roadmap Progress',
       public: false,
-      files: { 'grbs-progress.json': { content: JSON.stringify({ phases: appState.phases, projects: ALL_PROJECTS.map(p => ({ id: p.id, status: p.status })), streak: appState.streak, lastActivity: appState.lastActivity, notes: JSON.parse(localStorage.getItem('grbs_notes') || '{}'), activity: JSON.parse(localStorage.getItem('grbs_activity') || '{}'), username: getUsername(), syncedAt: new Date().toISOString() }, null, 2) }
+      files: {
+        'grbs-progress.json': {
+          content: JSON.stringify(syncData, null, 2)
+        }
+      }
     };
     let url, method;
-    if (config.gistId) { url = 'https://api.github.com/gists/' + config.gistId; method = 'PATCH'; } else { url = 'https://api.github.com/gists'; method = 'POST'; }
-    const resp = await fetch(url, { method, headers: { 'Authorization': 'token ' + pat, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    if (config.gistId) {
+      url = 'https://api.github.com/gists/' + config.gistId;
+      method = 'PATCH';
+    } else {
+      url = 'https://api.github.com/gists';
+      method = 'POST';
+    }
+    const resp = await fetch(url, {
+      method,
+      headers: {
+        'Authorization': 'token ' + pat,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
     if (!resp.ok) throw new Error('API error: ' + resp.status);
     const data = await resp.json();
     saveGistConfig({ ...config, gistId: data.id });
     document.getElementById('gist-id').value = data.id;
     gistSyncSetStatus('✅ Synced! Gist: ' + data.id);
     showToast('☁️ Progress uploaded!', 'success');
-  } catch (err) { gistSyncSetStatus('❌ Failed: ' + err.message); showToast('❌ Sync failed', 'error'); }
+  } catch (err) {
+    gistSyncSetStatus('❌ Failed: ' + err.message);
+    showToast('❌ Sync failed', 'error');
+  }
 }
 
 async function gistSyncDownload() {
@@ -83,7 +114,12 @@ async function gistSyncDownload() {
   if (!gistId) { showToast('❌ No Gist ID — upload first', 'error'); return; }
   gistSyncSetStatus('Downloading...');
   try {
-    const resp = await fetch('https://api.github.com/gists/' + gistId, { headers: { 'Authorization': 'token ' + pat, 'Accept': 'application/vnd.github.v3+json' } });
+    const resp = await fetch('https://api.github.com/gists/' + gistId, {
+      headers: {
+        'Authorization': 'token ' + pat,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
     if (!resp.ok) throw new Error('API error: ' + resp.status);
     const data = await resp.json();
     const file = data.files['grbs-progress.json'];
@@ -92,7 +128,12 @@ async function gistSyncDownload() {
     if (remote.phases) appState.phases = remote.phases;
     if (remote.streak !== undefined) appState.streak = remote.streak;
     if (remote.lastActivity) appState.lastActivity = remote.lastActivity;
-    if (remote.projects) remote.projects.forEach(rp => { const proj = ALL_PROJECTS.find(p => p.id === rp.id); if (proj) proj.status = rp.status; });
+    if (remote.projects) {
+      remote.projects.forEach(rp => {
+        const proj = ALL_PROJECTS.find(p => p.id === rp.id);
+        if (proj) proj.status = rp.status;
+      });
+    }
     if (remote.notes) localStorage.setItem('grbs_notes', JSON.stringify(remote.notes));
     if (remote.activity) localStorage.setItem('grbs_activity', JSON.stringify(remote.activity));
     if (remote.username) setUsername(remote.username);
@@ -100,5 +141,8 @@ async function gistSyncDownload() {
     gistSyncSetStatus('✅ Downloaded! Last synced: ' + (remote.syncedAt || 'unknown'));
     showToast('☁️ Progress downloaded!', 'success');
     renderCurrentTab();
-  } catch (err) { gistSyncSetStatus('❌ Failed: ' + err.message); showToast('❌ Download failed', 'error'); }
+  } catch (err) {
+    gistSyncSetStatus('❌ Failed: ' + err.message);
+    showToast('❌ Download failed', 'error');
+  }
 }

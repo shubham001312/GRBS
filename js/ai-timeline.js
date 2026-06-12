@@ -18,12 +18,6 @@ const AI_ASSISTANT_VERSIONS = [
   { version: 'v12', phaseId: 14, title: 'Production AI', desc: 'Fully deployed with Docker, K8s, CI/CD', tech: 'Docker, K8s, MLflow, React', icon: '🚀', level: 'Advanced' },
 ];
 
-function getAIVersionStatus(version) {
-  const proj = ALL_PROJECTS.find(p => p.id === `p${version.phaseId}_proj${version.phaseId === 1 ? 4 : version.phaseId === 3 ? 4 : version.phaseId === 4 ? 1 : version.phaseId === 5 ? 2 : version.phaseId === 6 ? 3 : version.phaseId === 7 ? 2 : version.phaseId === 8 ? 2 : version.phaseId === 9 ? 3 : version.phaseId === 10 ? 2 : version.phaseId === 11 ? 2 : version.phaseId === 12 ? 2 : version.phaseId === 13 ? 2 : 2}`);
-  if (!proj) return 'notstarted';
-  return proj.status;
-}
-
 function getAIVersionProjectId(version) {
   const phase = PHASES.find(p => p.id === version.phaseId);
   if (!phase) return null;
