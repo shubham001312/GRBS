@@ -1,7 +1,4 @@
-// ============================================
-// ACHIEVEMENTS - Badge System
-// ============================================
-
+// Achievements System
 var ACHIEVEMENTS = [
   { id: 'first_topic', icon: '🌱', title: 'First Step', desc: 'Complete your first topic', check: function() { return getTopicsCompleted() >= 1; } },
   { id: 'ten_topics', icon: '📚', title: 'Getting Started', desc: 'Complete 10 topics', check: function() { return getTopicsCompleted() >= 10; } },
@@ -14,9 +11,9 @@ var ACHIEVEMENTS = [
   { id: 'first_project', icon: '🔨', title: 'Builder', desc: 'Complete your first project', check: function() { return ALL_PROJECTS.some(function(p) { return p.status === 'done' || p.status === 'deployed'; }); } },
   { id: 'five_projects', icon: '🏗️', title: 'Contractor', desc: 'Complete 5 projects', check: function() { return ALL_PROJECTS.filter(function(p) { return p.status === 'done' || p.status === 'deployed'; }).length >= 5; } },
   { id: 'first_deploy', icon: '🚀', title: 'Deployed!', desc: 'Deploy your first project', check: function() { return ALL_PROJECTS.some(function(p) { return p.status === 'deployed'; }); } },
-  { id: 'personal_ai_v0', icon: '🤖', title: 'AI Creator', desc: 'Build Personal AI v0', check: function() { var p = ALL_PROJECTS.find(function(p) { return p.id === 'p1_proj4'; }); return p && (p.status === 'done' || p.status === 'deployed'); } },
   { id: 'notes_5', icon: '📝', title: 'Note Taker', desc: 'Write 5 learning notes', check: function() { return getNotesCount() >= 5; } },
-  { id: 'internship_ready', icon: '💼', title: 'Internship Ready', desc: 'Reach 80% internship readiness', check: function() { return calculateReadiness().internship >= 80; } }
+  { id: 'internship_ready', icon: '💼', title: 'Internship Ready', desc: 'Reach 80% internship readiness', check: function() { return calculateReadiness().internship >= 80; } },
+  { id: 'placement_ready', icon: '🏢', title: 'Placement Ready', desc: 'Reach 80% placement readiness', check: function() { return calculateReadiness().placement >= 80; } }
 ];
 
 function getEarnedAchievements() {
@@ -31,24 +28,20 @@ function getEarnedAchievements() {
   });
   if (newlyEarned.length > 0) {
     localStorage.setItem('grbs_achievements', JSON.stringify(stored));
-    newlyEarned.forEach(function(a) { showToast('Achievement: ' + a.icon + ' ' + a.title + '!', 'gold'); });
+    newlyEarned.forEach(function(a) { showToast('Achievement Unlocked: ' + a.icon + ' ' + a.title, 'gold'); });
   }
   return stored;
 }
 
-function getAchievementCount() { return getEarnedAchievements().length; }
 function checkAchievements() { getEarnedAchievements(); }
 
-function renderAchievements(containerId, count) {
+function renderAchievements(containerId) {
   var container = document.getElementById(containerId);
   if (!container) return;
   var earned = getEarnedAchievements();
-  var show = count || 8;
-  var earnedList = ACHIEVEMENTS.filter(function(a) { return earned.indexOf(a.id) !== -1; });
-  var lockedList = ACHIEVEMENTS.filter(function(a) { return earned.indexOf(a.id) === -1; });
-  container.innerHTML = '<div class="career-path"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><h3 style="font-family:var(--font-heading);font-size:16px;">Achievements</h3><span style="font-size:12px;font-family:var(--font-mono);color:var(--text-muted);">' + earned.length + '/' + ACHIEVEMENTS.length + '</span></div><div class="meter-group" style="margin-bottom:12px;">' + renderMeter('Progress', Math.round((earned.length / ACHIEVEMENTS.length) * 100)) + '</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;">' + earnedList.slice(0, show).map(function(a) {
-    return '<div class="achievement-badge earned" title="' + a.desc + '" style="text-align:center;padding:12px 8px;border-radius:10px;background:var(--bg);border:2px solid var(--accent-2);cursor:default;"><div style="font-size:24px;margin-bottom:4px;">' + a.icon + '</div><div style="font-size:11px;font-weight:600;color:var(--text);">' + a.title + '</div></div>';
-  }).join('') + lockedList.slice(0, Math.max(0, show - earnedList.length)).map(function(a) {
-    return '<div class="achievement-badge locked" title="' + a.desc + '" style="text-align:center;padding:12px 8px;border-radius:10px;background:var(--bg);border:1px solid var(--border);opacity:0.5;cursor:default;"><div style="font-size:24px;margin-bottom:4px;">🔒</div><div style="font-size:11px;font-weight:600;color:var(--text-dim);">' + a.title + '</div></div>';
+  container.innerHTML = '<div class="career-path"><h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">Achievements (' + earned.length + '/' + ACHIEVEMENTS.length + ')</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;">' +
+  ACHIEVEMENTS.map(function(a) {
+    var isEarned = earned.indexOf(a.id) !== -1;
+    return '<div style="text-align:center;padding:12px 8px;border-radius:10px;background:var(--bg);border:1px solid ' + (isEarned ? 'var(--accent-2)' : 'var(--border)') + ';opacity:' + (isEarned ? '1' : '0.4') + ';"><div style="font-size:24px;margin-bottom:4px;">' + (isEarned ? a.icon : '🔒') + '</div><div style="font-size:11px;font-weight:600;">' + a.title + '</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px;">' + a.desc + '</div></div>';
   }).join('') + '</div></div>';
 }

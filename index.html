@@ -20,19 +20,16 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-
-  <!-- Username Modal (Onboarding) -->
   <div class="modal-overlay hidden" id="username-modal">
     <div class="modal-card">
       <h2>Welcome to GRBS</h2>
-      <p class="modal-sub">What should we call you? (used only on this device)</p>
+      <p class="modal-sub">What should we call you?</p>
       <input type="text" id="username-input" placeholder="Your first name" autocomplete="off">
       <div class="modal-error" id="modal-error"></div>
       <button class="btn-primary" id="modal-submit">Let's go</button>
     </div>
   </div>
 
-  <!-- Command Palette -->
   <div class="command-palette-overlay" id="command-palette">
     <div class="command-palette">
       <div class="cp-header">
@@ -44,7 +41,6 @@
     </div>
   </div>
 
-  <!-- Header -->
   <header class="app-header">
     <div class="logo">⚡ GRBS</div>
     <div class="header-actions">
@@ -54,13 +50,11 @@
     </div>
   </header>
 
-  <!-- Search -->
   <div class="search-container" id="search-container">
     <input type="text" id="search-input" class="search-input" placeholder="Search topics, projects... (Ctrl+K)" autocomplete="off">
     <div class="search-results hidden" id="search-results"></div>
   </div>
 
-  <!-- Tab Content -->
   <main id="app-content" style="display:none;">
     <div id="tab-dashboard" class="tab-content active"></div>
     <div id="tab-roadmap" class="tab-content"></div>
@@ -70,7 +64,6 @@
     <div id="tab-about" class="tab-content"></div>
   </main>
 
-  <!-- Bottom Nav -->
   <nav class="bottom-nav" id="app-nav" style="display:none;">
     <button class="nav-item active" data-tab="dashboard"><span class="nav-icon">📊</span><span class="nav-label">Dashboard</span></button>
     <button class="nav-item" data-tab="roadmap"><span class="nav-icon">🗺️</span><span class="nav-label">Roadmap</span></button>
@@ -83,17 +76,11 @@
   <div id="offline-banner" class="offline-banner hidden">Offline - changes saved locally</div>
   <div id="toast-container"></div>
 
-  <!-- JS (load order matters) -->
   <script src="js/data.js?v=5.0.0"></script>
   <script src="js/state.js?v=5.0.0"></script>
   <script src="js/gist-sync.js?v=5.0.0"></script>
   <script src="js/notes.js?v=5.0.0"></script>
   <script src="js/weekly-digest.js?v=5.0.0"></script>
-  <script src="js/command-palette.js"></script>
-  <script src="js/achievements.js"></script>
-  <script src="js/smart-recommendations.js"></script>
-  <script src="js/difficulty-predictor.js"></script>
-  <script src="js/resource-ratings.js"></script>
   <script src="js/ai-timeline.js?v=5.0.0"></script>
   <script src="js/command-palette.js?v=5.0.0"></script>
   <script src="js/achievements.js?v=5.0.0"></script>
@@ -108,35 +95,27 @@
   <script src="js/about.js?v=5.0.0"></script>
   <script src="js/app.js?v=5.0.0"></script>
 
-  <!-- Update Available Banner -->
   <div id="update-banner" class="update-banner hidden">
     <span>New version available!</span>
     <button onclick="applyUpdate()" class="update-btn">Refresh Now</button>
     <button onclick="dismissUpdate()" class="update-dismiss">✕</button>
   </div>
 
-  <!-- PWA Service Worker Registration -->
   <script>
     var swRegistration = null;
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('./sw.js').then(function(reg) {
           swRegistration = reg;
-          setInterval(function() {
-            if (reg.waiting) { showUpdateBanner(); } else { reg.update().catch(function(){}); }
-          }, 30 * 60 * 1000);
+          setInterval(function() { if (reg.waiting) { showUpdateBanner(); } else { reg.update().catch(function(){}); } }, 30 * 60 * 1000);
           reg.addEventListener('updatefound', function() {
             var newSW = reg.installing;
             if (!newSW) return;
-            newSW.addEventListener('statechange', function() {
-              if (newSW.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner();
-            });
+            newSW.addEventListener('statechange', function() { if (newSW.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner(); });
           });
         }).catch(function(err) { console.warn('SW registration failed:', err); });
       });
-      navigator.serviceWorker.addEventListener('message', function(event) {
-        if (event.data && event.data.type === 'SW_UPDATED') showUpdateBanner();
-      });
+      navigator.serviceWorker.addEventListener('message', function(event) { if (event.data && event.data.type === 'SW_UPDATED') showUpdateBanner(); });
     }
     function showUpdateBanner() { var b = document.getElementById('update-banner'); if (b) b.classList.remove('hidden'); }
     function applyUpdate() { if (swRegistration && swRegistration.waiting) swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' }); window.location.reload(); }
