@@ -129,7 +129,9 @@ main {
 .card {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 14px;
+  transition: all var(--transition);
 }
+.card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 
 /* === Progress Ring === */
 .progress-ring-wrap {
@@ -337,7 +339,9 @@ main {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 12px;
   margin-bottom: 8px;
+  transition: all var(--transition);
 }
+.project-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .pc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
 .pc-title { font-size: 14px; font-weight: 600; flex: 1; }
 .pc-phase { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
@@ -614,7 +618,7 @@ main {
   to { opacity: 1; max-height: 2000px; }
 }
 .phase-card { transition: all 0.3s ease; }
-.phase-card:hover:not(.locked) { border-color: var(--accent); }
+.phase-card:hover:not(.locked) { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 
 /* === Achievement Badges === */
 .achievement-badge { transition: transform 0.2s ease; }

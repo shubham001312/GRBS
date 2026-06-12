@@ -24,7 +24,7 @@ function renderProjects() {
   };
 
   container.innerHTML = `
-    <div class="section-title">🏗️ Project Tracker · ${statusCounts.all} Projects</div>
+    <div class="section-title">Project Tracker · ${statusCounts.all} Projects</div>
 
     <!-- Filter Chips -->
     <div class="filter-bar">
@@ -69,7 +69,7 @@ function renderProjectCard(project) {
         <div class="pc-title">${project.name}</div>
         <span class="pc-phase">Phase ${project.phaseId}</span>
       </div>
-      <div class="pc-stars">${'⭐'.repeat(Math.min(project.level.length, 4))} ${project.level}</div>
+      <div class="pc-stars">${icon('star').repeat(project.level === 'Beginner' ? 1 : project.level === 'Intermediate' ? 2 : project.level === 'Advanced' ? 3 : 4)} ${project.level}</div>
       <span class="pc-status ${statusCls[project.status]}">${statusLabels[project.status]}</span>
       <div class="pc-actions">
         <select onchange="updateProjectStatus('${project.id}',this.value)">
@@ -98,10 +98,10 @@ function updateProjectStatus(projectId, newStatus) {
   if (project) {
     project.status = newStatus;
     if (newStatus === 'done') {
-      showToast('🎉 Project marked as Done!', 'success');
+      showToast('Project marked as Done!', 'success');
       triggerMilestoneConfetti();
     } else if (newStatus === 'deployed') {
-      showToast('🚀 Project deployed!', 'success');
+      showToast('Project deployed!', 'success');
       triggerBigConfetti();
     }
     saveState();

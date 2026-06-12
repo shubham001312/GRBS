@@ -106,26 +106,27 @@ function renderComparisonChart(readiness) {
 
 function renderSkillLevels() {
   var skills = [
-    { name: 'Engineer Foundations', phase: 0, icon: '🛠️' },
-    { name: 'Python', phase: 1, icon: '💻' },
-    { name: 'Mathematics', phase: 2, icon: '🧮' },
-    { name: 'Software Eng', phase: 3, icon: '🏗️' },
-    { name: 'Frontend', phase: 4, icon: '🎨' },
-    { name: 'Data Science', phase: 5, icon: '📊' },
-    { name: 'Machine Learning', phase: 6, icon: '🤖' },
-    { name: 'Deep Learning', phase: 7, icon: '🧠' },
-    { name: 'NLP', phase: 8, icon: '💬' },
-    { name: 'Transformers', phase: 9, icon: '🔮' },
-    { name: 'Build GPT', phase: 10, icon: '⚙️' },
-    { name: 'LLM Engineering', phase: 11, icon: '🎯' },
-    { name: 'RAG & Agents', phase: 12, icon: '🧬' },
-    { name: 'Backend', phase: 13, icon: '⚡' },
-    { name: 'MLOps', phase: 14, icon: '🚀' }
+    { name: 'Engineer Foundations', phase: 0, icon: 'wrench' },
+    { name: 'Python', phase: 1, icon: 'code' },
+    { name: 'Mathematics', phase: 2, icon: 'calculator' },
+    { name: 'Software Eng', phase: 3, icon: 'server' },
+    { name: 'Frontend', phase: 4, icon: 'palette' },
+    { name: 'Data Science', phase: 5, icon: 'barChart' },
+    { name: 'Machine Learning', phase: 6, icon: 'cog' },
+    { name: 'Deep Learning', phase: 7, icon: 'brain' },
+    { name: 'NLP', phase: 8, icon: 'chat' },
+    { name: 'Transformers', phase: 9, icon: 'gem' },
+    { name: 'Build GPT', phase: 10, icon: 'cog' },
+    { name: 'LLM Engineering', phase: 11, icon: 'target' },
+    { name: 'RAG & Agents', phase: 12, icon: 'dna' },
+    { name: 'Backend', phase: 13, icon: 'zap' },
+    { name: 'MLOps', phase: 14, icon: 'rocket' }
   ];
   return '<div class="stats-row" style="flex-wrap:wrap;gap:8px;">' + skills.map(function(s) {
     var c = getPhaseCompletion(s.phase);
-    var level = c === 0 ? '' : c < 50 ? '🟢' : c < 80 ? '🟡' : c < 100 ? '🟠' : '🏆';
-    return '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div style="font-size:16px;">' + s.icon + '</div><div class="stat-lbl">' + s.name + '</div><div class="stat-val" style="font-size:14px;">' + c + '% ' + level + '</div></div>';
+    var levelColor = c === 0 ? 'var(--text-muted)' : c < 50 ? 'var(--success)' : c < 80 ? 'var(--warning)' : c < 100 ? 'var(--accent)' : 'var(--accent-2)';
+    var level = c === 0 ? '' : c < 50 ? 'Basic' : c < 80 ? 'Growing' : c < 100 ? 'Strong' : 'Mastered';
+    return '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div style="font-size:16px;">' + icon(s.icon) + '</div><div class="stat-lbl">' + s.name + '</div><div class="stat-val" style="font-size:14px;">' + c + '% <span style="font-size:10px;color:' + levelColor + ';">' + level + '</span></div></div>';
   }).join('') + '</div>';
 }
 

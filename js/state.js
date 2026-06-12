@@ -136,12 +136,12 @@ function markTopicDone(phaseId, topicId) {
   if (stateData.topicsDone[topicId]) {
     updateStreak();
     logActivity();
-    showToast('✅ Topic completed!', 'success');
+    showToast('Topic completed!', 'success');
   }
   
   const completion = getPhaseCompletion(phaseId);
   if (completion === 100) {
-    showToast(`🎯 Phase ${phaseId} completed! 🎉`, 'gold');
+    showToast(`Phase ${phaseId} completed!`, 'gold');
     triggerConfetti();
     checkPhaseUnlocks(phaseId);
   }
@@ -155,7 +155,7 @@ function markMilestoneDone(phaseId, milestoneId) {
   
   stateData.milestonesDone[milestoneId] = !stateData.milestonesDone[milestoneId];
   if (stateData.milestonesDone[milestoneId]) {
-    showToast('🏆 Milestone achieved!', 'gold');
+    showToast('Milestone achieved!', 'gold');
     triggerMilestoneConfetti();
   }
   saveState();
@@ -166,7 +166,7 @@ function checkPhaseUnlocks(completedPhaseId) {
     if (phase.dependency === completedPhaseId) {
       const status = getPhaseStatus(phase.id);
       if (status === 'active') {
-        showToast(`🔓 Phase ${phase.id} unlocked!`, 'gold');
+        showToast(`Phase ${phase.id} unlocked!`, 'gold');
       }
     }
   });
@@ -276,10 +276,10 @@ function updateSyncIndicator(status) {
   if (!indicator) return;
   
   if (status === 'saved') {
-    indicator.innerHTML = '🟢 Saved';
+    indicator.innerHTML = 'Saved';
     indicator.className = 'sync-indicator';
   } else if (status === 'saving') {
-    indicator.innerHTML = '🟡 Saving...';
+    indicator.innerHTML = 'Saving...';
     indicator.className = 'sync-indicator saving';
   }
 }
@@ -328,7 +328,7 @@ function exportData() {
   a.download = `shubham-roadmap-backup-${new Date().toISOString().split('T')[0]}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('📥 Data exported successfully!', 'success');
+  showToast('Data exported successfully!', 'success');
 }
 
 function importData(event) {
@@ -346,11 +346,11 @@ function importData(event) {
         if (data.username) setUsername(data.username);
         if (data.activity) localStorage.setItem(STORAGE_KEYS.activity, JSON.stringify(data.activity));
         saveState();
-        showToast('📤 Data imported successfully!', 'success');
+        showToast('Data imported successfully!', 'success');
         renderCurrentTab();
       }
     } catch (err) {
-      showToast('❌ Invalid file format', 'error');
+      showToast('Invalid file format', 'error');
     }
   };
   reader.readAsText(file);
@@ -503,7 +503,7 @@ function renderEstimatedCompletion(containerId) {
   var container = document.getElementById(containerId);
   if (!container) return;
   var est = getEstimatedCompletionDate();
-  container.innerHTML = '<div class="career-path"><h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">📅 Estimated Completion</h3><div style="display:flex;gap:12px;flex-wrap:wrap;"><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.date + '</div><div class="stat-lbl">Projected Date</div></div><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.daysLeft + '</div><div class="stat-lbl">Days Left</div></div><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.hoursLeft + 'h</div><div class="stat-lbl">Hours Left</div></div></div></div>';
+  container.innerHTML = '<div class="career-path"><h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">Estimated Completion</h3><div style="display:flex;gap:12px;flex-wrap:wrap;"><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.date + '</div><div class="stat-lbl">Projected Date</div></div><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.daysLeft + '</div><div class="stat-lbl">Days Left</div></div><div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + est.hoursLeft + 'h</div><div class="stat-lbl">Hours Left</div></div></div></div>';
 }
 
 // ============================================

@@ -28,7 +28,7 @@ function getSmartRecommendations() {
       var doneCount = stateData ? Object.values(stateData.topicsDone).filter(function(v) { return v === true; }).length : 0;
       if (doneCount > 0 && doneCount < phase.topics.length) {
         var pct = Math.round((doneCount / phase.topics.length) * 100);
-        recs.push({ icon: '💡', title: 'Rate resources for Phase ' + phase.id, detail: pct + '% complete - rate the resources you used', priority: 'low', action: 'switchTab("roadmap");expandedPhase=' + phase.id + ';renderRoadmap();' });
+        recs.push({ icon: icon('star'), title: 'Rate resources for Phase ' + phase.id, detail: pct + '% complete - rate the resources you used', priority: 'low', action: 'switchTab("roadmap");expandedPhase=' + phase.id + ';renderRoadmap();' });
         break;
       }
     }
@@ -36,7 +36,7 @@ function getSmartRecommendations() {
 
   // Streak motivation
   if (state.streak >= 7) {
-    recs.push({ icon: '🔥', title: 'Amazing ' + state.streak + '-day streak!', detail: 'Keep it up - consistency is key', priority: 'medium', action: '' });
+    recs.push({ icon: icon('flame'), title: 'Amazing ' + state.streak + '-day streak!', detail: 'Keep it up - consistency is key', priority: 'medium', action: '' });
   } else if (state.streak === 0) {
     recs.push({ icon: 'settings', title: 'Start a streak today', detail: 'Complete at least one topic to begin', priority: 'high', action: 'switchTab("dashboard");' });
   }
@@ -52,7 +52,7 @@ function getSmartRecommendations() {
         if (proj) {
           var projData = ALL_PROJECTS.find(function(p) { return p.id === proj.id; });
           if (projData && projData.status === 'notstarted') {
-            recs.push({ icon: '🔨', title: 'Start a project', detail: proj.name, priority: 'medium', action: 'switchTab("projects");' });
+            recs.push({ icon: icon('rocket'), title: 'Start a project', detail: proj.name, priority: 'medium', action: 'switchTab("projects");' });
             break;
           }
         }
