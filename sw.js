@@ -1,8 +1,8 @@
-// GRBS PWA Service Worker — v3.0
-// Updated: June 10, 2026 — auto-update support, cache versioning
+// GRBS PWA Service Worker — v4.0
+// Updated: June 12, 2026 — refined roadmap v4.0 with Personal AI Assistant thread
 
 // Increment this version on every deployment to force cache invalidation
-const APP_VERSION = '3.0.0';
+const APP_VERSION = '4.0.0';
 const CACHE_NAME = `grbs-cache-${APP_VERSION}`;
 const PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
 const STATIC_ASSETS = [
