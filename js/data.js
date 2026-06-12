@@ -34,8 +34,8 @@ const PHASES = [
     resources: [
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=O5nskjZ_GoI', label: 'Crash Course CS #1-4' },
       { level: '🇮🇳 Hindi', url: 'https://youtu.be/FETxgyyu904', label: 'Not Your College — CS Fundamentals' },
-      { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=8XBtAjKwCm4', label: 'Simplilearn — OS Basics' },
-      { level: '🇮🇳 Hindi', url: 'https://youtu.be/8XBtAjKwCm4', label: 'Anuj Bhaiya — OS In One Shot' },
+      { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=8XBtAjKwCm4', label: 'Anuj Bhaiya — OS In One Shot' },
+      { level: '🇮🇳 Hindi', url: 'https://youtu.be/xw_OuOhjauw', label: 'Knowledge Gate — OS' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=qiQR5rTSshw', label: 'freeCodeCamp — Networking Fundamentals' },
       { level: '🇮🇳 Hindi', url: 'https://youtu.be/xw_OuOhjauw', label: 'Apna College — Networking Basics' },
       { level: '🇬🇧 Beginner', url: 'https://www.youtube.com/watch?v=ZtqBQ68cfJc', label: 'freeCodeCamp — Linux for Beginners' },
