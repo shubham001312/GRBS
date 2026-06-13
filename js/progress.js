@@ -195,13 +195,36 @@ function renderStudySummary() {
   }
   var totalMs = sessions.reduce(function(a, s) { return a + s.duration; }, 0);
   var totalSessions = sessions.length;
+  var avgMs = totalSessions > 0 ? Math.round(totalMs / totalSessions) : 0;
+
+  // Calculate best streak (consecutive days with at least one session)
+  var daySet = {};
+  sessions.forEach(function(s) { if (s.date) daySet[s.date] = true; });
+  var bestStreak = 0, currentStreak = 0;
+  for (var j = 0; j < 365; j++) {
+    var dd = new Date(today); dd.setDate(dd.getDate() - j);
+    var ds2 = dd.toISOString().split('T')[0];
+    if (daySet[ds2]) { currentStreak++; if (currentStreak > bestStreak) bestStreak = currentStreak; }
+    else { currentStreak = 0; }
+  }
+
+  // Current streak
+  var curStreak = 0;
+  for (var k = 0; k < 365; k++) {
+    var dt = new Date(today); dt.setDate(dt.getDate() - k);
+    var ds3 = dt.toISOString().split('T')[0];
+    if (daySet[ds3]) curStreak++; else break;
+  }
+
   var fmtM = typeof StudyTimer !== 'undefined' ? StudyTimer.fmtShort : function(ms) { var m = Math.floor(ms / 60000); return m >= 60 ? Math.floor(m/60) + 'h ' + (m%60) + 'm' : m + 'm'; };
   return '<div class="stats-row" style="flex-wrap:wrap;gap:8px;">' +
     '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(todayMs) + '</div><div class="stat-lbl">Today</div></div>' +
     '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(weekMs) + '</div><div class="stat-lbl">This Week</div></div>' +
     '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(totalMs) + '</div><div class="stat-lbl">All Time</div></div>' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(avgMs) + '</div><div class="stat-lbl">Avg Session</div></div>' +
     '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + totalSessions + '</div><div class="stat-lbl">Total Sessions</div></div>' +
-    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + todaySessions.length + '</div><div class="stat-lbl">Today Sessions</div></div>' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + curStreak + '</div><div class="stat-lbl">Current Streak</div></div>' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + bestStreak + '</div><div class="stat-lbl">Best Streak</div></div>' +
   '</div>';
 }
 
