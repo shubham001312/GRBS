@@ -33,6 +33,8 @@ function renderDashboard() {
 
   container.innerHTML = '<div class="text-center mb-20"><h2 style="font-size:22px;margin-bottom:4px;">' + getGreeting() + ', ' + (getUsername() || 'Shubham') + '!</h2><p class="text-muted">' + formatDate() + '</p></div>';
 
+  container.innerHTML += '<div id="timer-button-container"></div>';
+
   container.innerHTML += '<div class="progress-ring-wrap" style="margin-bottom:20px;"><svg viewBox="0 0 140 140"><circle class="ring-bg" cx="70" cy="70" r="62" /><circle class="ring-fill" cx="70" cy="70" r="62" stroke-dasharray="' + (2 * Math.PI * 62) + '" stroke-dashoffset="' + (2 * Math.PI * 62 * (1 - overall / 100)) + '" /></svg><div class="ring-text"><div class="pct">' + overall + '%</div><div class="label">Overall</div></div></div>';
 
   container.innerHTML += '<div class="stats-row"><div class="stat-chip"><div class="stat-val">' + topicsDone + '/' + totalTopics + '</div><div class="stat-lbl">Topics</div></div><div class="stat-chip"><div class="stat-val">' + projectsDone + '/' + totalProjects + '</div><div class="stat-lbl">Projects</div></div><div class="stat-chip"><div class="stat-val">' + icon('flame') + ' ' + appState.streak + '</div><div class="stat-lbl">Day Streak</div></div></div>';
@@ -62,6 +64,7 @@ function renderDashboard() {
     if (typeof renderAITimeline === 'function') renderAITimeline('ai-timeline');
     if (typeof renderRecentNotes === 'function') renderRecentNotes('recent-notes', 5);
     if (typeof gistSyncSetup === 'function') gistSyncSetup();
+    if (typeof StudyTimer !== 'undefined') StudyTimer.renderTimerButton('timer-button-container');
     checkAchievements();
   }, 100);
 }

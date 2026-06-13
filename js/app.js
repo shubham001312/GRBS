@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('loadState error:', e);
   }
 
+  // Restore running timer across page refresh
+  if (typeof StudyTimer !== 'undefined' && StudyTimer.restoreOnLoad) {
+    StudyTimer.restoreOnLoad();
+  }
+
   const username = getUsername();
   if (!username) {
     showOnboarding();
