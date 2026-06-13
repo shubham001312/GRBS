@@ -1,5 +1,5 @@
 // ============================================
-// DASHBOARD TAB RENDERER - Enhanced with all new features
+// DASHBOARD TAB RENDERER - Reorganized with grouped sections
 // ============================================
 
 function renderDashboard() {
@@ -31,37 +31,90 @@ function renderDashboard() {
     }
   }
 
-  container.innerHTML = '<div class="text-center mb-20"><h2 style="font-size:22px;margin-bottom:4px;">' + getGreeting() + ', ' + (getUsername() || 'Shubham') + '!</h2><p class="text-muted">' + formatDate() + '</p></div>';
+  // ── HERO SECTION (Greeting + Ring + Stats) ──
+  var html = '<div class="dash-hero">';
+  html += '<div class="dash-greeting"><h2>' + getGreeting() + ', ' + (getUsername() || 'Shubham') + '!</h2><p class="text-muted">' + formatDate() + '</p></div>';
+  html += '<div class="dash-hero-row">';
+  html += '<div class="progress-ring-wrap"><svg viewBox="0 0 140 140"><circle class="ring-bg" cx="70" cy="70" r="62" /><circle class="ring-fill" cx="70" cy="70" r="62" stroke-dasharray="' + (2 * Math.PI * 62) + '" stroke-dashoffset="' + (2 * Math.PI * 62 * (1 - overall / 100)) + '" /></svg><div class="ring-text"><div class="pct">' + overall + '%</div><div class="label">Overall</div></div></div>';
+  html += '<div class="dash-stats-col">';
+  html += '<div class="stat-chip-sm"><div class="stat-val">' + topicsDone + '/' + totalTopics + '</div><div class="stat-lbl">Topics</div></div>';
+  html += '<div class="stat-chip-sm"><div class="stat-val">' + projectsDone + '/' + totalProjects + '</div><div class="stat-lbl">Projects</div></div>';
+  html += '<div class="stat-chip-sm"><div class="stat-val">' + icon('flame') + ' ' + appState.streak + '</div><div class="stat-lbl">Streak</div></div>';
+  html += '</div>';
+  html += '</div></div>';
 
-  container.innerHTML += '<div id="timer-button-container"></div>';
+  // ── TIMER SECTION ──
+  html += '<div id="timer-button-container"></div>';
 
-  container.innerHTML += '<div class="progress-ring-wrap" style="margin-bottom:20px;"><svg viewBox="0 0 140 140"><circle class="ring-bg" cx="70" cy="70" r="62" /><circle class="ring-fill" cx="70" cy="70" r="62" stroke-dasharray="' + (2 * Math.PI * 62) + '" stroke-dashoffset="' + (2 * Math.PI * 62 * (1 - overall / 100)) + '" /></svg><div class="ring-text"><div class="pct">' + overall + '%</div><div class="label">Overall</div></div></div>';
-
-  container.innerHTML += '<div class="stats-row"><div class="stat-chip"><div class="stat-val">' + topicsDone + '/' + totalTopics + '</div><div class="stat-lbl">Topics</div></div><div class="stat-chip"><div class="stat-val">' + projectsDone + '/' + totalProjects + '</div><div class="stat-lbl">Projects</div></div><div class="stat-chip"><div class="stat-val">' + icon('flame') + ' ' + appState.streak + '</div><div class="stat-lbl">Day Streak</div></div></div>';
-
-  container.innerHTML += '<div class="section-title">' + icon('chart') + ' Readiness Scores</div><div class="meter-group">' + renderMeter('Internship Readiness', readiness.internship) + renderMeter('Placement Readiness', readiness.placement) + renderMeter('AI Engineer Readiness', readiness.aiEngineer) + renderMeter('LLM Engineer Readiness', readiness.llmEngineer) + renderMeter('GPT Builder Readiness', readiness.gptBuilder) + renderMeter('Interview Readiness', readiness.interview) + renderMeter('Project Portfolio', readiness.projectPortfolio) + '</div>';
-
+  // ── TODAY'S FOCUS ──
   if (focusTopics.length > 0) {
-    container.innerHTML += '<div class="focus-panel"><div class="focus-title">Today\'s Focus - Phase ' + activePhase.id + '</div>' + focusTopics.map(function(t) { return '<div class="focus-item"><span class="fi-name">' + t.title + '</span><button class="fi-btn" onclick="markTopicDone(' + t.phaseId + ',\'' + t.id + '\')">Mark Done</button></div>'; }).join('') + '</div>';
+    html += '<div class="dash-section">';
+    html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('target') + '</span><span class="dash-section-title">Today\'s Focus</span><span class="dash-section-badge">Phase ' + activePhase.id + '</span></div>';
+    html += '<div class="dash-section-body">';
+    html += focusTopics.map(function(t) { return '<div class="focus-item"><span class="fi-name">' + t.title + '</span><button class="fi-btn" onclick="markTopicDone(' + t.phaseId + ',\'' + t.id + '\')">Mark Done</button></div>'; }).join('');
+    html += '</div></div>';
   }
 
-  container.innerHTML += '<div class="section-title">' + icon('calendar') + ' Estimated Completion</div><div id="estimated-completion"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('brain') + ' Smart Recommendations</div><div id="smart-recs"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('settings') + ' Difficulty Predictor</div><div id="difficulty-pred"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('medal') + ' Achievements</div><div id="achievements-section"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('calendar') + ' Weekly Digest</div><div id="weekly-digest"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('cog') + ' AI Assistant Evolution</div><div id="ai-timeline"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('note') + ' Recent Notes</div><div id="recent-notes"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('cloud') + ' Cloud Sync</div><div id="gist-sync-section"></div>';
-  container.innerHTML += '<div class="section-title">' + icon('settings') + ' Data</div><div class="toolbar"><button onclick="exportData()">Export JSON</button><button onclick="document.getElementById(\"import-file\").click()">Import JSON</button><input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)"></div>';
+  // ── READINESS SECTION ──
+  html += '<div class="dash-section">';
+  html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('chart') + '</span><span class="dash-section-title">Readiness Scores</span></div>';
+  html += '<div class="dash-section-body">';
+  html += '<div class="readiness-grid">';
+  html += '<div class="readiness-item">' + renderMeter('Internship', readiness.internship) + '</div>';
+  html += '<div class="readiness-item">' + renderMeter('Placement', readiness.placement) + '</div>';
+  html += '<div class="readiness-item">' + renderMeter('AI Engineer', readiness.aiEngineer) + '</div>';
+  html += '<div class="readiness-item">' + renderMeter('LLM Engineer', readiness.llmEngineer) + '</div>';
+  html += '<div class="readiness-item">' + renderMeter('GPT Builder', readiness.gptBuilder) + '</div>';
+  html += '<div class="readiness-item">' + renderMeter('Interview', readiness.interview) + '</div>';
+  html += '<div class="readiness-item">' + renderMeter('Portfolio', readiness.projectPortfolio) + '</div>';
+  html += '</div></div></div>';
 
+  // ── INSIGHTS SECTION (Recommendations + Difficulty + Est. Completion) ──
+  html += '<div class="dash-section">';
+  html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('brain') + '</span><span class="dash-section-title">Insights</span></div>';
+  html += '<div class="dash-section-body">';
+  html += '<div id="smart-recs" class="dash-insight-block"></div>';
+  html += '<div id="difficulty-pred" class="dash-insight-block"></div>';
+  html += '<div id="estimated-completion" class="dash-insight-block"></div>';
+  html += '</div></div>';
+
+  // ── ACHIEVEMENTS & ACTIVITY SECTION ──
+  html += '<div class="dash-section">';
+  html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('medal') + '</span><span class="dash-section-title">Achievements & Activity</span></div>';
+  html += '<div class="dash-section-body">';
+  html += '<div id="achievements-section"></div>';
+  html += '<div id="weekly-digest"></div>';
+  html += '</div></div>';
+
+  // ── NOTES & SYNC SECTION ──
+  html += '<div class="dash-section">';
+  html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('note') + '</span><span class="dash-section-title">Notes & Sync</span></div>';
+  html += '<div class="dash-section-body">';
+  html += '<div id="recent-notes"></div>';
+  html += '<div id="gist-sync-section"></div>';
+  html += '</div></div>';
+
+  // ── AI & DATA SECTION ──
+  html += '<div class="dash-section">';
+  html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('cog') + '</span><span class="dash-section-title">AI & Data</span></div>';
+  html += '<div class="dash-section-body">';
+  html += '<div id="ai-timeline"></div>';
+  html += '<div class="dash-data-tools">';
+  html += '<button onclick="exportData()" class="dash-data-btn">' + icon('cloud') + ' Export JSON</button>';
+  html += '<button onclick="document.getElementById(\'import-file\').click()" class="dash-data-btn">' + icon('settings') + ' Import JSON</button>';
+  html += '<input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">';
+  html += '</div>';
+  html += '</div></div>';
+
+  container.innerHTML = html;
+
+  // Render sub-modules after DOM is ready
   setTimeout(function() {
-    renderEstimatedCompletion('estimated-completion');
     renderSmartRecommendations('smart-recs');
     renderDifficultyPredictor('difficulty-pred');
+    renderEstimatedCompletion('estimated-completion');
     renderAchievements('achievements-section', 8);
     if (typeof renderWeeklyDigest === 'function') renderWeeklyDigest('weekly-digest');
-    if (typeof renderAITimeline === 'function') renderAITimeline('ai-timeline');
     if (typeof renderRecentNotes === 'function') renderRecentNotes('recent-notes', 5);
     if (typeof gistSyncSetup === 'function') gistSyncSetup();
     if (typeof StudyTimer !== 'undefined') StudyTimer.renderTimerButton('timer-button-container');
