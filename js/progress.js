@@ -195,7 +195,7 @@ function renderStudySummary() {
   }
   var totalMs = sessions.reduce(function(a, s) { return a + s.duration; }, 0);
   var totalSessions = sessions.length;
-  var fmtM = function(ms) { var m = Math.floor(ms / 60000); return m >= 60 ? Math.floor(m/60) + 'h ' + (m%60) + 'm' : m + 'm'; };
+  var fmtM = typeof StudyTimer !== 'undefined' ? StudyTimer.fmtShort : function(ms) { var m = Math.floor(ms / 60000); return m >= 60 ? Math.floor(m/60) + 'h ' + (m%60) + 'm' : m + 'm'; };
   return '<div class="stats-row" style="flex-wrap:wrap;gap:8px;">' +
     '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(todayMs) + '</div><div class="stat-lbl">Today</div></div>' +
     '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(weekMs) + '</div><div class="stat-lbl">This Week</div></div>' +
@@ -251,7 +251,7 @@ function renderWeeklyStudyChart() {
       sessions.forEach(function(s) { if (s.date === ds) { weekMs += s.duration; weekCount++; } });
     }
     var wkStart = new Date(today); wkStart.setDate(wkStart.getDate() - (w * 7 + 6));
-    labels.push('W' + (4 - w));
+    labels.push(wkStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
     data.push(Math.round(weekMs / 60000));
     counts.push(weekCount);
   }
