@@ -537,18 +537,7 @@ main {
   animation: slideDown 0.3s ease;
   box-shadow: 0 2px 12px rgba(232,69,69,0.3);
 }
-.update-btn {
-  background: #fff; color: var(--accent); border: none;
-  padding: 5px 16px; border-radius: 20px; font-size: 12px;
-  font-family: var(--font-mono); font-weight: 700; cursor: pointer;
-  transition: all 0.2s;
-}
-.update-btn:hover { transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.update-dismiss {
-  background: none; border: none; color: rgba(255,255,255,0.7);
-  font-size: 16px; cursor: pointer; padding: 0 4px;
-}
-.update-dismiss:hover { color: #fff; }
+.update-banner span { font-family: var(--font-mono); font-size: 12px; }
 
 /* === Offline Banner === */
 .offline-banner {

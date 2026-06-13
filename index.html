@@ -98,9 +98,7 @@
   <script src="js/app.js?v=6.1.0"></script>
 
   <div id="update-banner" class="update-banner hidden">
-    <span>New version available!</span>
-    <button onclick="applyUpdate()" class="update-btn">Refresh Now</button>
-    <button onclick="dismissUpdate()" class="update-dismiss">x</button>
+    <span>Updating to latest version...</span>
   </div>
 
   <script>
@@ -109,19 +107,31 @@
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('./sw.js').then(function(reg) {
           swRegistration = reg;
-          setInterval(function() { if (reg.waiting) { showUpdateBanner(); } else { reg.update().catch(function(){}); } }, 30 * 60 * 1000);
+          setInterval(function() { if (reg.waiting) { applyUpdate(); } else { reg.update().catch(function(){}); } }, 30 * 60 * 1000);
           reg.addEventListener('updatefound', function() {
             var newSW = reg.installing;
             if (!newSW) return;
-            newSW.addEventListener('statechange', function() { if (newSW.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner(); });
+            newSW.addEventListener('statechange', function() { if (newSW.state === 'installed' && navigator.serviceWorker.controller) applyUpdate(); });
           });
         }).catch(function(err) { console.warn('SW registration failed:', err); });
       });
-      navigator.serviceWorker.addEventListener('message', function(event) { if (event.data && event.data.type === 'SW_UPDATED') showUpdateBanner(); });
+      navigator.serviceWorker.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'SW_UPDATED') applyUpdate();
+      });
     }
-    function showUpdateBanner() { var b = document.getElementById('update-banner'); if (b) b.classList.remove('hidden'); }
-    function applyUpdate() { if (swRegistration && swRegistration.waiting) swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' }); window.location.reload(); }
-    function dismissUpdate() { var b = document.getElementById('update-banner'); if (b) b.classList.add('hidden'); }
+    var _lastReload = 0;
+    function applyUpdate() {
+      if (Date.now() - _lastReload < 5000) return;
+      _lastReload = Date.now();
+      if (swRegistration && swRegistration.waiting) {
+        swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      }
+    }
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      if (Date.now() - _lastReload < 5000) return;
+      _lastReload = Date.now();
+      window.location.reload();
+    });
     var offlineBanner = document.getElementById('offline-banner');
     function updateOnlineStatus() { if (navigator.onLine) offlineBanner.classList.add('hidden'); else offlineBanner.classList.remove('hidden'); }
     window.addEventListener('online', updateOnlineStatus);
