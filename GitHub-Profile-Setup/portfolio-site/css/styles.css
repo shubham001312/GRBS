@@ -1,5 +1,11 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f8fafc;--surface:#ffffff;--surface-hover:#f1f5f9;--text:#0f172a;--text-inverse:#ffffff;--muted:#64748b;--accent:#4f46e5;--accent-rgb:79,70,229;--accent-gradient:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);--border:#e2e8f0;--tag-bg:#e0e7ff;--glass-bg:rgba(255,255,255,0.85);--glass-border:rgba(0,0,0,0.06);--input-bg:rgba(0,0,0,0.01);--input-border:rgba(0,0,0,0.08);--glow-strength:rgba(79,70,229,0.05)}
+body.dark{--bg:#0a0a0f;--surface:#12121a;--surface-hover:#1a1a2e;--text:#e2e8f0;--text-inverse:#0f172a;--muted:#94a3b8;--accent:#818cf8;--accent-rgb:129,140,248;--accent-gradient:linear-gradient(135deg,#818cf8 0%,#a78bfa 100%);--border:#1e293b;--tag-bg:rgba(129,140,248,0.12);--glass-bg:rgba(10,10,15,0.9);--glass-border:rgba(255,255,255,0.06);--input-bg:rgba(255,255,255,0.03);--input-border:rgba(255,255,255,0.08);--glow-strength:rgba(129,140,248,0.08)}
+body.dark .about-terminal{background:#080810;border-color:#1e293b}
+body.dark .terminal-header{background:#0f0f1a}
+body.dark .terminal-body{color:#e2e8f0}
+body.dark .github-embed{border-color:#1e293b}
+body.dark .github-embed img{filter:brightness(0.9)}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.7;overflow-x:hidden;position:relative}
 body::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.06;z-index:-2;pointer-events:none}
@@ -136,6 +142,24 @@ footer{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-con
 .footer-right a:hover{color:var(--text)}
 .login-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Fira Code',monospace;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all 0.2s}
 .login-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Theme Toggle */
+.theme-toggle{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:none;border:1px solid var(--border);cursor:pointer;transition:all 0.3s ease;color:var(--text);flex-shrink:0}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent);transform:rotate(15deg)}
+
+/* Stagger Animation */
+.stagger-in{opacity:0;transform:translateY(16px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1)}
+.stagger-in.visible{opacity:1;transform:none}
+
+/* Smooth hover on all interactive elements */
+.project-card,.skill-category,.cert-card,.stat-card,.contact-line,.tag,.skill-tag{transition:all 0.3s cubic-bezier(0.22,1,0.36,1)}
+.project-card:active,.skill-category:active,.cert-card:active{transform:scale(0.98)}
+
+/* Ambient glow animation */
+.ambient-glow{animation:glowFloat 8s ease-in-out infinite alternate}
+@keyframes glowFloat{0%{transform:translate(0,0)}100%{transform:translate(20px,-15px)}}
+.glow-2{animation-delay:2s;animation-duration:10s}
+.glow-3{animation-delay:4s;animation-duration:12s}
 /* Admin */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
 .modal-overlay.active{display:flex}
