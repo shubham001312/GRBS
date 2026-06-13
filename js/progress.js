@@ -21,12 +21,17 @@ function renderProgress() {
   container.innerHTML += '<div class="chart-container"><div class="chart-title">Phase Completion</div><canvas id="chart-bar" class="chart-canvas"></canvas></div>';
   container.innerHTML += '<div class="chart-container"><div class="chart-title">Career Readiness Comparison</div><canvas id="chart-comparison" class="chart-canvas"></canvas></div>';
   container.innerHTML += '<div class="chart-container"><div class="chart-title">Skill Levels</div>' + renderSkillLevels() + '</div>';
+  container.innerHTML += '<div class="chart-container"><div class="chart-title">Study Time (Last 7 Days)</div><canvas id="chart-daily-study" class="chart-canvas"></canvas></div>';
+  container.innerHTML += '<div class="chart-container"><div class="chart-title">Weekly Study Trend</div><canvas id="chart-weekly-study" class="chart-canvas"></canvas></div>';
+  container.innerHTML += '<div class="chart-container"><div class="chart-title">Study Time Summary</div>' + renderStudySummary() + '</div>';
   container.innerHTML += '<div class="chart-container"><div class="chart-title">Activity (Last 12 Weeks)</div><div id="heatmap"></div></div>';
 
   setTimeout(function() {
     renderRadarChart(readiness);
     renderBarChart();
     renderComparisonChart(readiness);
+    renderDailyStudyChart();
+    renderWeeklyStudyChart();
     renderHeatmap();
   }, 100);
 }
@@ -166,4 +171,107 @@ function renderHeatmap() {
   }
   html += '</div>';
   container.innerHTML = html;
+}
+
+// --- Study Time Stats ---
+var dailyStudyChart = null;
+var weeklyStudyChart = null;
+
+function getStudySessions() {
+  try { return JSON.parse(localStorage.getItem('grbs_timer_sessions') || '[]'); } catch (e) { return []; }
+}
+
+function renderStudySummary() {
+  var sessions = getStudySessions();
+  var today = new Date();
+  var todayStr2 = today.toISOString().split('T')[0];
+  var todaySessions = sessions.filter(function(s) { return s.date === todayStr2; });
+  var todayMs = todaySessions.reduce(function(a, s) { return a + s.duration; }, 0);
+  var weekMs = 0, weekCount = 0;
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(today); d.setDate(d.getDate() - i);
+    var ds = d.toISOString().split('T')[0];
+    sessions.forEach(function(s) { if (s.date === ds) { weekMs += s.duration; weekCount++; } });
+  }
+  var totalMs = sessions.reduce(function(a, s) { return a + s.duration; }, 0);
+  var totalSessions = sessions.length;
+  var fmtM = function(ms) { var m = Math.floor(ms / 60000); return m >= 60 ? Math.floor(m/60) + 'h ' + (m%60) + 'm' : m + 'm'; };
+  return '<div class="stats-row" style="flex-wrap:wrap;gap:8px;">' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(todayMs) + '</div><div class="stat-lbl">Today</div></div>' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(weekMs) + '</div><div class="stat-lbl">This Week</div></div>' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + fmtM(totalMs) + '</div><div class="stat-lbl">All Time</div></div>' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + totalSessions + '</div><div class="stat-lbl">Total Sessions</div></div>' +
+    '<div class="stat-chip" style="min-width:auto;padding:8px 12px;"><div class="stat-val" style="font-size:14px;">' + todaySessions.length + '</div><div class="stat-lbl">Today Sessions</div></div>' +
+  '</div>';
+}
+
+function renderDailyStudyChart() {
+  var canvas = document.getElementById('chart-daily-study');
+  if (!canvas) return;
+  if (dailyStudyChart) dailyStudyChart.destroy();
+  var sessions = getStudySessions();
+  var today = new Date();
+  var labels = [], data = [], colors = [];
+  var dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  for (var i = 6; i >= 0; i--) {
+    var d = new Date(today); d.setDate(d.getDate() - i);
+    var ds = d.toISOString().split('T')[0];
+    var dayMs = 0;
+    sessions.forEach(function(s) { if (s.date === ds) dayMs += s.duration; });
+    labels.push(dayNames[d.getDay()] + ' ' + d.getDate());
+    data.push(Math.round(dayMs / 60000));
+    colors.push(i === 0 ? '#E84545' : '#4F8EF7');
+  }
+  dailyStudyChart = new Chart(canvas.getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{ label: 'Minutes', data: data, backgroundColor: colors, borderColor: colors, borderWidth: 1, borderRadius: 4 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      scales: { y: { beginAtZero: true, grid: { color: '#1E293B' }, ticks: { color: '#94A3B8' } }, x: { grid: { display: false }, ticks: { color: '#E2E8F0', font: { size: 10 } } } },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function renderWeeklyStudyChart() {
+  var canvas = document.getElementById('chart-weekly-study');
+  if (!canvas) return;
+  if (weeklyStudyChart) weeklyStudyChart.destroy();
+  var sessions = getStudySessions();
+  var today = new Date();
+  var labels = [], data = [], counts = [];
+  for (var w = 3; w >= 0; w--) {
+    var weekMs = 0, weekCount = 0;
+    for (var d2 = 0; d2 < 7; d2++) {
+      var dt = new Date(today); dt.setDate(dt.getDate() - (w * 7 + d2));
+      var ds = dt.toISOString().split('T')[0];
+      sessions.forEach(function(s) { if (s.date === ds) { weekMs += s.duration; weekCount++; } });
+    }
+    var wkStart = new Date(today); wkStart.setDate(wkStart.getDate() - (w * 7 + 6));
+    labels.push('W' + (4 - w));
+    data.push(Math.round(weekMs / 60000));
+    counts.push(weekCount);
+  }
+  weeklyStudyChart = new Chart(canvas.getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Minutes', data: data, borderColor: '#22D3A5', backgroundColor: 'rgba(34,211,165,0.15)', fill: true, tension: 0.3, pointRadius: 4, pointBackgroundColor: '#22D3A5' },
+        { label: 'Sessions', data: counts, borderColor: '#F59E0B', backgroundColor: 'rgba(245,158,11,0.15)', fill: false, tension: 0.3, pointRadius: 4, pointBackgroundColor: '#F59E0B', yAxisID: 'y1' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#1E293B' }, ticks: { color: '#22D3A5' }, title: { display: true, text: 'Minutes', color: '#22D3A5', font: { size: 10 } } },
+        y1: { beginAtZero: true, position: 'right', grid: { display: false }, ticks: { color: '#F59E0B', stepSize: 1 }, title: { display: true, text: 'Sessions', color: '#F59E0B', font: { size: 10 } } },
+        x: { grid: { display: false }, ticks: { color: '#E2E8F0', font: { size: 10 } } }
+      },
+      plugins: { legend: { labels: { color: '#E2E8F0', font: { size: 10 } } } }
+    }
+  });
 }
