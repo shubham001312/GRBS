@@ -377,6 +377,7 @@ main {
 .heatmap-cell {
   aspect-ratio: 1; border-radius: 2px;
   background: var(--border); min-width: 0;
+  position: relative;
 }
 .heatmap-cell.l1 { background: rgba(39,174,96,0.2); }
 .heatmap-cell.l2 { background: rgba(39,174,96,0.4); }
@@ -942,3 +943,369 @@ main {
 
 /* === Recommendation Items === */
 .rec-item:hover { border-color: var(--accent) !important; transform: translateX(4px); }
+
+/* === DYNAMIC ANIMATION SYSTEM === */
+/* Scroll-reveal entrance animations */
+.anim-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: none;
+}
+.anim-reveal.anim-visible {
+  animation: animRevealIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes animRevealIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide from left */
+.anim-slide-left.anim-visible {
+  animation: animSlideLeft 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes animSlideLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Slide from right */
+.anim-slide-right.anim-visible {
+  animation: animSlideRight 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes animSlideRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Scale pop */
+.anim-pop.anim-visible {
+  animation: animPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes animPop {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Fade in only */
+.anim-fade.anim-visible {
+  animation: animFade 0.5s ease forwards;
+}
+@keyframes animFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Ring pulse on reveal */
+.ring-animate .ring-fill {
+  animation: ringPulse 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes ringPulse {
+  0% { filter: drop-shadow(0 0 0px var(--accent)); }
+  50% { filter: drop-shadow(0 0 8px var(--accent)); }
+  100% { filter: drop-shadow(0 0 0px var(--accent)); }
+}
+
+/* Stagger children helper: children get increasing delays */
+.anim-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.anim-stagger > *:nth-child(2) { animation-delay: 60ms; }
+.anim-stagger > *:nth-child(3) { animation-delay: 120ms; }
+.anim-stagger > *:nth-child(4) { animation-delay: 180ms; }
+.anim-stagger > *:nth-child(5) { animation-delay: 240ms; }
+.anim-stagger > *:nth-child(6) { animation-delay: 300ms; }
+.anim-stagger > *:nth-child(7) { animation-delay: 360ms; }
+.anim-stagger > *:nth-child(8) { animation-delay: 420ms; }
+
+/* Hover micro-interactions */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 0 3px rgba(232,69,69,0.12);
+  border-color: var(--accent);
+}
+
+.hover-scale {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hover-scale:hover {
+  transform: scale(1.04);
+}
+
+.hover-scale:active {
+  transform: scale(0.97);
+}
+
+/* Button press effect */
+.btn-press {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-press:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+/* Ripple effect on nav items */
+.nav-item {
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-item:active {
+  transform: scale(0.92);
+}
+
+/* Card entrance on tab switch */
+.tab-content.active .dash-hero { animation: animRevealIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards; opacity: 0; }
+.tab-content.active .dash-section { animation: animRevealIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
+.tab-content.active .dash-section:nth-child(2) { animation-delay: 0.1s; }
+.tab-content.active .dash-section:nth-child(3) { animation-delay: 0.15s; }
+.tab-content.active .dash-section:nth-child(4) { animation-delay: 0.2s; }
+.tab-content.active .dash-section:nth-child(5) { animation-delay: 0.25s; }
+.tab-content.active .dash-section:nth-child(6) { animation-delay: 0.3s; }
+.tab-content.active .dash-section:nth-child(7) { animation-delay: 0.35s; }
+.tab-content.active .dash-section:nth-child(8) { animation-delay: 0.4s; }
+.tab-content.active #timer-button-container { animation: animRevealIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards; opacity: 0; }
+
+/* Phase card stagger on roadmap */
+.tab-content.active .phase-card { animation: animRevealIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
+.tab-content.active .phase-card:nth-child(1) { animation-delay: 0.05s; }
+.tab-content.active .phase-card:nth-child(2) { animation-delay: 0.1s; }
+.tab-content.active .phase-card:nth-child(3) { animation-delay: 0.15s; }
+.tab-content.active .phase-card:nth-child(4) { animation-delay: 0.2s; }
+.tab-content.active .phase-card:nth-child(5) { animation-delay: 0.25s; }
+.tab-content.active .phase-card:nth-child(6) { animation-delay: 0.3s; }
+.tab-content.active .phase-card:nth-child(7) { animation-delay: 0.35s; }
+.tab-content.active .phase-card:nth-child(8) { animation-delay: 0.4s; }
+.tab-content.active .phase-card:nth-child(9) { animation-delay: 0.45s; }
+.tab-content.active .phase-card:nth-child(10) { animation-delay: 0.5s; }
+.tab-content.active .phase-card:nth-child(n+11) { animation-delay: 0.55s; }
+.tab-content.active .dep-graph-container { animation: animRevealIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.02s forwards; opacity: 0; }
+
+/* Project card stagger */
+.tab-content.active .project-card { animation: animRevealIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
+.tab-content.active .project-card:nth-child(1) { animation-delay: 0.05s; }
+.tab-content.active .project-card:nth-child(2) { animation-delay: 0.1s; }
+.tab-content.active .project-card:nth-child(3) { animation-delay: 0.15s; }
+.tab-content.active .project-card:nth-child(4) { animation-delay: 0.2s; }
+.tab-content.active .project-card:nth-child(5) { animation-delay: 0.25s; }
+.tab-content.active .project-card:nth-child(6) { animation-delay: 0.3s; }
+.tab-content.active .project-card:nth-child(7) { animation-delay: 0.35s; }
+.tab-content.active .project-card:nth-child(8) { animation-delay: 0.4s; }
+.tab-content.active .project-card:nth-child(9) { animation-delay: 0.45s; }
+.tab-content.active .project-card:nth-child(10) { animation-delay: 0.5s; }
+.tab-content.active .project-card:nth-child(n+11) { animation-delay: 0.55s; }
+.tab-content.active .filter-bar { animation: animRevealIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.02s forwards; opacity: 0; }
+
+/* Progress tab chart stagger */
+.tab-content.active .chart-container { animation: animRevealIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
+.tab-content.active .chart-container:nth-child(1) { animation-delay: 0.05s; }
+.tab-content.active .chart-container:nth-child(2) { animation-delay: 0.1s; }
+.tab-content.active .chart-container:nth-child(3) { animation-delay: 0.15s; }
+.tab-content.active .chart-container:nth-child(4) { animation-delay: 0.2s; }
+.tab-content.active .chart-container:nth-child(5) { animation-delay: 0.25s; }
+.tab-content.active .chart-container:nth-child(6) { animation-delay: 0.3s; }
+.tab-content.active .chart-container:nth-child(7) { animation-delay: 0.35s; }
+.tab-content.active .chart-container:nth-child(8) { animation-delay: 0.4s; }
+.tab-content.active .chart-container:nth-child(9) { animation-delay: 0.45s; }
+.tab-content.active .chart-container:nth-child(10) { animation-delay: 0.5s; }
+
+/* Goals tab career-path stagger */
+.tab-content.active .career-path { animation: animRevealIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
+.tab-content.active .career-path:nth-child(1) { animation-delay: 0.05s; }
+.tab-content.active .career-path:nth-child(2) { animation-delay: 0.1s; }
+.tab-content.active .career-path:nth-child(3) { animation-delay: 0.15s; }
+.tab-content.active .career-path:nth-child(4) { animation-delay: 0.2s; }
+.tab-content.active .career-path:nth-child(5) { animation-delay: 0.25s; }
+.tab-content.active .career-path:nth-child(6) { animation-delay: 0.3s; }
+.tab-content.active .career-path:nth-child(7) { animation-delay: 0.35s; }
+.tab-content.active .career-path:nth-child(8) { animation-delay: 0.4s; }
+.tab-content.active .career-path:nth-child(9) { animation-delay: 0.45s; }
+.tab-content.active .career-path:nth-child(10) { animation-delay: 0.5s; }
+.tab-content.active .career-path:nth-child(n+11) { animation-delay: 0.55s; }
+
+/* Timeline step animations */
+.cp-step {
+  transition: transform 0.2s ease;
+}
+.cp-step:hover {
+  transform: translateX(4px);
+}
+.cp-step::before {
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.cp-step:hover::before {
+  transform: scale(1.3);
+}
+
+/* Milestone checkbox animation */
+.ms-item input[type="checkbox"] {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ms-item input[type="checkbox"]:checked {
+  transform: scale(1.15);
+}
+
+/* Topic row hover */
+.topic-row {
+  transition: background 0.15s ease, transform 0.15s ease;
+  border-radius: 4px;
+}
+.topic-row:hover:not(.done) {
+  background: rgba(232,69,69,0.03);
+  transform: translateX(2px);
+}
+
+/* Resource item hover glow */
+.res-item {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.res-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* Filter button press */
+.filter-btn {
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.filter-btn:active {
+  transform: scale(0.94);
+}
+
+/* Section title slide-in (only direct children) */
+.tab-content.active > .section-title {
+  animation: animSlideLeft 0.35s cubic-bezier(0.22, 1, 0.36, 1) 0.02s forwards;
+  opacity: 0;
+}
+
+/* Stats row stagger */
+.stats-row .stat-chip {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stats-row .stat-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+.stat-chip-sm {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-chip-sm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+/* Dep graph node hover */
+.dep-graph-node {
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.dep-graph-node:hover:not(.locked) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Modal entrance animation */
+.modal-card {
+  animation: modalBounceIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes modalBounceIn {
+  from { opacity: 0; transform: scale(0.9) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Search results entrance */
+.search-result {
+  animation: searchResultIn 0.2s ease forwards;
+}
+.search-result:nth-child(1) { animation-delay: 0s; }
+.search-result:nth-child(2) { animation-delay: 0.03s; }
+.search-result:nth-child(3) { animation-delay: 0.06s; }
+.search-result:nth-child(4) { animation-delay: 0.09s; }
+.search-result:nth-child(5) { animation-delay: 0.12s; }
+@keyframes searchResultIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo pulse on load */
+.app-header .logo {
+  animation: logoPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+}
+@keyframes logoPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Nav item active indicator bounce */
+.nav-item.active .nav-icon {
+  animation: navBounce 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes navBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Chart container hover */
+.chart-container {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.chart-container:hover {
+  border-color: rgba(232,69,69,0.3);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* Achievement badge pop on earn */
+.achievement-badge.earned {
+  animation: badgeEarned 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes badgeEarned {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Heatmap cell hover */
+.heatmap-cell {
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+.heatmap-cell:hover {
+  transform: scale(1.4);
+  z-index: 1;
+}
+
+/* Smooth tab content transition */
+.tab-content {
+  transition: opacity 0.15s ease;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .anim-reveal, .anim-reveal.anim-visible,
+  .tab-content.active .dash-hero,
+  .tab-content.active .dash-section,
+  .tab-content.active .phase-card,
+  .tab-content.active .project-card,
+  .tab-content.active .chart-container,
+  .tab-content.active .career-path,
+  .tab-content.active > .section-title,
+  .tab-content.active #timer-button-container,
+  .tab-content.active .filter-bar,
+  .tab-content.active .dep-graph-container,
+  .app-header .logo,
+  .nav-item.active .nav-icon,
+  .modal-card,
+  .search-result,
+  .achievement-badge.earned {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+

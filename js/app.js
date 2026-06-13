@@ -96,6 +96,7 @@ function switchTab(tabName) {
 
   renderCurrentTab();
   window.scrollTo(0, 0);
+  if (typeof scheduleAnimReveal === 'function') scheduleAnimReveal();
 }
 
 function renderCurrentTab() {

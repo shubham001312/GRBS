@@ -1,7 +1,7 @@
 // GRBS PWA Service Worker - v6.0
 // Updated: June 13, 2026 - Study Timer + Pomodoro + Session History
 
-var APP_VERSION = '6.2.0';
+var APP_VERSION = '6.3.0';
 var CACHE_NAME = 'grbs-cache-' + APP_VERSION;
 var PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
 var STATIC_ASSETS = [
