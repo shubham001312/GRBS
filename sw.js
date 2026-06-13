@@ -1,7 +1,7 @@
-// GRBS PWA Service Worker - v5.0
-// Updated: June 12, 2026 - 12 new UI features
+// GRBS PWA Service Worker - v6.0
+// Updated: June 13, 2026 - Study Timer + Pomodoro + Session History
 
-var APP_VERSION = '5.0.0';
+var APP_VERSION = '6.1.0';
 var CACHE_NAME = 'grbs-cache-' + APP_VERSION;
 var PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
 var STATIC_ASSETS = [
@@ -30,6 +30,7 @@ var STATIC_ASSETS = [
   './js/smart-recommendations.js',
   './js/difficulty-predictor.js',
   './js/resource-ratings.js',
+  './js/timer.js',
   './js/app.js',
   './manifest.json',
   './assets/icon-192.png',

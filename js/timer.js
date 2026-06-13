@@ -25,7 +25,8 @@ var StudyTimer = (function () {
       longBreakMinutes: 15,
       longBreakAfter: 4,       // pomodoros before long break
       pomodorosCompleted: 0,
-      settingsOpen: false
+      settingsOpen: false,
+      soundEnabled: true
     }
   };
   var _saveTimerTimeout = null;
@@ -82,7 +83,8 @@ var StudyTimer = (function () {
         breakMinutes: p.breakMinutes,
         longBreakMinutes: p.longBreakMinutes,
         longBreakAfter: p.longBreakAfter,
-        pomodorosCompleted: p.pomodorosCompleted
+        pomodorosCompleted: p.pomodorosCompleted,
+        soundEnabled: p.soundEnabled
       }));
     } catch (e) { /* ignore */ }
   }
@@ -96,6 +98,7 @@ var StudyTimer = (function () {
         state.pomodoro.longBreakMinutes = saved.longBreakMinutes || 15;
         state.pomodoro.longBreakAfter = saved.longBreakAfter || 4;
         state.pomodoro.pomodorosCompleted = saved.pomodorosCompleted || 0;
+        state.pomodoro.soundEnabled = saved.soundEnabled !== false;
       }
     } catch (e) { /* ignore */ }
   }
@@ -116,6 +119,39 @@ var StudyTimer = (function () {
     return h + 'h ' + m + 'm';
   }
   function todayStr() { return new Date().toISOString().split('T')[0]; }
+
+  // --- Sound notifications (Web Audio API) ---
+  var _audioCtx = null;
+  function getAudioContext() {
+    if (!_audioCtx) {
+      _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return _audioCtx;
+  }
+  function playBeep(freq, duration, count) {
+    if (!state.pomodoro.soundEnabled) return;
+    try {
+      var ctx = getAudioContext();
+      for (var i = 0; i < count; i++) {
+        (function(delay) {
+          setTimeout(function() {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            osc.start(ctx.currentTime + delay);
+            osc.stop(ctx.currentTime + delay + duration);
+          }, delay);
+        })(i * (duration * 1000 + 100));
+      }
+    } catch (e) { /* ignore audio errors */ }
+  }
+  function playWorkCompleteSound() { playBeep(880, 0.2, 3); }
+  function playBreakCompleteSound() { playBeep(520, 0.3, 2); }
 
   // --- Pomodoro logic ---
   function getPomodoroGoalMs() {
@@ -147,10 +183,12 @@ var StudyTimer = (function () {
         saveSession(state.elapsed);
         var isLong = (state.pomodorosCompleted % state.pomodoro.longBreakAfter === 0);
         var breakMin = isLong ? state.pomodoro.longBreakMinutes : state.pomodoro.breakMinutes;
+        playWorkCompleteSound();
         showToast('\uD83C\uDF34 ' + (isLong ? 'Long break! ' : 'Break time! ') + breakMin + ' min', 'success');
         document.title = '\uD83C\uDF34 Break \u2014 GRBS';
       } else {
         state.pomodoro.mode = 'work';
+        playBreakCompleteSound();
         showToast('\uD83D\uDCAA Focus time! ' + state.pomodoro.workMinutes + ' min', 'info');
         document.title = '\uD83D\uDCAA Focus \u2014 GRBS';
       }
@@ -272,6 +310,12 @@ var StudyTimer = (function () {
             '<button class="setting-btn" onclick="StudyTimer.adjustSetting(\'longBreakAfter\', -1)">-</button>' +
             '<span class="setting-val" id="setting-longafter">' + p.longBreakAfter + '</span>' +
             '<button class="setting-btn" onclick="StudyTimer.adjustSetting(\'longBreakAfter\', 1)">+</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="setting-item setting-item-wide">' +
+          '<label>Sound Notifications</label>' +
+          '<div class="setting-control">' +
+            '<button class="setting-btn' + (p.soundEnabled ? ' active' : '') + '" id="setting-sound-btn" onclick="StudyTimer.toggleSound()">' + (p.soundEnabled ? 'ON' : 'OFF') + '</button>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -459,6 +503,18 @@ var StudyTimer = (function () {
     if (label) label.textContent = getPomodoroLabel();
   }
 
+  function toggleSound() {
+    state.pomodoro.soundEnabled = !state.pomodoro.soundEnabled;
+    savePomodoroSettings();
+    var btn = document.getElementById('setting-sound-btn');
+    if (btn) {
+      btn.textContent = state.pomodoro.soundEnabled ? 'ON' : 'OFF';
+      btn.classList.toggle('active', state.pomodoro.soundEnabled);
+    }
+    if (state.pomodoro.soundEnabled) playWorkCompleteSound();
+    showToast('Sound ' + (state.pomodoro.soundEnabled ? 'enabled' : 'disabled'), 'info');
+  }
+
   function getTodayTotal() {
     loadSessions();
     var todaySessions = state.sessions.filter(function (s) { return s.date === todayStr(); });
@@ -470,7 +526,33 @@ var StudyTimer = (function () {
     return state.sessions;
   }
 
-  function renderHistoryPanel() {
+  function deleteSession(sessionIndex) {
+    // sessionIndex is the index in the reversed display list; map to actual index
+    var displayIndex = state.sessions.length - 1 - sessionIndex;
+    if (displayIndex < 0 || displayIndex >= state.sessions.length) return;
+    state.sessions.splice(displayIndex, 1);
+    saveSessions();
+    showToast('Session deleted', 'info');
+    renderHistoryPanelDOM();
+  }
+
+  function clearAllSessions() {
+    if (state.sessions.length === 0) return;
+    state.sessions = [];
+    saveSessions();
+    showToast('All sessions cleared', 'info');
+    renderHistoryPanelDOM();
+  }
+
+  function renderHistoryPanelDOM() {
+    var panel = document.getElementById('timer-history');
+    if (!panel) return;
+    var temp = document.createElement('div');
+    temp.innerHTML = renderHistoryPanelHTML();
+    panel.parentNode.replaceChild(temp.firstChild, panel);
+  }
+
+  function renderHistoryPanelHTML() {
     var sessions = state.sessions.slice().reverse().slice(0, 20);
     if (sessions.length === 0) {
       return '<div class="timer-history-panel" id="timer-history">' +
@@ -480,7 +562,7 @@ var StudyTimer = (function () {
         '<div class="history-empty">No sessions yet. Start studying to track your time!</div>' +
       '</div>';
     }
-    var itemsHtml = sessions.map(function (s) {
+    var itemsHtml = sessions.map(function (s, i) {
       var date = new Date(s.timestamp);
       var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       var timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
@@ -493,15 +575,25 @@ var StudyTimer = (function () {
           '<div class="history-item-duration">' + fmtShort(s.duration) + '</div>' +
           '<div class="history-item-topic">' + (s.topic || 'General Study') + '</div>' +
         '</div>' +
+        '<button class="history-item-delete" onclick="event.stopPropagation();StudyTimer.deleteSession(' + i + ')" title="Delete session">' +
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+        '</button>' +
       '</div>';
     }).join('');
     return '<div class="timer-history-panel" id="timer-history">' +
       '<div class="history-header">' +
         '<span class="history-title">Session History</span>' +
-        '<span class="history-count">' + state.sessions.length + ' total</span>' +
+        '<div class="history-actions">' +
+          '<span class="history-count">' + state.sessions.length + ' total</span>' +
+          '<button class="history-clear-btn" onclick="StudyTimer.clearAllSessions()" title="Clear all sessions">Clear All</button>' +
+        '</div>' +
       '</div>' +
       '<div class="history-list">' + itemsHtml + '</div>' +
     '</div>';
+  }
+
+  function renderHistoryPanel() {
+    return renderHistoryPanelHTML();
   }
 
   // --- Dashboard integration ---
@@ -563,8 +655,11 @@ var StudyTimer = (function () {
     togglePomodoro: togglePomodoro,
     toggleSettings: toggleSettings,
     adjustSetting: adjustSetting,
+    toggleSound: toggleSound,
     getTodayTotal: getTodayTotal,
     getSessionHistory: getSessionHistory,
+    deleteSession: deleteSession,
+    clearAllSessions: clearAllSessions,
     renderTimerButton: renderTimerButton,
     fmtTime: fmtTime,
     fmtShort: fmtShort

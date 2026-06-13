@@ -740,6 +740,11 @@ main {
   font-weight: 700; color: #FFF; min-width: 24px;
   text-align: center;
 }
+.setting-item-wide { grid-column: 1 / -1; }
+.setting-btn.active {
+  background: #22D3A5; color: #000; border-color: #22D3A5; font-weight: 700;
+}
+.setting-btn.active:hover { background: #1AAF8E; }
 .tqb-pomo-badge {
   display: inline-block; padding: 1px 6px;
   border-radius: 4px; font-size: 8px; font-weight: 700;
@@ -801,6 +806,28 @@ main {
 .history-empty {
   padding: 24px 16px; text-align: center;
   font-family: var(--font-mono); font-size: 11px; color: #444;
+}
+.history-actions {
+  display: flex; align-items: center; gap: 10px;
+}
+.history-clear-btn {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  color: #666; background: none; border: 1px solid #222;
+  border-radius: 4px; padding: 3px 8px; cursor: pointer;
+  transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.03em;
+}
+.history-clear-btn:hover { color: #E84545; border-color: #E84545; }
+.history-item-delete {
+  display: flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 4px;
+  background: none; border: none; color: #333;
+  cursor: pointer; transition: all 0.15s; flex-shrink: 0;
+  opacity: 0;
+}
+.history-item:hover .history-item-delete { opacity: 1; }
+.history-item-delete:hover { color: #E84545; background: rgba(232,69,69,0.1); }
+@media (hover: none) and (pointer: coarse) {
+  .history-item-delete { opacity: 0.6; }
 }
 
 /* Timer responsive */
