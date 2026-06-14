@@ -2,6 +2,29 @@
 // GOALS TAB RENDERER
 // ============================================
 
+// Resume-worthy projects from Phases 0-7 (internship portfolio)
+function getInternshipProjects() {
+  return [
+    // Phase 1 — Strong Python fundamentals
+    { id: 'p1_proj2', name: 'Custom Data Structures (Hash Map, Heap, Graph)', phaseId: 1, skills: 'Python, DSA, OOP', level: 'Intermediate', emoji: '🏗️' },
+    // Phase 2 — ML math foundations
+    { id: 'p2_proj1', name: 'Micrograd — Autograd Engine from Scratch', phaseId: 2, skills: 'Python, Calculus, Backprop', level: 'Intermediate', emoji: '🧮' },
+    // Phase 3 — Backend & systems
+    { id: 'p3_proj3', name: 'Mini Database Engine with B-tree Index', phaseId: 3, skills: 'Python, Data Structures, Storage', level: 'Advanced', emoji: '🗄️' },
+    { id: 'p3_proj4', name: 'HTTP Server from Raw Sockets', phaseId: 3, skills: 'Python, Networking, Concurrency', level: 'Internship', emoji: '🌐' },
+    // Phase 4 — Frontend
+    { id: 'p4_proj1', name: 'AI Chat Interface (React + Streaming)', phaseId: 4, skills: 'React, SSE, FastAPI', level: 'Intermediate', emoji: '💬' },
+    // Phase 5 — Data Science
+    { id: 'p5_proj2', name: 'Business Analytics Dashboard', phaseId: 5, skills: 'Pandas, Matplotlib, Jupyter', level: 'Intermediate', emoji: '📊' },
+    // Phase 6 — ML
+    { id: 'p6_proj2', name: 'Loan Default Prediction Pipeline', phaseId: 6, skills: 'Scikit-learn, EDA, Feature Eng', level: 'Intermediate', emoji: '🏦' },
+    { id: 'p6_proj3', name: 'Credit Card Fraud Detection + SHAP', phaseId: 6, skills: 'ML, XGBoost, Explainability', level: 'Advanced', emoji: '🔍' },
+    // Phase 7 — Deep Learning
+    { id: 'p7_proj1', name: 'CNN Image Classifier on CIFAR-10', phaseId: 7, skills: 'PyTorch, CNNs, Transfer Learning', level: 'Intermediate', emoji: '🖼️' },
+    { id: 'p7_proj3', name: 'Transfer Learning on Custom Dataset', phaseId: 7, skills: 'PyTorch, HuggingFace, Deployment', level: 'Internship', emoji: '🎯' },
+  ];
+}
+
 function renderGoals() {
   const container = document.getElementById('tab-goals');
   if (!container) return;
@@ -35,6 +58,30 @@ function renderGoals() {
         </div>
       </div>
     `).join('')}
+
+    <!-- Internship Portfolio -->
+    <div class="section-title" style="margin-top:20px;">Internship Portfolio (Phases 0–7)</div>
+    <div class="career-path">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">These are your <strong>resume-worthy projects</strong> — the ones interviewers will ask about. Mark them as Done/Deployed to track your portfolio readiness.</div>
+      ${getInternshipProjects().map(p => {
+        const proj = ALL_PROJECTS.find(ap => ap.id === p.id);
+        const status = proj ? proj.status : 'notstarted';
+        const statusCls = status === 'done' || status === 'deployed' ? 'status-done' : status === 'inprogress' ? 'status-progress' : 'status-active';
+        const statusLabel = status === 'deployed' ? 'Deployed' : status === 'done' ? 'Done' : status === 'inprogress' ? 'In Progress' : 'To Do';
+        const stars = p.level === 'Beginner' ? '⭐' : p.level === 'Intermediate' ? '⭐⭐' : '⭐⭐⭐';
+        return `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);">
+          <div style="font-size:16px;">${p.emoji}</div>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:600;">${p.name}</div>
+            <div style="font-size:11px;color:var(--text-muted);">Phase ${p.phaseId} · ${p.skills} · ${stars} ${p.level}</div>
+          </div>
+          <span class="ph-status ${statusCls}" style="font-size:10px;">${statusLabel}</span>
+        </div>`;
+      }).join('')}
+      <div style="padding:10px 12px;background:var(--bg);border-radius:0 0 var(--radius) var(--radius);font-size:11px;color:var(--text-muted);">
+        <strong>Tip:</strong> Deploy 3+ projects to GitHub Pages / HuggingFace Spaces before applying. Interviewers check live demos.
+      </div>
+    </div>
 
     <!-- Priority Goals -->
     <div class="section-title" style="margin-top:20px;">Priority Goals</div>
