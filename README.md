@@ -214,7 +214,7 @@ GRBS/
 │   └── styles.css          # All styles (responsive, animations)
 ├── js/
 │   ├── icons.js            # SVG icon system
-│   ├── data.js             # 15 phases, 500+ resources
+│   ├── data.js             # 20 phases, 600+ resources
 │   ├── state.js            # State management, localStorage
 │   ├── dashboard.js        # Dashboard tab
 │   ├── roadmap.js          # Roadmap tab with dependency graph

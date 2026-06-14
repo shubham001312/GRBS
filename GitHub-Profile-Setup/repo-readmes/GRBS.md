@@ -2,7 +2,7 @@
 
 # 🧠 GRBS — AI/ML Roadmap Tracker
 
-### *Your complete 15-phase roadmap from zero to production-grade AI engineer*
+### *Your complete 20-phase roadmap from zero to production-grade AI engineer*
 
 [![Website](https://img.shields.io/badge/🌐_Live_Site-E84545?style=for-the-badge&logo=googlechrome&logoColor=white)](https://shubham001312.github.io/GRBS/)
 [![GitHub Stars](https://img.shields.io/github/stars/shubham001312/GRBS?style=for-the-badge&color=yellow)](https://github.com/shubham001312/GRBS/stargazers)
@@ -19,7 +19,7 @@
 
 ## ✨ Features
 
-- 📚 **15 Progressive Phases** — From CS foundations to building GPT from scratch
+- 📚 **20 Progressive Phases** — From CS foundations to building GPT from scratch
 - 🎯 **Interactive Dashboard** — Overall completion ring, readiness meters, study streaks
 - 🗺️ **Full Roadmap** — Collapsible phase cards with topics, resources, and milestones
 - 📊 **Visual Analytics** — Radar charts, bar charts, activity heatmap
@@ -78,7 +78,7 @@ GRBS/
 ├── css/
 │   └── styles.css          # Mobile-first stylesheet (warm cream/red theme)
 ├── js/
-│   ├── data.js             # All 15 phases with topics & resources
+│   ├── data.js             # All 20 phases with topics & resources
 │   ├── state.js            # localStorage persistence, streak, activity tracking
 │   ├── app.js              # App init, navigation, search, tab switching
 │   ├── dashboard.js        # Dashboard: rings, readiness meters, greeting
