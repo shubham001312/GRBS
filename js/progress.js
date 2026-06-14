@@ -129,7 +129,7 @@ function renderSkillLevels() {
     { name: 'Prompt Eng', phase: 15, icon: 'chat' },
     { name: 'Computer Vision', phase: 16, icon: 'eye' },
     { name: 'AI System Design', phase: 17, icon: 'server' },
-    { name: 'Cloud { name: 'MLOps', phase: 14, icon: 'rocket' } Infra', phase: 18, icon: 'cloud' },
+    { name: 'Cloud Infra', phase: 18, icon: 'cloud' },
     { name: 'Soft Skills', phase: 19, icon: 'star' }
   ];
   return '<div class="stats-row" style="flex-wrap:wrap;gap:8px;">' + skills.map(function(s) {
