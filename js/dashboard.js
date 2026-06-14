@@ -55,6 +55,55 @@ function renderDashboard() {
     html += '</div></div>';
   }
 
+  // ── INTERNSHIP TRACKER (Phases 0-7) ──
+  var internPhases = [0,1,2,3,4,5,6,7];
+  var internDone = internPhases.filter(function(pid) { return getPhaseCompletion(pid) === 100; }).length;
+  var internActive = null;
+  for (var ip = 0; ip < internPhases.length; ip++) {
+    var ips = getPhaseStatus(internPhases[ip]);
+    if (ips === 'active' || ips === 'inprogress') { internActive = internPhases[ip]; break; }
+  }
+  var internPct = Math.round((internDone / internPhases.length) * 100);
+  var internCirc = 2 * Math.PI * 36;
+  var internOff = internCirc * (1 - internPct / 100);
+  html += '<div class="dash-section">';
+  html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('briefcase') + '</span><span class="dash-section-title">Internship Tracker</span>';
+  html += '<span class="dash-section-badge">' + internDone + '/8 Phases</span></div>';
+  html += '<div class="dash-section-body">';
+  html += '<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">';
+  html += '<div style="position:relative;width:80px;height:80px;flex-shrink:0;"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="36" fill="none" stroke="var(--border)" stroke-width="5" /><circle cx="40" cy="40" r="36" fill="none" stroke="var(--accent)" stroke-width="5" stroke-dasharray="' + internCirc + '" stroke-dashoffset="' + internOff + '" transform="rotate(-90 40 40)" /></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;"><div style="font-size:16px;font-weight:700;color:var(--text);">' + internPct + '%</div><div style="font-size:9px;color:var(--text-muted);">Ready</div></div></div>';
+  html += '<div style="flex:1;min-width:200px;">';
+  internPhases.forEach(function(pid) {
+    var phase = PHASES.find(function(p) { return p.id === pid; });
+    if (!phase) return;
+    var comp = getPhaseCompletion(pid);
+    var st = getPhaseStatus(pid);
+    var isDone = comp === 100;
+    var isActive = st === 'active' || st === 'inprogress';
+    var dotColor = isDone ? 'var(--green)' : isActive ? 'var(--accent)' : 'var(--text-muted)';
+    var dotIcon = isDone ? icon('star') : (isActive ? icon(phase.icon) : '○');
+    var barColor = isDone ? 'var(--green)' : isActive ? 'var(--accent)' : 'var(--border)';
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;" onclick="switchTab(\'roadmap\');expandedPhase=' + pid + ';renderRoadmap();">';
+    html += '<span style="font-size:12px;color:' + dotColor + ';width:16px;text-align:center;">' + dotIcon + '</span>';
+    html += '<span style="font-size:11px;font-family:var(--font-mono);color:' + (isDone ? 'var(--green)' : isActive ? 'var(--accent)' : 'var(--text-muted)') + ';min-width:90px;">P' + pid + ' ' + phase.title + '</span>';
+    html += '<div style="flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:' + comp + '%;background:' + barColor + ';border-radius:2px;transition:width 0.5s;"></div></div>';
+    html += '<span style="font-size:10px;font-family:var(--font-mono);color:' + (isDone ? 'var(--green)' : isActive ? 'var(--accent)' : 'var(--text-muted)') + ';min-width:32px;text-align:right;">' + comp + '%</span>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+  if (internDone < 8) {
+    var remaining = internPhases.length - internDone;
+    var nextPhase = internActive !== null ? internActive : internPhases.find(function(pid) { return getPhaseCompletion(pid) < 100; });
+    var nextPhaseName = nextPhase !== undefined ? (PHASES.find(function(p) { return p.id === nextPhase; }) || {}).title : '';
+    html += '<div style="margin-top:10px;padding:8px 12px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);font-size:12px;color:var(--text-muted);">';
+    html += icon('target') + ' <strong>' + remaining + ' phase' + (remaining > 1 ? 's' : '') + ' left</strong>';
+    if (nextPhaseName) html += ' — Focus on <strong style="color:var(--accent);">Phase ' + nextPhase + ': ' + nextPhaseName + '</strong>';
+    html += '</div>';
+  } else {
+    html += '<div style="margin-top:10px;padding:10px 12px;background:var(--green-dim);border-radius:var(--radius);border:1px solid var(--green);font-size:12px;color:var(--green);">' + icon('star') + ' <strong>Internship Ready!</strong> All 8 core phases complete. Start applying for AI/ML internships.</div>';
+  }
+  html += '</div></div>';
+
   // ── READINESS SECTION ──
   html += '<div class="dash-section">';
   html += '<div class="dash-section-header"><span class="dash-section-icon">' + icon('chart') + '</span><span class="dash-section-title">Readiness Scores</span></div>';
