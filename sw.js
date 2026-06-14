@@ -1,7 +1,7 @@
 // GRBS PWA Service Worker - v6.0
 // Updated: June 13, 2026 - Study Timer + Pomodoro + Session History
 
-var APP_VERSION = '6.4.1';
+var APP_VERSION = '6.5.0';
 var CACHE_NAME = 'grbs-cache-' + APP_VERSION;
 var PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
 var STATIC_ASSETS = [
@@ -81,6 +81,25 @@ self.addEventListener('fetch', function(event) {
     );
     return;
   }
+  // Network-first for JS/CSS to always serve latest code when online
+  if (request.destination === 'script' || request.destination === 'style') {
+    event.respondWith(
+      fetch(request).then(function(response) {
+        if (response.ok) {
+          var clone = response.clone();
+          caches.open(CACHE_NAME).then(function(cache) { cache.put(request, clone); });
+        }
+        return response;
+      }).catch(function() {
+        return caches.match(request).then(function(cached) {
+          return cached || new Response('/* Offline */', {
+            headers: { 'Content-Type': request.destination === 'script' ? 'application/javascript' : 'text/css' }
+          });
+        });
+      })
+    );
+    return;
+  }
   event.respondWith(
     caches.match(request).then(function(cached) {
       if (cached) return cached;
@@ -90,12 +109,6 @@ self.addEventListener('fetch', function(event) {
           caches.open(CACHE_NAME).then(function(cache) { cache.put(request, clone); });
         }
         return response;
-      }).catch(function() {
-        if (request.destination === 'script' || request.destination === 'style') {
-          return new Response('/* Offline */', {
-            headers: { 'Content-Type': request.destination === 'script' ? 'application/javascript' : 'text/css' }
-          });
-        }
       });
     })
   );
