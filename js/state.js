@@ -318,6 +318,7 @@ function exportData() {
     lastActivity: appState.lastActivity,
     username: getUsername(),
     activity: getActivityData(),
+    dsaState: JSON.parse(localStorage.getItem('grbs_dsa_state') || '{}'),
     exportDate: new Date().toISOString()
   };
   
@@ -345,6 +346,7 @@ function importData(event) {
         appState.lastActivity = data.lastActivity || null;
         if (data.username) setUsername(data.username);
         if (data.activity) localStorage.setItem(STORAGE_KEYS.activity, JSON.stringify(data.activity));
+        if (data.dsaState) localStorage.setItem('grbs_dsa_state', JSON.stringify(data.dsaState));
         saveState();
         showToast('Data imported successfully!', 'success');
         renderCurrentTab();

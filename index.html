@@ -1,4 +1,4 @@
-<!-- Version: 6.3.0 | Last Updated: June 13, 2026 -->
+<!-- Version: 6.4.0 | Last Updated: June 14, 2026 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=6.3.0">
+  <link rel="stylesheet" href="css/styles.css?v=6.4.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
@@ -58,9 +58,11 @@
   <main id="app-content" style="display:none;">
     <div id="tab-dashboard" class="tab-content active"></div>
     <div id="tab-roadmap" class="tab-content"></div>
+    <div id="tab-dsatrack" class="tab-content"></div>
     <div id="tab-projects" class="tab-content"></div>
     <div id="tab-progress" class="tab-content"></div>
     <div id="tab-goals" class="tab-content"></div>
+    <div id="tab-companies" class="tab-content"></div>
     <div id="tab-about" class="tab-content"></div>
   </main>
 
@@ -70,6 +72,8 @@
     <button class="nav-item" data-tab="projects"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><span class="nav-label">Projects</span></button>
     <button class="nav-item" data-tab="progress"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span class="nav-label">Progress</span></button>
     <button class="nav-item" data-tab="goals"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><span class="nav-label">Goals</span></button>
+    <button class="nav-item" data-tab="dsatrack"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><span class="nav-label">DSA</span></button>
+    <button class="nav-item" data-tab="companies"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="nav-label">Companies</span></button>
     <button class="nav-item" data-tab="about"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="nav-label">About</span></button>
   </nav>
 
@@ -96,6 +100,8 @@
   <script src="js/timer.js?v=6.3.0"></script>
   <script src="js/about.js?v=6.3.0"></script>
   <script src="js/animations.js?v=6.3.0"></script>
+  <script src="js/dsa-track.js?v=6.4.0"></script>
+  <script src="js/companies.js?v=6.4.0"></script>
   <script src="js/app.js?v=6.3.0"></script>
 
   <div id="update-banner" class="update-banner hidden">

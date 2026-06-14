@@ -2,14 +2,14 @@
 
 # GRBS - Global Roadmap to Become a World-Class AI Engineer
 
-### *Your complete 18-phase roadmap from zero to production-grade AI engineer*
+### *Your complete 20-phase roadmap from zero to production-grade AI engineer*
 
 [![Website](https://img.shields.io/badge/Visit-Site-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://shubham001312.github.io/GRBS/)
 [![GitHub Stars](https://img.shields.io/github/stars/shubham001312/GRBS?style=for-the-badge&color=yellow)](https://github.com/shubham001312/GRBS)
 [![GitHub Forks](https://img.shields.io/github/forks/shubham001312/GRBS?style=for-the-badge&color=blue)](https://github.com/shubham001312/GRBS/fork)
 [![GitHub Issues](https://img.shields.io/github/issues/shubham001312/GRBS?style=for-the-badge&color=red)](https://github.com/shubham001312/GRBS/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge)](https://github.com/shubham001312/GRBS/pulls)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](https://github.com/shubham001312/GRBS/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/shubham001312/GRBS?style=for-the-badge&color=red)](https://github.com/shubham001312/GRBS/releases)
 [![Last Commit](https://img.shields.io/github/last-commit/shubham001312/GRBS?style=for-the-badge)](https://github.com/shubham001312/GRBS/commits/main)
 [![PWA](https://img.shields.io/badge/PWA-Supported-blueviolet?style=for-the-badge&logo=pwa)](https://shubham001312.github.io/GRBS/)
@@ -31,8 +31,8 @@
 
 **GRBS (Global Roadmap for AI/ML Engineers)** is a comprehensive, open-source learning roadmap designed to take you from **absolute beginner** to **world-class AI engineer**. Built specifically for Indian students and self-learners, it features:
 
-- **18 Progressive Phases** — From CS foundations to world-class AI engineering
-- **500+ Curated Resources** — YouTube videos, courses, papers, and tools
+- **20 Progressive Phases** — From CS foundations to world-class AI engineering
+- **600+ Curated Resources** — YouTube videos, courses, papers, tools, and articles per phase
 - **Hindi Alternatives** — Popular Indian educator resources (Apna College, CodeWithHarry, Krish Naik, etc.)
 - **Hands-On Projects** — Build real projects at every phase
 - **Interactive Website** — Beautiful, responsive web interface with progress tracking
@@ -67,8 +67,45 @@
 | 12 | RAG & AI Agents | 8-10 weeks | Vector DBs, Retrieval, Pipelines |
 | 13 | Backend for AI Products | 8-10 weeks | FastAPI, Auth, Streaming, WebSockets |
 | 14 | Deployment & MLOps | 8-10 weeks | Docker, CI/CD, MLflow, Monitoring |
+| 15 | Prompt Engineering & LLM Eval | 5-6 weeks | CoT, Few-Shot, DSPy, RLHF/DPO |
+| 16 | Computer Vision & Multimodal | 8-10 weeks | CNN, ViT, YOLO, CLIP, GPT-4V |
+| 17 | AI System Design | 6-8 weeks | vLLM, DeepSpeed, FSDP, Inference |
+| 18 | Cloud & Infrastructure | 6-8 weeks | AWS SageMaker, GCP Vertex AI, Terraform |
+| 19 | Soft Skills & Professional | 4 weeks | Blog, Open Source, Interview Prep |
 
 > **Total Duration:** ~2.5-3.5 years (self-paced)
+
+---
+
+## What's New in v6.4.0
+
+### 5 New Phases (15-19)
+- Prompt Engineering & LLM Evaluation (CoT, DSPy, RLHF/DPO, Responsible AI)
+- Computer Vision & Multimodal AI (ViT, YOLO, CLIP, Stable Diffusion)
+- AI System Design & Inference Optimization (vLLM, DeepSpeed, FSDP)
+- Cloud & Infrastructure for AI (AWS SageMaker, GCP Vertex AI, Terraform)
+- Soft Skills & Professional Growth (Technical Writing, Open Source, Interview Prep)
+
+### DSA Track Tab
+- Dedicated DSA curriculum: NeetCode 150 + Blind 75 + ML-Specific DSA
+- 11 topic groups with progress tracking
+- Filter by difficulty (Easy/Medium/Hard/ML-Specific)
+- Weekly targets: 50 problems/month
+
+### Companies Tab
+- 55+ companies hiring AI/LLM Engineers
+- Filter by: FAANG+, India, Startups, Research Labs
+- Search by company name, roles, skills
+- Direct links to career pages
+
+### Articles Per Phase
+- 5-6 curated articles/papers/docs added to every phase
+- Papers, official docs, blog posts, and course materials
+
+### Other Improvements
+- Navigation updated to 8 tabs (scrollable on mobile)
+- DSA progress included in JSON export/import
+- Version bumped to 6.4.0
 
 ---
 
@@ -118,7 +155,7 @@
 ### Structured Learning Path
 ```
 Beginner -> Intermediate -> Advanced -> Expert -> World-Class
-   Phase 0-2    Phase 3-6    Phase 7-10   Phase 11-14
+   Phase 0-2    Phase 3-6    Phase 7-10   Phase 11-14    Phase 15-19
 ```
 
 ### Curated Video Resources
@@ -146,6 +183,9 @@ Every phase includes **5 practical projects** to build real experience:
 - Study timer with session history
 - Daily/weekly study time charts
 - Auto-updating Progressive Web App
+- **DSA Track** — NeetCode 150 + Blind 75 + ML-specific DSA with progress tracking
+- **Companies Directory** — 55+ companies with roles, skills, and career page links
+- **Articles Per Phase** — Curated papers, blogs, and docs for deeper learning
 
 ---
 
@@ -233,8 +273,8 @@ GRBS/
 - Gap between academic learning and industry requirements
 
 ### Our Solution
-- **18 curated phases** with clear progression
-- **500+ verified resources** — all free, all high-quality
+- **20 curated phases** with clear progression
+- **600+ verified resources** — all free, all high-quality
 - **Hindi alternatives** for Indian learners
 - **Hands-on projects** at every phase
 - **Interactive website** with progress tracking
@@ -257,12 +297,14 @@ We welcome contributions! Whether you want to:
 
 | Metric | Value |
 |--------|-------|
-| Total Phases | 15 |
+| Total Phases | 20 |
 | Video Resources | 100+ |
 | Hindi Resources | 35+ |
 | Build Tasks | 72 |
 | Achievement Badges | 14 |
-| JavaScript Files | 20+ |
+| Companies Listed | 55+ |
+| DSA Problems Tracked | 60+ |
+| JavaScript Files | 22+ |
 | Lines of Code | 5000+ |
 | Total Duration | ~2.5-3.5 years |
 

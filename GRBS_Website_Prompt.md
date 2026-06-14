@@ -5,7 +5,9 @@
 
 ## 🎯 PROJECT OVERVIEW
 
-Build a complete, multi-page static website called **"GPT Roadmap By Shubham"** (short: **GRBS**) — a student-focused LLM learning portal. The site must be split across **multiple HTML, CSS, and JS files** — never put everything in one file. Every page links to shared stylesheets and shared JS utilities. The result should look and feel like a human developer built it with care: clean, minimal, purposeful. No bloated frameworks, no CDN dependencies except Google Fonts.
+Build a complete, multi-page static website called **"GPT Roadmap By Shubham"** (short: **GRBS**) — a student-focused AI/ML learning portal with 20 phases, DSA track, companies directory, and curated articles per phase. The site must be split across **multiple HTML, CSS, and JS files** — never put everything in one file. Every page links to shared stylesheets and shared JS utilities. The result should look and feel like a human developer built it with care: clean, minimal, purposeful. No bloated frameworks, no CDN dependencies except Google Fonts.
+
+**Current version: v6.4.0 — 20 phases, 8 tabs (Dashboard, Roadmap, DSA Track, Projects, Progress, Goals, Companies, About), 55+ companies, DSA progress tracking, articles per phase.**
 
 **Work on all files in parallel — generate every file in a single pass, fully complete, with zero placeholder comments like "// add later" or "TODO". Every feature must be implemented, functional, and production-ready.**
 

@@ -28,6 +28,9 @@ function updateThemeIcon(isDark){const sun=document.querySelector('.sun-icon');c
 const staggerObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.transitionDelay=e.target.dataset.delay||'0ms';e.target.classList.add('visible');staggerObserver.unobserve(e.target)}})},{threshold:0.1});
 function applyStaggerAnimations(){document.querySelectorAll('.project-card,.skill-category,.cert-card,.timeline-item,.stat-card,.contact-line').forEach((el,i)=>{el.dataset.delay=(i*80)+'ms';el.classList.add('stagger-in');staggerObserver.observe(el)})}
 setTimeout(applyStaggerAnimations,200);
+// Re-apply stagger after GitHub stats load
+const origLoadGithubStats=loadGithubStats;
+setTimeout(function(){if(typeof origLoadGithubStats==='function')origLoadGithubStats()},5000);
 
 // ===== ADMIN PANEL =====
 const ADMIN_HASH_KEY='portfolio_admin_hash';
@@ -179,7 +182,7 @@ async function loadGithubStats(){
     const totalStars=repos.reduce((s,r)=>s+(r.stargazers_count||0),0);
     const trimmed=repos.map(r=>({language:r.language,stargazers_count:r.stargazers_count||0}));
     try{localStorage.setItem(GH_CACHE_KEY,JSON.stringify({user:u,repos:trimmed,totalStars:totalStars,ts:Date.now()}))}catch(e){}
-    renderStats(u,totalStars);renderLangs(repos);
+    renderStats(u,totalStars);renderLangs(repos);if(typeof applyStaggerAnimations==='function')applyStaggerAnimations();
   }catch(e){console.log('GitHub API fallback failed:',e)}
 }
 loadGithubStats();

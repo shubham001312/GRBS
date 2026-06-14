@@ -65,6 +65,7 @@ async function gistSyncUpload() {
       lastActivity: appState.lastActivity,
       notes: JSON.parse(localStorage.getItem('grbs_notes') || '{}'),
       activity: JSON.parse(localStorage.getItem('grbs_activity') || '{}'),
+      dsaState: JSON.parse(localStorage.getItem('grbs_dsa_state') || '{}'),
       username: getUsername(),
       syncedAt: new Date().toISOString()
     };
@@ -136,6 +137,7 @@ async function gistSyncDownload() {
     }
     if (remote.notes) localStorage.setItem('grbs_notes', JSON.stringify(remote.notes));
     if (remote.activity) localStorage.setItem('grbs_activity', JSON.stringify(remote.activity));
+    if (remote.dsaState) localStorage.setItem('grbs_dsa_state', JSON.stringify(remote.dsaState));
     if (remote.username) setUsername(remote.username);
     saveState();
     gistSyncSetStatus(' Downloaded! Last synced: ' + (remote.syncedAt || 'unknown'));

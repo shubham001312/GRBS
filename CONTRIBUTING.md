@@ -80,7 +80,7 @@ Then go to GitHub and create a Pull Request with a clear description.
 
 ## 📚 Adding New Resources
 
-If you're adding a new YouTube video or learning resource to `js/phases.js`, follow this format:
+If you're adding a new YouTube video or learning resource to `js/data.js`, follow this format:
 
 ```javascript
 // English resource
@@ -119,7 +119,7 @@ Use our [Issue Templates](https://github.com/shubham001312/GRBS/issues/new/choos
 feat: add Hindi alternatives for Phase 14 MLOps topics
 fix: correct broken YouTube link in Phase 8 NLP
 docs: update README with contribution badges
-refactor: reorganize phases.js for better readability
+refactor: reorganize data.js for better readability
 ```
 
 ### PR Description Template
@@ -182,7 +182,7 @@ Add screenshots showing your changes.
 
 ## 📞 Getting Help
 
-- Open a [Discussion](https://github.com/shubham001312/GRBS/discussions) for questions
+- Open an [Issue](https://github.com/shubham001312/GRBS/issues) for questions
 - Check existing issues before creating a new one
 - Tag maintainers in your PR for review
 

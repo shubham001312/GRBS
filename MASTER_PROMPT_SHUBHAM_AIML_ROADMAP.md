@@ -1,4 +1,4 @@
-# MASTER PROMPT — SHUBHAM'S AI/ML ROADMAP TRACKER v2.0
+# MASTER PROMPT — SHUBHAM'S AI/ML ROADMAP TRACKER v3.0
 # For: Claude Sonnet / GPT-4o level AI | Single-file HTML | GitHub Pages | Mobile-First
 
 ---
@@ -52,7 +52,7 @@ Your job is NOT to respond with text. Your job is to:
 ## DESIGN REQUIREMENTS — MOBILE FIRST (NON-NEGOTIABLE)
 
 - **Primary target screen:** 375px–430px wide (iPhone/Android standard)
-- Bottom navigation bar (fixed, 4–5 tabs with icons)
+- Bottom navigation bar (fixed, 8 tabs with icons)
 - All cards must be full-width on mobile, max 600px on desktop
 - Font size: minimum 14px body, 16px+ for headings
 - Touch targets: minimum 44×44px for all tappable elements
@@ -74,12 +74,15 @@ Your job is NOT to respond with text. Your job is to:
 - Export to JSON button (downloads full state)
 - Import from JSON button (restores state)
 
-### Views / Tabs (Bottom Nav)
+### Views / Tabs (Bottom Nav — 8 tabs)
 1. **Dashboard** — Overview stats, readiness meters, streak, today's tasks
-2. **Roadmap** — All 14 phases accordion, topics checklist, resources, projects
-3. **Projects** — Project tracker with status (Not Started / In Progress / Done / Deployed)
-4. **Progress** — Visual charts, skill levels, readiness radars
-5. **Goals** — Career roadmaps, milestones, internship/placement timelines
+2. **Roadmap** — All 20 phases accordion, topics checklist, resources, projects, articles
+3. **DSA Track** — NeetCode 150 + Blind 75 + ML-specific DSA with progress tracking
+4. **Projects** — Project tracker with status (Not Started / In Progress / Done / Deployed)
+5. **Progress** — Visual charts, skill levels, readiness radars
+6. **Goals** — Career roadmaps, milestones, internship/placement timelines
+7. **Companies** — 55+ companies hiring AI/LLM engineers with roles, skills, career page links
+8. **About** — Developer info and project details
 
 ---
 
@@ -123,7 +126,7 @@ GPT Builder Readiness = avg(Phase7×10% + Phase9×20% + Phase10×20% + Phase14×
 
 ---
 
-## ROADMAP TAB — FULL 14-PHASE CURRICULUM
+## ROADMAP TAB — FULL 20-PHASE CURRICULUM
 
 Each phase renders as a **collapsible card** with:
 - Phase number + title + status badge (Locked / Active / In Progress / Completed)
@@ -141,7 +144,7 @@ Each phase renders as a **collapsible card** with:
 
 ---
 
-## COMPLETE 14-PHASE CURRICULUM DATA
+## COMPLETE 20-PHASE CURRICULUM DATA
 
 ### PHASE 1 — Programming Foundations
 **Objective:** Build production-grade Python skills and developer workflow fundamentals.
@@ -775,21 +778,52 @@ Each phase renders as a **collapsible card** with:
 
 ---
 
-### ADVANCED PHASE (Post-Internship / Post-Placement Only)
+### PHASE 15 — Prompt Engineering & LLM Evaluation
+**Objective:** Master prompt design, few-shot learning, chain-of-thought, structured outputs, LLM-as-a-judge evaluation, RLHF/DPO basics, and responsible AI.
+**Estimated Hours:** 60 hours | **Dependencies:** Phase 11 ≥ 50%
+**Topics:** Prompt design principles, Few-Shot/Zero-Shot, Chain-of-Thought & Tree-of-Thought, Structured Outputs & Function Calling, DSPy programmatic optimization, LLM-as-a-Judge, RLHF basics, DPO, Responsible AI & Bias Detection, Prompt Injection Defense.
+**Projects:** Prompt library, CoT solver, LLM-as-a-Judge eval pipeline, DSPy program, Red-team automated testing.
 
-**Why these are delayed:**
-These topics require expensive compute, are research-level, and will not help with your immediate
-internship or placement goals. Learning RLHF before you understand the Transformer is like learning
-F1 racing before you can drive — dangerous and counterproductive.
-Revisit these after you have an internship and placement confirmed.
+---
 
-**Topics (in order):**
+### PHASE 16 — Computer Vision & Multimodal AI
+**Objective:** Master CNNs, Vision Transformers, object detection, image generation, and multimodal models (CLIP, GPT-4V).
+**Estimated Hours:** 100 hours | **Dependencies:** Phase 7 ≥ 60%
+**Topics:** Advanced CNNs (ResNet, EfficientNet, MobileNet), Object Detection (YOLO, Faster R-CNN), Semantic & Instance Segmentation, Vision Transformer (ViT), Image Generation (GANs, VAEs, Stable Diffusion), CLIP (zero-shot classification), Multimodal Models (LLaVA, CogVLM), Video Understanding, CV Production (TensorRT, ONNX).
+**Projects:** ResNet transfer learning, YOLOv8 custom detection, CLIP zero-shot classifier, Multimodal RAG, Production CV pipeline.
+
+---
+
+### PHASE 17 — AI System Design & Inference Optimization
+**Objective:** Design scalable ML systems, optimize inference latency, handle distributed training.
+**Estimated Hours:** 80 hours | **Dependencies:** Phase 14 ≥ 60%
+**Topics:** ML System Design (latency budgets, throughput, SLA), Model Serving (TorchServe, Triton, TGI), Batch Strategies, Inference Optimization (TensorRT, ONNX, vLLM), Distributed Training (data/model parallelism), DeepSpeed ZeRO, FSDP, GPU Cluster Basics, Vector DB Scaling.
+**Projects:** Benchmark serving frameworks, TensorRT optimization, Distributed training with FSDP, ML system design doc, End-to-end ML system.
+
+---
+
+### PHASE 18 — Cloud & Infrastructure for AI
+**Objective:** Deploy AI products on AWS/GCP with managed services, serverless inference, and cost optimization.
+**Estimated Hours:** 70 hours | **Dependencies:** Phase 14 ≥ 50%
+**Topics:** AWS (S3, EC2, SageMaker, Lambda, API Gateway, RDS/DynamoDB), GCP (Vertex AI, Cloud Functions, Cloud Run), Terraform for ML Infrastructure, Cost Optimization, Cloud Security (IAM, VPC, encryption).
+**Projects:** SageMaker deployment, Serverless ML API, Full MLOps pipeline on AWS, Terraform ML config, Multi-cloud deployment.
+
+---
+
+### PHASE 19 — Soft Skills & Professional Growth
+**Objective:** Build professional brand through technical writing, open-source, networking, and interview prep.
+**Estimated Hours:** 40 hours | **Dependencies:** None (always accessible)
+**Topics:** Technical Writing, Dev Blog (Hashnode/GitHub Pages), Open-Source Contributions, Code Review Etiquette, LinkedIn Optimization, GitHub Profile Optimization, Interview Preparation (behavioral, system design, ML design), Mock Interviews, Building in Public, Networking.
+**Projects:** 3 technical blog posts, Open-source PR merged, Polished GitHub profile, 5 mock interviews, Portfolio website.
+
+---
+
+### ADVANCED TOPICS (Post-Internship / Post-Placement Only)
+
+**Why these are delayed:** These topics require expensive compute, are research-level, and will not help with immediate internship/placement goals. Revisit after internship and placement confirmed.
+n**Topics (in order):**
 - CUDA Programming (custom GPU kernels with Numba, CUDA C basics, memory coalescing)
 - Triton (OpenAI Triton — write GPU kernels in Python, FlashAttention understanding)
-- DeepSpeed (ZeRO optimization, mixed precision, model parallelism)
-- FSDP (Fully Sharded Data Parallel — train models that don't fit on one GPU)
-- RLHF (Reinforcement Learning from Human Feedback — PPO, reward modeling)
-- DPO (Direct Preference Optimization — simpler than RLHF, state of the art 2024)
 - GRPO (Group Relative Policy Optimization — used in DeepSeek-R1)
 - AI Safety (alignment, interpretability, red-teaming, constitutional AI)
 
@@ -804,7 +838,7 @@ Revisit these after you have an internship and placement confirmed.
 - `Deployed & Live` — green badge with 🚀
 - `On GitHub` — purple badge
 
-### All 70 Projects (from all phases)
+### All 100+ Projects (from all 20 phases)
 Each project has: Name, Phase, Difficulty (⭐ to ⭐⭐⭐⭐⭐), Status dropdown, GitHub URL field, Live URL field, Notes field, Date completed.
 
 Render as a filterable card grid. Filters: Phase, Difficulty, Status, Type (Beginner/Internship/Placement).
@@ -935,7 +969,7 @@ index.html
 │   ├── .bottom-nav (fixed bottom navigation)
 │   └── #toast-container
 └── <script>
-    ├── DATA (all 14 phases as JS objects)
+    ├── DATA (all 20 phases as JS objects)
     ├── STATE management (load/save to localStorage)
     ├── RENDERERS (one function per tab)
     ├── EVENT HANDLERS
@@ -1014,6 +1048,11 @@ Before writing code, the AI must verify each item. Nothing ships until all 50 it
 - [ ] A12: Phase 12 has ALL topics listed with hours estimates
 - [ ] A13: Phase 13 has ALL topics listed with hours estimates
 - [ ] A14: Phase 14 has ALL 10 build steps listed
+- [ ] A15a: Phase 15 has ALL topics listed with hours estimates
+- [ ] A16a: Phase 16 has ALL topics listed with hours estimates
+- [ ] A17a: Phase 17 has ALL topics listed with hours estimates
+- [ ] A18a: Phase 18 has ALL topics listed with hours estimates
+- [ ] A19a: Phase 19 has ALL topics listed with hours estimates
 - [ ] A15: Every phase has 5 projects (beginner/intermediate/advanced/internship/placement)
 - [ ] A16: Every phase has 5+ milestone checklist items
 - [ ] A17: Every phase has all 6 resource types (YouTube EN, YouTube HI, Course, Book, Docs, Practice)
@@ -1022,8 +1061,8 @@ Before writing code, the AI must verify each item. Nothing ships until all 50 it
 
 ### PHASE B — UI COMPLETENESS
 - [ ] B1: Mobile layout works at 375px (no overflow, no horizontal scroll)
-- [ ] B2: Bottom navigation renders with 5 tabs and icons
-- [ ] B3: All 5 tabs render without errors
+- [ ] B2: Bottom navigation renders with 8 tabs and icons
+- [ ] B3: All 8 tabs render without errors
 - [ ] B4: Dashboard shows all 7 readiness meters
 - [ ] B5: Dashboard shows today's focus panel
 - [ ] B6: Roadmap tab shows all 14 phase cards
@@ -1064,7 +1103,7 @@ Before writing code, the AI must verify each item. Nothing ships until all 50 it
 ### PHASE E — GITHUB
 - [ ] E1: Add a comment at top of file: `<!-- Version: 2.0 | Last Updated: [date] -->`
 - [ ] E2: File is named index.html in output
-- [ ] E3: Write commit message suggestion: `feat: complete roadmap tracker v2.0 - 14 phases, projects, goals, mobile-first`
+- [ ] E3: Write commit message suggestion: `feat: complete roadmap tracker v3.0 - 20 phases, DSA track, companies, articles, mobile-first`
 
 ---
 
@@ -1086,5 +1125,5 @@ The user will concatenate the parts manually.
 
 ---
 
-*End of Master Prompt v2.0*
+*End of Master Prompt v3.0*
 *Built for Shubham — B.Tech CSE (AI), BBIT | Goal: Internship → Placement → LLM Engineer*

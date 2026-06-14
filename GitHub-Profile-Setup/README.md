@@ -36,13 +36,16 @@ This is the **official portfolio website of Shubham Mallick**, showcasing my wor
 ## 🏗️ Featured Projects
 
 ### 🗺️ [GRBS — AI/ML Learning Roadmap](https://shubham001312.github.io/GRBS/)
-A comprehensive, interactive AI/ML learning roadmap tracker with 18 phases, curated resources (English + Hindi), progress tracking, activity heatmap, and a PWA for offline access.
+A comprehensive, interactive AI/ML learning roadmap tracker with 15 phases, curated resources (English + Hindi), progress tracking, activity heatmap, and a PWA for offline access.
 
 ### 🧠 [CUET AI Assistant](https://huggingface.co/spaces/shubham001312/cuet-ai)
 An AI-powered assistant built with Python and deployed on HuggingFace Spaces. Features intelligent conversational capabilities, document processing, and smart query handling.
 
 ### 📰 [NewsBuzz](https://shubham001312.github.io/newsbuzz/)
 A modern news aggregator that fetches and displays real-time news from multiple sources with category filtering, search functionality, and a clean responsive interface.
+
+### 📱 [TalkBuzz — Real-time Chat](https://talkbuzz-6f0e9.web.app/)
+A real-time chat platform built with Firebase, featuring Google authentication, presence indicators, and mobile-first responsive design.
 
 ### 📱 [Guzu — Android Browser](https://github.com/shubham001312/guzu--ANDROID_SOURCE_CODE)
 A lightweight, privacy-focused Android browser built with Flutter/Dart with multiple search engine support.

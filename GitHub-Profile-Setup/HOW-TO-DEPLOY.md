@@ -38,7 +38,7 @@ After updating your profile README, go to your GitHub profile and pin these 6 re
 | 1 | **GRBS** | Your flagship project — AI/ML roadmap tracker with PWA |
 | 2 | **cuet-ai** | AI chatbot — Dockerized, deployed on Hugging Face |
 | 3 | **newsbuzz** | Full-stack news app — deployed on GitHub Pages |
-| 4 | **TalkBuzz** | AI chat app — TypeScript, Gemini API, live on AI Studio |
+| 4 | **TalkBuzz** | Real-time chat app — JavaScript, Firebase, live on Firebase Hosting |
 | 5 | **guzu--ANDROID_SOURCE_CODE** | Flutter Android app — cross-platform |
 | 6 | **ROSHNI** | Photo gallery — deployed on GitHub Pages |
 
@@ -73,7 +73,7 @@ git push origin main
 | `GRBS.md` | GRBS | https://shubham001312.github.io/GRBS/ |
 | `cuet-ai.md` | cuet-ai | https://shubham001312.github.io/cuet-ai/ |
 | `newsbuzz.md` | newsbuzz | https://shubham001312.github.io/newsbuzz/ |
-| `TalkBuzz.md` | TalkBuzz | https://ai.studio/apps/711f93ff-5996-4064-aa53-322513607bf5 |
+| `TalkBuzz.md` | TalkBuzz | https://talkbuzz-6f0e9.web.app/ |
 | `ROSHNI.md` | ROSHNI | https://shubham001312.github.io/ROSHNI/ |
 | `Goru.md` | Goru | https://ai.studio/apps/4228ebac-e4e4-49cc-92f3-4da3ae544e9b |
 | `guzu.md` | guzu--ANDROID_SOURCE_CODE | — |
@@ -104,9 +104,9 @@ Go to each repository → Click **"About"** → Click the ⚙️ gear icon → A
 | GRBS | `ai-roadmap` `machine-learning` `pwa` `javascript` `education` |
 | cuet-ai | `chatbot` `gemini-api` `docker` `python` `huggingface` |
 | newsbuzz | `news` `javascript` `web-app` `netlify` |
-| TalkBuzz | `ai-chat` `typescript` `gemini` `vite` |
+| TalkBuzz | `real-time-chat` `javascript` `firebase` `pwa` |
 | ROSHNI | `gallery` `html` `css` `responsive` |
-| Goru | `ai-app` `typescript` `gemini` `vite` |
+| Goru | `ai-app` `python` `gemini` `gradio` |
 | guzu--ANDROID_SOURCE_CODE | `flutter` `android` `browser` `dart` `privacy` |
 | radhee-love | `web-art` `html` `css` `animation` |
 | good-morning | `web-art` `html` `css` |

@@ -1,11 +1,11 @@
 <div align="center">
 
-# 🤖 TalkBuzz
+# 💬 TalkBuzz
 
-### *Free AI chat application powered by Google Gemini — real-time streaming responses*
+### *Real-time chat platform with Firebase authentication, presence indicators, and mobile-first design*
 
-[![Try It Live](https://img.shields.io/badge/🚀_Try_It-FF6F00?style=for-the-badge&logo=google&logoColor=white)](https://ai.studio/apps/711f93ff-5996-4064-aa53-322513607bf5)
-[![GitHub Stars](https://img.shields.io/github/stars/shubham001312/TalkBuzz?style=for-the-badge&color=yellow)](https://github.com/shubham001312/TalkBuzz/stargazers)
+[![Try It Live](https://img.shields.io/badge/🚀_Try_It-FF6F00?style=for-the-badge&logo=firebase&logoColor=white)](https://talkbuzz-6f0e9.web.app/)
+[![GitHub](https://img.shields.io/badge/Source-Code-black?style=for-the-badge&logo=github)](https://github.com/shubham001312/GRBS/tree/main/TalkBuzz)
 
 ---
 
@@ -13,48 +13,45 @@
 
 ## 🎯 What is TalkBuzz?
 
-**TalkBuzz** is a free AI chat application that connects to Google's Gemini API to provide intelligent, real-time streaming responses. Built with modern TypeScript and Vite for a fast, smooth experience.
+**TalkBuzz** is a real-time chat platform built with Firebase Realtime Database. Features Google authentication, read receipts, typing indicators, offline support, admin panel with broadcast, and full mobile responsiveness.
 
 ## ✨ Features
 
-- 🤖 **AI Chat** — Powered by Google Gemini
-- ⚡ **Streaming Responses** — Watch AI think in real-time
-- 💬 **Clean Interface** — Modern chat UI with message history
-- 🔒 **Secure** — API key stored locally, never exposed
-- 📱 **Responsive** — Works on desktop and mobile
-- ⚡ **Fast** — Built with Vite for instant load times
+- 💬 **Real-time Chat** — Messages sync instantly via Firebase RTDB
+- 👥 **Multiple Rooms** — Group chats and direct messages
+- ✅ **Read Receipts** — Sent → Delivered → Read indicators
+- ⌨️ **Typing Indicators** — See who's typing in real-time
+- 🔐 **Google Auth** — Sign in with Google + anonymous fallback
+- 📱 **PWA** — Installable on mobile and desktop
+- 🌐 **Offline Support** — Messages queue locally, sync when online
+- 🛡️ **Admin Panel** — Broadcast messages, manage users and rooms
 
 ## 🚀 Quick Start
-
-### Prerequisites
-- Node.js
 
 ### Local Development
 
 ```bash
 # Clone the repository
-git clone https://github.com/shubham001312/TalkBuzz.git
-cd TalkBuzz
+git clone https://github.com/shubham001312/GRBS.git
+cd GRBS/TalkBuzz
 
-# Install dependencies
-npm install
+# Open in browser (no build step needed)
+start index.html  # Windows
+open index.html    # macOS
 
-# Set your Gemini API key in .env.local
-echo "GEMINI_API_KEY=your-key-here" > .env.local
-
-# Start development server
-npm run dev
+# Or deploy to Firebase Hosting
+firebase deploy
 ```
 
 ## 🛠️ Tech Stack
 
 | Category | Technology |
 |----------|-----------|
-| Language | TypeScript |
-| Build Tool | Vite |
-| AI Model | Google Gemini |
-| Database | Firebase Firestore |
-| Hosting | Google AI Studio |
+| Language | JavaScript |
+| Database | Firebase Realtime Database |
+| Auth | Google Sign-In + Anonymous |
+| Hosting | Firebase Hosting |
+| PWA | Service Worker + Manifest |
 
 ## 📄 License
 

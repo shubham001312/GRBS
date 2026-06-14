@@ -103,9 +103,11 @@ function renderCurrentTab() {
   switch (appState.currentTab) {
     case 'dashboard': renderDashboard(); break;
     case 'roadmap': renderRoadmap(); break;
+    case 'dsatrack': renderDSATrack(); break;
     case 'projects': renderProjects(); break;
     case 'progress': renderProgress(); break;
     case 'goals': renderGoals(); break;
+    case 'companies': renderCompanies(); break;
     case 'about': renderAbout(); break;
   }
 }
@@ -197,7 +199,9 @@ document.addEventListener('keydown', function(e) {
   if (e.key === '3') { switchTab('projects'); }
   if (e.key === '4') { switchTab('progress'); }
   if (e.key === '5') { switchTab('goals'); }
-  if (e.key === '6') { switchTab('about'); }
+  if (e.key === '6') { switchTab('dsatrack'); }
+  if (e.key === '7') { switchTab('companies'); }
+  if (e.key === '8') { switchTab('about'); }
   if (e.key === '/') { e.preventDefault(); document.getElementById('search-input') && document.getElementById('search-input').focus(); }
 });
 
@@ -210,7 +214,7 @@ document.addEventListener('keydown', function(e) {
   var touchStartY = 0;
   var touchEndX = 0;
   var touchEndY = 0;
-  var tabOrder = ['dashboard', 'roadmap', 'projects', 'progress', 'goals', 'about'];
+  var tabOrder = ['dashboard', 'roadmap', 'dsatrack', 'projects', 'progress', 'goals', 'companies', 'about'];
 
   document.addEventListener('touchstart', function(e) {
     touchStartX = e.changedTouches[0].screenX;

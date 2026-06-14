@@ -5,8 +5,8 @@
 **B.Tech CSE (AI) @ BBIT** · Aspiring AI Engineer · Building real AI products
 
 [![Portfolio](https://img.shields.io/badge/🌐_Portfolio-E84545?style=for-the-badge&logo=googlechrome&logoColor=white)](https://shubham001312.github.io/Shubham-Mallick/)
-[![LinkedIn](https://img.shields.io/badge/💼_LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/shubham-mallick)
-[![Email](https://img.shields.io/badge/✉️_Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shubham@example.com)
+[![LinkedIn](https://img.shields.io/badge/💼_LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/shubham-mallick-061298378)
+[![Email](https://img.shields.io/badge/✉️_Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:gmail.shubham@gmail.com)
 [![GitHub](https://img.shields.io/badge/⭐_Follow-181818?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shubham001312)
 
 ---
@@ -54,10 +54,10 @@ Currently diving deep into **AI/ML Engineering** — from Python & DSA foundatio
 </td>
 <td width="50%">
 
-#### 🤖 [TalkBuzz](https://ai.studio/apps/711f93ff-5996-4064-aa53-322513607bf5)
-> Free AI chat app powered by Gemini
+#### 🤖 [TalkBuzz](https://talkbuzz-6f0e9.web.app/)
+> Real-time chat platform with Firebase authentication and presence
 
-**Tech:** TypeScript · Vite · Firebase
+**Tech:** JavaScript · Firebase · PWA
 
 </td>
 </tr>

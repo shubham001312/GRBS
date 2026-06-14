@@ -1,7 +1,7 @@
 // GRBS PWA Service Worker - v6.0
 // Updated: June 13, 2026 - Study Timer + Pomodoro + Session History
 
-var APP_VERSION = '6.3.0';
+var APP_VERSION = '6.4.0';
 var CACHE_NAME = 'grbs-cache-' + APP_VERSION;
 var PREVIOUS_CACHE_PREFIX = 'grbs-cache-';
 var STATIC_ASSETS = [
@@ -25,11 +25,8 @@ var STATIC_ASSETS = [
   './js/smart-recommendations.js',
   './js/difficulty-predictor.js',
   './js/resource-ratings.js',
-  './js/command-palette.js',
-  './js/achievements.js',
-  './js/smart-recommendations.js',
-  './js/difficulty-predictor.js',
-  './js/resource-ratings.js',
+  './js/dsa-track.js',
+  './js/companies.js',
   './js/timer.js',
   './js/app.js',
   './manifest.json',
