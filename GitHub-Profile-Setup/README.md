@@ -36,7 +36,7 @@ This is the **official portfolio website of Shubham Mallick**, showcasing my wor
 ## 🏗️ Featured Projects
 
 ### 🗺️ [GRBS — AI/ML Learning Roadmap](https://shubham001312.github.io/GRBS/)
-A comprehensive, interactive AI/ML learning roadmap tracker with 15 phases, curated resources (English + Hindi), progress tracking, activity heatmap, and a PWA for offline access.
+A comprehensive, interactive AI/ML learning roadmap tracker with 20 phases, 600+ curated resources (English + Hindi), DSA problem-solving track, 55+ company directory, progress tracking, activity heatmap, and a PWA for offline access.
 
 ### 🧠 [CUET AI Assistant](https://huggingface.co/spaces/shubham001312/cuet-ai)
 An AI-powered assistant built with Python and deployed on HuggingFace Spaces. Features intelligent conversational capabilities, document processing, and smart query handling.

@@ -43,7 +43,7 @@ function renderGoals() {
         <span class="cp-emoji">${icon('cog')}</span>
         <div class="cp-title">Priority 1: Build Personal AI Assistant (v0 → v12)</div>
       </div>
-      <div style="font-size:12px;color:var(--text-muted);margin:4px 0 8px;">Evolve from CLI chatbot → RAG agent → production-grade AI. One project thread across all 15 phases.</div>
+      <div style="font-size:12px;color:var(--text-muted);margin:4px 0 8px;">Evolve from CLI chatbot → RAG agent → production-grade AI. One project thread across all 20 phases.</div>
       <div class="meter-group" style="margin-top:8px;">
         ${renderMeter('Personal AI Progress', calculatePersonalAIProgress())}
       </div>

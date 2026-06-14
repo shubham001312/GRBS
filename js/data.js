@@ -1,7 +1,7 @@
 /* ============================================
    GRBS — Global Roadmap to Become a World-Class AI Engineer
-   Refined v4.0 | 15 Phases (0–14) | Personal AI Assistant Thread
-   Total: ~180 topics · 75 projects · 200+ curated resources
+   Refined v5.0 | 20 Phases (0–19) | DSA Track | Companies Directory
+   Total: ~250 topics · 100+ projects · 600+ curated resources
    ============================================ */
 
 function genTopics(groupId, items) {

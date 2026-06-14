@@ -4,7 +4,7 @@ var expandedPhase = null;
 function renderRoadmap() {
   var container = document.getElementById('tab-roadmap');
   if (!container) return;
-  container.innerHTML = '<div class="section-title" style="margin-bottom:16px;">Curriculum Roadmap - 15 Phases</div>' + renderDependencyGraph() + PHASES.map(function(phase) { return renderPhaseCard(phase); }).join('');
+  container.innerHTML = '<div class="section-title" style="margin-bottom:16px;">Curriculum Roadmap - 20 Phases</div>' + renderDependencyGraph() + PHASES.map(function(phase) { return renderPhaseCard(phase); }).join('');
 }
 
 function renderDependencyGraph() {
