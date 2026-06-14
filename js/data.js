@@ -39,7 +39,7 @@ const PHASES = [
       { level: ' Beginner', url: 'https://www.youtube.com/watch?v=qiQR5rTSshw', label: 'freeCodeCamp — Networking Fundamentals' },
       { level: ' Hindi', url: 'https://www.youtube.com/watch?v=gfwMYLQaZP0', label: 'Apna College — Networking Basics' },
       { level: ' Beginner', url: 'https://www.youtube.com/watch?v=ZtqBQ68cfJc', label: 'freeCodeCamp — Linux for Beginners' },
-      { level: ' Hindi', url: 'https://youtu.be/sD0K1xaVqoE', label: 'CodeWithHarry — Linux Full Course' },
+      { level: ' Hindi', url: 'https://youtu.be/_tCY-c-sPZc?si=ZrxrPc5Dmj-FNUD0', label: 'CodeWithHarry — Linux Full Course' },
       { level: ' Beginner', url: 'https://www.youtube.com/watch?v=RGOj5yH7evk', label: 'freeCodeCamp — Git & GitHub' },
       { level: ' Hindi', url: 'https://youtu.be/Ez8F0nW6S-w', label: 'Apna College — Git & GitHub' },
       { level: ' Beginner', url: 'https://www.youtube.com/watch?v=tK9Oc6AEnR4', label: 'freeCodeCamp — Bash Scripting' },
