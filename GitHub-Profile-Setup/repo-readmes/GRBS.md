@@ -47,10 +47,15 @@
 | 10 | 🔧 LLM Engineering | Fine-Tuning, Quantization, Ollama |
 | 11 | 🔍 RAG Systems | Vector DBs, LangChain, Agents |
 | 12 | 🚀 Backend for AI | FastAPI, PostgreSQL, Redis |
-| 13 | 📦 MLOps | Docker, CI/CD, MLflow |
+| 13 | 📦 Deployment & MLOps | Docker, CI/CD, MLflow |
 | 14 | 🌟 Build GPT | Character-level → NanoGPT → GPT-2 |
+| 15 | 💬 Prompt Engineering | CoT, Few-Shot, RLHF/DPO, Responsible AI |
+| 16 | 👁️ Computer Vision | ViT, YOLO, Stable Diffusion, CLIP, LLaVA |
+| 17 | 🖥️ AI System Design | vLLM, DeepSpeed, FSDP, GPU Clusters |
+| 18 | ☁️ Cloud & Infrastructure | AWS, GCP, Terraform, Cost Optimization |
+| 19 | ⭐ Soft Skills | Technical Writing, Open Source, Interview Prep |
 
-> **Total Duration:** ~2.5–3.5 years (self-paced)
+> **Total Duration:** ~2.5–4 years (self-paced)
 
 ## 🚀 Quick Start
 
