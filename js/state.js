@@ -196,27 +196,33 @@ function calculatePersonalAIProgress() {
 function calculateReadiness() {
   const c = (phaseId) => getPhaseCompletion(phaseId) / 100;
   
+  // Internship-ready = Phases 0-7 (Foundations → Deep Learning)
+  // Phases 0-7 give: Python, C, DSA, Math, SWE, Frontend, Data Science, ML, DL
+  // Placement-ready = Phases 0-11 (+ NLP, Transformers, GPT, LLM Eng)
+  // AI Engineer = Phases 3-14 (+ RAG, Backend, MLOps)
+  // LLM Specialist = Phases 8-15,17 (+ Prompt Eng, CV, System Design)
+  
   return {
     internship: Math.round(
-      c(1) * 30 + c(2) * 10 + c(3) * 10 + c(5) * 15 + c(6) * 20 + c(12) * 15
+      c(0) * 10 + c(1) * 25 + c(2) * 10 + c(3) * 15 + c(4) * 5 + c(5) * 10 + c(6) * 15 + c(7) * 10
     ),
     placement: Math.round(
-      c(1) * 20 + c(3) * 10 + c(4) * 10 + c(6) * 15 + c(7) * 15 + c(8) * 10 + c(11) * 10 + c(12) * 10
+      c(0) * 5 + c(1) * 15 + c(2) * 5 + c(3) * 10 + c(6) * 15 + c(7) * 10 + c(8) * 10 + c(9) * 10 + c(10) * 10 + c(11) * 10
     ),
     aiEngineer: Math.round(
-      c(3) * 10 + c(5) * 10 + c(6) * 15 + c(7) * 20 + c(8) * 15 + c(9) * 15 + c(11) * 15
+      c(3) * 5 + c(5) * 10 + c(6) * 15 + c(7) * 15 + c(8) * 10 + c(9) * 10 + c(10) * 10 + c(11) * 10 + c(12) * 10 + c(13) * 5
     ),
     llmEngineer: Math.round(
-      c(8) * 10 + c(9) * 20 + c(10) * 30 + c(11) * 20 + c(14) * 20
+      c(8) * 5 + c(9) * 15 + c(10) * 15 + c(11) * 30 + c(12) * 10 + c(15) * 10 + c(17) * 10 + c(18) * 5
     ),
     gptBuilder: Math.round(
-      c(7) * 10 + c(9) * 20 + c(10) * 20 + c(14) * 50
+      c(7) * 5 + c(9) * 20 + c(10) * 35 + c(15) * 10 + c(17) * 20 + c(19) * 5 + c(14) * 5
     ),
     interview: Math.round(
-      c(1) * 15 + c(2) * 15 + c(6) * 15 + c(7) * 15 + c(9) * 10 + c(11) * 10 + c(12) * 20
+      c(1) * 10 + c(2) * 10 + c(6) * 15 + c(7) * 10 + c(9) * 10 + c(11) * 10 + c(12) * 10 + c(15) * 5 + c(17) * 10 + c(19) * 10
     ),
     projectPortfolio: Math.round(
-      c(4) * 10 + c(6) * 15 + c(7) * 15 + c(10) * 10 + c(13) * 10 + c(14) * 40
+      c(4) * 10 + c(6) * 10 + c(7) * 10 + c(10) * 15 + c(11) * 10 + c(12) * 10 + c(13) * 10 + c(14) * 10 + c(16) * 10 + c(19) * 5
     )
   };
 }

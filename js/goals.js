@@ -85,24 +85,24 @@ function renderGoals() {
           <div class="step-desc">Phase 0–3: Foundations, Programming, Math, Software Eng</div>
         </div>
         <div class="cp-step">
-          <div class="step-title">Semester 3 (Summer)</div>
-          <div class="step-desc">Phase 4–6: Frontend, Data Science, ML</div>
+          <div class="step-title">Semester 3 (Summer) ⭐</div>
+          <div class="step-desc">Phase 4–7: Frontend, Data Science, ML, Deep Learning → Internship Ready!</div>
         </div>
         <div class="cp-step">
           <div class="step-title">Semester 4</div>
-          <div class="step-desc">Phase 7–9: Deep Learning, NLP, Transformers</div>
+          <div class="step-desc">Phase 8–11: NLP, Transformers, Build GPT, LLM Eng → Placement Ready</div>
         </div>
         <div class="cp-step">
           <div class="step-title">Semester 5</div>
-          <div class="step-desc">Phase 10–12: Build GPT, LLM Eng, RAG</div>
+          <div class="step-desc">Phase 12–14: RAG, Backend, MLOps → Full AI Stack</div>
         </div>
         <div class="cp-step">
-          <div class="step-title">Semester 6-7</div>
-          <div class="step-desc">Phase 13–14: Backend, MLOps + Internship</div>
+          <div class="step-title">Semester 6</div>
+          <div class="step-desc">Phase 15–18: Prompt Eng, CV, System Design, Cloud → Specialist</div>
         </div>
         <div class="cp-step">
-          <div class="step-title">Semester 8</div>
-          <div class="step-desc">Placement preparation & final portfolio</div>
+          <div class="step-title">Semester 7-8</div>
+          <div class="step-desc">Phase 19: Soft Skills + Final portfolio & placement prep</div>
         </div>
       </div>
     </div>

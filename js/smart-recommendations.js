@@ -41,6 +41,13 @@ function getSmartRecommendations() {
     recs.push({ icon: 'settings', title: 'Start a streak today', detail: 'Complete at least one topic to begin', priority: 'high', action: 'switchTab("dashboard");' });
   }
 
+  // Internship milestone
+  var phases0to7Done = [0,1,2,3,4,5,6,7].filter(function(pid) { return getPhaseCompletion(pid) === 100; }).length;
+  if (phases0to7Done >= 6 && phases0to7Done < 8) {
+    recs.push({ icon: icon('briefcase'), title: 'Almost Internship Ready!', detail: phases0to7Done + '/8 core phases complete. Finish remaining to unlock internships.', priority: 'high', action: 'switchTab("goals");' });
+  } else if (phases0to7Done === 8) {
+    recs.push({ icon: icon('briefcase'), title: 'Internship Ready!', detail: 'All 8 core phases done. Start applying for AI/ML internships!', priority: 'high', action: 'switchTab("goals");' });
+  }
   // Project suggestions
   var projectsDone = ALL_PROJECTS.filter(function(p) { return p.status === 'done' || p.status === 'deployed'; }).length;
   if (projectsDone < 5) {
