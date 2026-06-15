@@ -48,6 +48,8 @@ function renderAbout() {
         <span class="filter-btn" style="cursor:default;">LocalStorage API</span>
         <span class="filter-btn" style="cursor:default;">Chart.js</span>
         <span class="filter-btn" style="cursor:default;">Canvas Confetti</span>
+        <span class="filter-btn" style="cursor:default;">Service Worker (PWA)</span>
+        <span class="filter-btn" style="cursor:default;">SVG Icon System</span>
       </div>
     </div>
 
@@ -56,13 +58,13 @@ function renderAbout() {
       <h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:12px;">Features</h3>
       <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">
         <div class="topic-row"><div class="topic-info"><div class="topic-name">Dashboard with readiness meters & streak tracking</div></div></div>
-        <div class="topic-row"><div class="topic-info"><div class="topic-name">15-phase curriculum roadmap with dependencies</div></div></div>
+        <div class="topic-row"><div class="topic-info"><div class="topic-name">20-phase curriculum roadmap with dependencies</div></div></div>
         <div class="topic-row"><div class="topic-info"><div class="topic-name">Project tracker across all phases</div></div></div>
         <div class="topic-row"><div class="topic-info"><div class="topic-name">Progress charts & real activity heatmap</div></div></div>
         <div class="topic-row"><div class="topic-info"><div class="topic-name">Career path goals & study timeline</div></div></div>
         <div class="topic-row"><div class="topic-info"><div class="topic-name">Export/Import data backup</div></div></div>
         <div class="topic-row"><div class="topic-info"><div class="topic-name">Global search across topics, resources & projects</div></div></div>
-        <div class="topic-row"><div class="topic-info"><div class="topic-name">Mobile-first responsive design</div></div></div>
+        <div class="topic-row"><div class="topic-info"><div class="topic-name">Mobile-first responsive design for all screen sizes</div></div></div>
       </div>
     </div>
 

@@ -49,7 +49,8 @@ function renderCompanies() {
   var filtered = COMPANIES.filter(function(c) {
     if (companySearch) {
       var q = companySearch.toLowerCase();
-      var searchFields = (c.name + ' ' + c.roles + ' ' + c.skills + ' ' + c.hq + ' ' + c.notes).toLowerCase();
+      var resText = (c.resources || []).map(function(r) { return r.title + ' ' + r.type; }).join(' ');
+  var searchFields = (c.name + ' ' + c.roles + ' ' + c.skills + ' ' + c.hq + ' ' + c.notes + ' ' + resText).toLowerCase();
       if (searchFields.indexOf(q) === -1) return false;
     }
     if (companyFilter === 'FAANG') return faang.some(function(f) { return c.name.indexOf(f) !== -1; });
@@ -73,6 +74,17 @@ function renderCompanies() {
     html += '</div>';
     if (company.notes) {
       html += '<div class="cc-notes">' + company.notes + '</div>';
+    }
+    if (company.resources && company.resources.length > 0) {
+      html += '<div class="cc-resources">';
+      html += '<div class="cc-resources-title">Resources</div>';
+      company.resources.forEach(function(res) {
+        html += '<a href="' + res.url + '" target="_blank" class="cc-resource-link" rel="noopener">';
+        html += '<span class="cc-resource-type">' + res.type + '</span> ';
+        html += '<span class="cc-resource-title">' + res.title + '</span>';
+        html += '</a>';
+      });
+      html += '</div>';
     }
     html += '<div class="cc-actions">';
     html += '<a href="' + company.url + '" target="_blank" class="cc-link-btn" rel="noopener">View Careers &rarr;</a>';

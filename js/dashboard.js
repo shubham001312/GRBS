@@ -81,7 +81,7 @@ function renderDashboard() {
     var isDone = comp === 100;
     var isActive = st === 'active' || st === 'inprogress';
     var dotColor = isDone ? 'var(--green)' : isActive ? 'var(--accent)' : 'var(--text-muted)';
-    var dotIcon = isDone ? icon('star') : (isActive ? icon(phase.icon) : '○');
+    var dotIcon = isDone ? icon('star') : (isActive ? icon(phase.icon) : icon('lock'));
     var barColor = isDone ? 'var(--green)' : isActive ? 'var(--accent)' : 'var(--border)';
     html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;" onclick="switchTab(\'roadmap\');expandedPhase=' + pid + ';renderRoadmap();">';
     html += '<span style="font-size:12px;color:' + dotColor + ';width:16px;text-align:center;">' + dotIcon + '</span>';

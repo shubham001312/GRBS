@@ -525,10 +525,92 @@ main {
 }
 .toolbar button:hover { border-color: var(--accent); color: var(--accent); }
 
-/* === Responsive (430px+) === */
-@media (min-width: 430px) {
-  main { padding: 20px; }
+/* === Responsive (320px - 374px: Extra Small) === */
+@media (max-width: 374px) {
+  main { padding: 8px 10px; }
+  .dash-hero { padding: 14px 12px; }
+  .dash-greeting h2 { font-size: 16px; }
+  .stat-chip-sm { padding: 6px 10px; min-width: 100px; }
+  .stat-chip-sm .stat-val { font-size: 13px; }
+  .phase-header .ph-title { font-size: 12px; }
+  .phase-header .ph-meta { font-size: 10px; }
+  .chart-container { padding: 10px; }
+  .filter-btn { padding: 6px 10px; font-size: 11px; min-height: 40px; }
+  .career-path { padding: 10px; }
+  .company-card { padding: 10px; }
   .res-grid { grid-template-columns: 1fr; }
+  .modal-card { padding: 20px; }
+}
+
+/* === Responsive (375px - 429px: Small) === */
+@media (min-width: 375px) and (max-width: 429px) {
+  main { padding: 10px 12px; }
+  .res-grid { grid-template-columns: 1fr; }
+}
+
+/* === Responsive (430px - 479px: Medium) === */
+@media (min-width: 430px) and (max-width: 479px) {
+  main { padding: 14px 16px; }
+  .res-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* === Responsive (480px - 599px: Large) === */
+@media (min-width: 480px) and (max-width: 599px) {
+  main { padding: 16px 20px; }
+  .dash-greeting h2 { font-size: 22px; }
+  .readiness-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* === Responsive (600px+: Tablet+) === */
+@media (min-width: 600px) {
+  main { padding: 20px 24px; max-width: 700px; }
+  .dash-hero-row { gap: 32px; }
+  .dash-stats-col { flex-direction: row; gap: 10px; }
+  .res-grid { grid-template-columns: 1fr 1fr; }
+  .readiness-grid { grid-template-columns: 1fr 1fr; }
+  .stat-chip-sm { min-width: 140px; }
+}
+
+/* === Responsive (768px+: Tablet Landscape) === */
+@media (min-width: 768px) {
+  main { padding: 24px 32px; max-width: 800px; }
+  .dash-greeting h2 { font-size: 24px; }
+  .readiness-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .bottom-nav { padding: 0 16px; }
+  .nav-item { min-width: 64px; }
+}
+
+/* === Responsive (1024px+: Desktop) === */
+@media (min-width: 1024px) {
+  main { padding: 32px 48px; max-width: 900px; }
+  .chart-canvas { max-height: 350px; }
+  .readiness-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* === Responsive (1280px+: Large Desktop) === */
+@media (min-width: 1280px) {
+  main { max-width: 1000px; padding: 32px 64px; }
+}
+
+/* === Landscape mode on phones === */
+@media (max-height: 500px) and (orientation: landscape) and (pointer: coarse) {
+  .bottom-nav { height: 44px; }
+  .nav-item { padding: 4px 8px; min-height: 36px; }
+  .nav-item .nav-label { display: none; }
+  main { padding-bottom: calc(44px + 8px); }
+  .dash-hero { padding: 12px 16px; margin-bottom: 8px; }
+  .dash-hero-row { gap: 16px; }
+  .dash-hero-row .progress-ring-wrap { width: 80px; height: 80px; }
+  .chart-container { padding: 10px; margin-bottom: 8px; }
+}
+
+/* === Print styles === */
+@media print {
+  .bottom-nav, .app-header, .command-palette-overlay, .toast, .update-banner, .offline-banner { display: none !important; }
+  main { padding: 0; max-width: 100%; }
+  body { padding-bottom: 0; }
+  .phase-body { display: block !important; }
+  .phase-card { break-inside: avoid; }
 }
 
 /* === Update Banner === */
@@ -1307,6 +1389,12 @@ main {
   background: var(--green-dim); color: var(--green);
 }
 .cc-notes { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.4; }
+.cc-resources { margin: 8px 0; padding: 8px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border); }
+.cc-resources-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 6px; }
+.cc-resource-link { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-primary); text-decoration: none; padding: 4px 0; transition: color 0.2s; }
+.cc-resource-link:hover { color: var(--accent); }
+.cc-resource-type { background: var(--accent); color: #fff; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
+.cc-resource-title { font-size: 11px; }
 .cc-actions { display: flex; gap: 8px; }
 .cc-link-btn {
   display: inline-flex; align-items: center; gap: 4px;
