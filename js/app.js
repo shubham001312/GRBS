@@ -200,9 +200,42 @@ function _cleanupTabStyles(el) {
   el.style.transform = '';
 }
 
+function _showSkeleton(tabName) {
+  var el = document.getElementById('tab-' + tabName);
+  if (!el) return;
+  var sk = document.createElement('div');
+  sk.className = 'skeleton-wrap';
+  sk.innerHTML =
+    '<div style="padding:0 0 8px;">' +
+      '<div class="skeleton-line w-40 h-20" style="margin-bottom:16px;"></div>' +
+      '<div class="skeleton" style="height:120px;border-radius:var(--radius);margin-bottom:12px;"></div>' +
+      '<div class="skeleton-line w-80"></div>' +
+      '<div class="skeleton-line"></div>' +
+      '<div class="skeleton-line w-60"></div>' +
+      '<div style="display:flex;gap:8px;margin-top:16px;">' +
+        '<div class="skeleton" style="flex:1;height:80px;border-radius:var(--radius);"></div>' +
+        '<div class="skeleton" style="flex:1;height:80px;border-radius:var(--radius);"></div>' +
+      '</div>' +
+      '<div class="skeleton-line" style="margin-top:16px;"></div>' +
+      '<div class="skeleton-line w-80"></div>' +
+    '</div>';
+  el.appendChild(sk);
+}
+
+function _hideSkeleton(tabName) {
+  var el = document.getElementById('tab-' + tabName);
+  if (!el) return;
+  var sk = el.querySelector('.skeleton-wrap');
+  if (sk) sk.remove();
+}
+
 function switchTab(tabName) {
-  if (appState.currentTab === tabName) return;
   var previousTab = appState.currentTab;
+  if (previousTab === tabName) {
+    // Same tab — still render content (handles initial load)
+    renderCurrentTab();
+    return;
+  }
   appState.currentTab = tabName;
   updatePhaseIndicator();
 
@@ -237,6 +270,9 @@ function switchTab(tabName) {
     newContent.style.opacity = '0';
     newContent.style.transform = 'translateY(8px)';
     newContent.classList.add('active');
+    // Show skeleton placeholder in new tab while old tab fades out
+    // (actual content will be rendered inside the transition callback)
+    _showSkeleton(tabName);
 
     // Fade out old content
     oldContent.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
@@ -248,7 +284,9 @@ function switchTab(tabName) {
       oldContent.classList.remove('active');
       _cleanupTabStyles(oldContent);
 
-      // Force reflow, then slide new content in
+      // Render actual content (replaces skeleton), then fade in
+      renderCurrentTab();
+      _hideSkeleton(tabName);
       void newContent.offsetHeight;
       newContent.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
       newContent.style.opacity = '1';
@@ -264,9 +302,8 @@ function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(content => {
       content.classList.toggle('active', content.id === 'tab-' + tabName);
     });
+    renderCurrentTab();
   }
-
-  renderCurrentTab();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (typeof scheduleAnimReveal === 'function') scheduleAnimReveal();
 }

@@ -377,8 +377,57 @@ main {
   padding: 16px 16px; min-height: calc(100vh - var(--header-height) - var(--nav-height));
 }
 .tab-content { display: none; }
-.tab-content.active { display: block; animation: fadeIn 0.3s var(--transition); }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.tab-content.active { display: block; }
+
+/* === Skeleton Loading Placeholders === */
+.skeleton {
+  position: relative; overflow: hidden;
+  background: var(--bg-glass);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-glass);
+}
+.skeleton::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 60%, transparent 100%);
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+[data-theme="neumorphism"] .skeleton::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.04) 40%, rgba(0,0,0,0.07) 50%, rgba(0,0,0,0.04) 60%, transparent 100%);
+}
+.skeleton-line {
+  height: 12px; border-radius: 6px; margin-bottom: 10px;
+  background: var(--bg-glass);
+  position: relative; overflow: hidden;
+}
+.skeleton-line::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08) 60%, transparent 100%);
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+.skeleton-line.w-60 { width: 60%; }
+.skeleton-line.w-80 { width: 80%; }
+.skeleton-line.w-40 { width: 40%; }
+.skeleton-line.h-20 { height: 20px; }
+.skeleton-line.h-32 { height: 32px; border-radius: var(--radius); }
+.skeleton-circle {
+  width: 120px; height: 120px; border-radius: 50%;
+  margin: 0 auto 16px;
+  background: var(--bg-glass);
+  position: relative; overflow: hidden;
+}
+.skeleton-circle::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08) 60%, transparent 100%);
+  animation: shimmer 1.5s ease-in-out infinite;
+}
 .hidden { display: none !important; }
 
 /* === Bottom Nav === */

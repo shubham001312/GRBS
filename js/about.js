@@ -21,6 +21,12 @@ function renderAbout() {
         <a href="https://linkedin.com/in/shubham-mallick" target="_blank" rel="noopener noreferrer" class="filter-btn" style="text-decoration:none;">LinkedIn</a>
         <a href="https://shubham001312.github.io/Shubham-Mallick/" target="_blank" rel="noopener noreferrer" class="filter-btn" style="text-decoration:none;">Know About Developer</a>
       </div>
+      <div style="margin-top:12px;">
+        <a href="https://github.com/shubham001312/GRBS" target="_blank" rel="noopener noreferrer" class="filter-btn active" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Star on GitHub
+        </a>
+      </div>
     </div>
 
     <!-- About Project -->
