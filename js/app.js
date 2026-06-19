@@ -290,7 +290,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === '7') { switchTab('companies'); }
   if (e.key === '8') { switchTab('about'); }
   if (e.key === '/') { e.preventDefault(); document.getElementById('search-input') && document.getElementById('search-input').focus(); }
-  if (e.key === 'Escape') { closeSidebar(); }
+  if (e.key === 'Escape') { var sb = document.getElementById('sidebar-nav'); if (sb && sb.classList.contains('open')) closeSidebar(); }
 });
 
 // ============================================
