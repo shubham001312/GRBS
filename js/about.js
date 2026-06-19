@@ -76,9 +76,21 @@ function renderAbout() {
 
     <!-- Download App -->
     <div class="career-path" style="border:2px dashed var(--accent);text-align:center;">
-      <h3 style="font-family:var(--font-heading);font-size:16px;margin-bottom:8px;">Download the App</h3>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Get the GRBS roadmap on your Android device</p>
-      <a href="GRBS-GPT-Roadmap.apk" download class="filter-btn active" style="text-decoration:none;display:inline-block;">Download APK</a>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;">
+        <h3 style="font-family:var(--font-heading);font-size:16px;">Download the App</h3>
+        <span style="font-family:var(--font-mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:12px;background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,0.2);">v7.0.0</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Get the GRBS roadmap on your Android device — PWA with offline support, local data sync, and all 20 phases.</p>
+      <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);padding:4px 10px;border-radius:8px;background:var(--bg-glass);border:1px solid var(--border-glass);">Android 5.0+</span>
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);padding:4px 10px;border-radius:8px;background:var(--bg-glass);border:1px solid var(--border-glass);">~2MB</span>
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);padding:4px 10px;border-radius:8px;background:var(--bg-glass);border:1px solid var(--border-glass);">No permissions</span>
+      </div>
+      <a href="GRBS-GPT-Roadmap.apk" download class="filter-btn active" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download APK
+      </a>
+      <p style="font-size:10px;color:var(--text-dim);margin-top:10px;font-family:var(--font-mono);">Last updated: June 20, 2026 · Open-source on GitHub</p>
     </div>
 
     <!-- Mission -->
