@@ -12,6 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Apply theme before anything renders so modal gets correct theme
   applyTheme();
 
+  // Dismiss loading screen after app is ready
+  var loader = document.getElementById('app-loader');
+  function dismissLoader() {
+    if (loader && !loader.classList.contains('hidden')) {
+      loader.classList.add('hidden');
+      setTimeout(function() { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 600);
+    }
+  }
+  // Minimum display time for polish (matches 1.5s progress bar), then dismiss
+  setTimeout(dismissLoader, 1500);
+  // Fallback: force dismiss after 3s no matter what
+  setTimeout(dismissLoader, 3000);
+
   // Restore running timer across page refresh
   if (typeof StudyTimer !== 'undefined' && StudyTimer.restoreOnLoad) {
     StudyTimer.restoreOnLoad();
