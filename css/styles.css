@@ -1210,6 +1210,37 @@ main {
   .apk-update-content { flex-direction: column; text-align: center; }
   .apk-update-actions { width: 100%; justify-content: center; }
 }
+.apk-update-changelog-toggle {
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  font-size: 11px; font-family: var(--font-mono); font-weight: 600;
+  background: rgba(255,255,255,0.15); color: #fff;
+  border: 1px solid rgba(255,255,255,0.25); cursor: pointer;
+  transition: background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.apk-update-changelog-toggle:hover { background: rgba(255,255,255,0.25); }
+.apk-changelog {
+  max-width: 600px; margin: 0 auto;
+  padding: 0 16px 8px;
+}
+.apk-changelog-inner {
+  background: rgba(0,0,0,0.2); border-radius: var(--radius-sm);
+  padding: 12px 14px; border: 1px solid rgba(255,255,255,0.15);
+}
+.apk-changelog-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,0.7); text-transform: uppercase;
+  letter-spacing: 0.05em; margin-bottom: 8px;
+}
+.apk-changelog-list {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.apk-changelog-item {
+  font-size: 12px; color: rgba(255,255,255,0.9); line-height: 1.4;
+  font-family: var(--font-mono);
+  display: flex; align-items: flex-start; gap: 6px;
+}
+.apk-cl-icon { flex-shrink: 0; font-size: 13px; }
 
 /* === Offline Banner === */
 .offline-banner {

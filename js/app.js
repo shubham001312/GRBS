@@ -557,7 +557,22 @@ function showApkUpdatePrompt(oldVersion) {
           </div>
           <div class="apk-update-actions">
             <a href="GRBS-GPT-Roadmap.apk" download class="apk-update-btn">Update Now</a>
-            <button class="apk-update-dismiss" onclick="this.closest('.apk-update-banner').remove()">Later</button>
+            <button class="apk-update-changelog-toggle" onclick="var cl=document.getElementById(\'apk-changelog\');cl.style.display=cl.style.display===\'none\'?\'block\':\'none\';">What's new</button>
+            <button class="apk-update-dismiss" onclick="this.closest(\'.apk-update-banner\').remove()">Later</button>
+          </div>
+        </div>
+        <div id="apk-changelog" class="apk-changelog" style="display:none;">
+          <div class="apk-changelog-inner">
+            <div class="apk-changelog-title">What's new in v' + GRBS_CURRENT_APK_VERSION + '</div>
+            <div class="apk-changelog-list">
+              <div class="apk-changelog-item"><span class="apk-cl-icon">🔗</span> Fixed external links not opening in APK — now opens in system browser</div>
+              <div class="apk-changelog-item"><span class="apk-cl-icon">⚡</span> Added Lottie animation loading screen on app startup</div>
+              <div class="apk-changelog-item"><span class="apk-cl-icon">✨</span> Skeleton loading placeholders when switching tabs</div>
+              <div class="apk-changelog-item"><span class="apk-cl-icon">🌙</span> Timer overlay always stays dark regardless of theme</div>
+              <div class="apk-changelog-item"><span class="apk-cl-icon">📱</span> Improved touch gestures — swipe skips when tapping links</div>
+              <div class="apk-changelog-item"><span class="apk-cl-icon">🐛</span> Fixed blank dashboard on initial load</div>
+              <div class="apk-changelog-item"><span class="apk-cl-icon">⬆️</span> Added in-app update prompts for old APK users</div>
+            </div>
           </div>
         </div>';
       document.body.insertBefore(banner, document.body.firstChild);
