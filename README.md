@@ -77,39 +77,42 @@
 
 ---
 
-## What's New in v6.4.0
+## What's New in v7.0.0
 
-### 5 New Phases (15-19)
-- Prompt Engineering & LLM Evaluation (CoT, DSPy, RLHF/DPO, Responsible AI)
-- Computer Vision & Multimodal AI (ViT, YOLO, CLIP, Stable Diffusion)
-- AI System Design & Inference Optimization (vLLM, DeepSpeed, FSDP)
-- Cloud & Infrastructure for AI (AWS SageMaker, GCP Vertex AI, Terraform)
-- Soft Skills & Professional Growth (Technical Writing, Open Source, Interview Prep)
+### 🎨 Dual-Theme System — Neumorphism + Glassmorphism
+GRBS now ships with **two premium design themes** that you can toggle with one click:
 
-### DSA Track Tab
-- Dedicated DSA curriculum: NeetCode 150 + Blind 75 + ML-Specific DSA
-- 11 topic groups with progress tracking
-- Filter by difficulty (Easy/Medium/Hard/ML-Specific)
-- Weekly targets: 50 problems/month
+| Feature | Neumorphism (Default) | Glassmorphism |
+|---------|----------------------|---------------|
+| **Background** | Soft light `#e8eaf0` | Deep dark `#0a0a1a` with gradient mesh |
+| **Cards** | Raised soft shadows | Frosted glass with backdrop-blur |
+| **Borders** | Inset/outset shadow pairs | Semi-transparent glass borders |
+| **Nav/Header** | Clean neumorphic buttons | Frosted glass panels |
+| **Animation** | Smooth 400ms crossfade on toggle | 400ms crossfade on toggle |
+| **OS Detection** | Auto-matches `prefers-color-scheme` | Auto-matches `prefers-color-scheme` |
 
-### Companies Tab
-- 55+ companies hiring AI/LLM Engineers
-- Filter by: FAANG+, India, Startups, Research Labs
-- Search by company name, roles, skills
-- Direct links to career pages
+- **Neumorphism** — Soft, raised elements with light background and subtle shadow pairs. Clean and modern.
+- **Glassmorphism** — Dark glass panels with animated gradient mesh background. Immersive and premium.
+- Click the ☀️/🌙 toggle button in the header to switch themes instantly
+- Your choice is saved to `localStorage` and persists across sessions
+- **Auto OS detection** — New visitors automatically get the theme matching their OS dark/light preference
+- **Smooth crossfade** — 400ms transition with subtle opacity fade for a polished switch experience
 
-### Articles Per Phase
-- 5-6 curated articles/papers/docs added to every phase
-- Papers, official docs, blog posts, and course materials
+### 🧹 Repository Cleanup
+- Removed unnecessary files: APK, backup JSON, prompt files, staging directories
+- Updated `.gitignore` with binary/backup file exclusions
+- Cleaned up TalkBuzz subfolder (moved to separate repo)
 
-### Other Improvements
-- Navigation updated to 8 tabs (scrollable on mobile)
-- DSA progress included in JSON export/import
-- Version bumped to 6.4.0
+### ⚡ Other v7.0.0 Improvements
+- Bumped version to 7.0.0 across all files (CSS, JS, manifest, service worker)
+- Updated `manifest.json` background color for theme support
+- Added CSS custom properties design token system
+- Responsive mobile fixes for glassmorphism and neumorphism
+- All 20 phases, 600+ resources, DSA track, and companies tab fully functional
 
 ---
 
-## What's New in v6.3.0
+## What's New in v6.4.0
 
 ### Study Timer
 - Full-screen stopwatch with auto-fullscreen on open
@@ -137,6 +140,7 @@
 - Nav bounce, logo pulse, modal bounce-in
 - Timeline step hover, milestone checkbox pop
 - `prefers-reduced-motion` support
+- **Theme crossfade** — 400ms smooth transition between neumorphism and glassmorphism
 
 ### Auto-Updates
 - Service Worker auto-applies updates for all users
@@ -170,6 +174,9 @@ Every phase includes **5 practical projects** to build real experience:
 - Open-source contributions
 
 ### Interactive Website Features
+- **Dual-Theme System** — Neumorphism (light, default) + Glassmorphism (dark) with one-click toggle
+- **Auto OS Detection** — Matches your OS dark/light preference automatically
+- **Theme Crossfade** — Smooth 400ms transition between themes
 - Progress tracking with local storage
 - Activity heatmap for study streaks
 - Command palette (Ctrl+K) for quick navigation
@@ -247,6 +254,9 @@ GRBS/
 | Technology | Purpose |
 |-----------|---------|
 | Vanilla JavaScript | No frameworks, no build step |
+| CSS Custom Properties | Design token system for dual themes |
+| Backdrop-filter API | Glassmorphism frosted glass effects |
+| CSS Box-Shadow | Neumorphism soft shadow pairs |
 | Chart.js | Progress visualization |
 | Canvas Confetti | Celebration effects |
 | PWA | Works offline, installable on mobile/desktop |
@@ -254,6 +264,7 @@ GRBS/
 | Screen Wake Lock API | Keeps display active during study |
 | Fullscreen API | Immersive timer experience |
 | IntersectionObserver | Scroll-triggered animations |
+| matchMedia API | OS theme preference detection |
 | GitHub Gist API | Cloud backup of your progress |
 
 ---
