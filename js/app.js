@@ -519,8 +519,7 @@ var GRBS_CURRENT_APK_VERSION = '7.0.0';
 function checkApkVersion() {
   // Only check for APK/WebView users, not web/PWA users
   var isApk = (window.location.protocol === 'file:') ||
-    (navigator.userAgent && navigator.userAgent.indexOf('wv') !== -1) ||
-    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches && navigator.userAgent.indexOf('wv') !== -1);
+    (navigator.userAgent && navigator.userAgent.indexOf('wv') !== -1);
   if (!isApk) return;
 
   var storedVersion = localStorage.getItem(GRBS_APK_VERSION_KEY);
