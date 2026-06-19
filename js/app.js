@@ -105,7 +105,13 @@ function toggleTheme() {
   var next = current === 'neumorphism' ? 'glassmorphism' : 'neumorphism';
   localStorage.setItem(GRBS_THEME_KEY, next);
   localStorage.setItem(GRBS_THEME_MANUAL, '1');
+  // Add crossfade class for smooth 400ms transition
+  document.documentElement.classList.add('theme-transitioning');
   applyTheme();
+  // Remove class after transition completes
+  setTimeout(function() {
+    document.documentElement.classList.remove('theme-transitioning');
+  }, 450);
   var label = next === 'neumorphism' ? 'Neumorphism' : 'Glassmorphism';
   showToast('Switched to ' + label, 'info');
 }

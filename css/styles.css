@@ -98,15 +98,37 @@ input { font-family: inherit; border: none; outline: none; background: none; col
 img { max-width: 100%; display: block; }
 h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--text); }
 
-/* === Theme Transition === */
-*, *::before, *::after {
-  transition-property: background, background-color, border-color, color, box-shadow, backdrop-filter;
-  transition-duration: 0.4s;
-  transition-timing-function: cubic-bezier(0.16,1,0.3,1);
+/* === Theme Transition (400ms Crossfade) === */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-property: background, background-color, border-color, color, box-shadow, backdrop-filter !important;
+  transition-duration: 0.4s !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
-/* Exclude elements that already have transitions */
-button, .nav-item, .phase-card, .project-card, .card, .chart-container, .career-path, .company-card, .stat-chip, .stat-chip-sm, .filter-btn, .res-item, .dep-graph-node, .timer-btn, .timer-quick-bar, .dash-section, .dash-hero, .modal-card, input, .focus-item .fi-btn, .cc-link-btn, .topic-row, .cp-step, .history-item, .history-clear-btn {
-  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+
+/* During theme switch, fade the page content for a smooth crossfade */
+html.theme-transitioning main {
+  opacity: 0.7;
+}
+html.theme-transitioning .bottom-nav,
+html.theme-transitioning .app-header {
+  opacity: 0.85;
+}
+
+/* Ensure elements that should NOT transition get overridden back after */
+html:not(.theme-transitioning) .ring-fill {
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1);
+}
+html:not(.theme-transitioning) .meter-fill {
+  transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+html:not(.theme-transitioning) .phase-body {
+  transition: none;
+}
+html:not(.theme-transitioning) .nav-item:active {
+  transition: transform 0.15s ease;
 }
 
 /* === Glass Mixin via Classes === */
