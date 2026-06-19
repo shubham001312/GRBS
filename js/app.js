@@ -44,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
     StudyTimer.restoreOnLoad();
   }
 
+  // APK version check — prompt old APK users to update
+  checkApkVersion();
+
   const username = getUsername();
   if (!username) {
     showOnboarding();
@@ -506,6 +509,61 @@ function addRipple(e, el) {
     }
   }
 })();
+
+// ============================================
+// APK VERSION CHECK — prompt old APK users to update
+// ============================================
+var GRBS_APK_VERSION_KEY = 'grbs_apk_version';
+var GRBS_CURRENT_APK_VERSION = '7.0.0';
+
+function checkApkVersion() {
+  // Only check for APK/WebView users, not web/PWA users
+  var isApk = (window.location.protocol === 'file:') ||
+    (navigator.userAgent && navigator.userAgent.indexOf('wv') !== -1) ||
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches && navigator.userAgent.indexOf('wv') !== -1);
+  if (!isApk) return;
+
+  var storedVersion = localStorage.getItem(GRBS_APK_VERSION_KEY);
+
+  // First time running this APK — store current version, no prompt
+  if (!storedVersion) {
+    localStorage.setItem(GRBS_APK_VERSION_KEY, GRBS_CURRENT_APK_VERSION);
+    return;
+  }
+
+  // If stored version is older than current — show update prompt
+  if (storedVersion !== GRBS_CURRENT_APK_VERSION) {
+    showApkUpdatePrompt(storedVersion);
+  }
+
+  // Always update stored version to current
+  localStorage.setItem(GRBS_APK_VERSION_KEY, GRBS_CURRENT_APK_VERSION);
+}
+
+function showApkUpdatePrompt(oldVersion) {
+  // Wait for app to load before showing prompt
+  setTimeout(function() {
+    var banner = document.getElementById('apk-update-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'apk-update-banner';
+      banner.className = 'apk-update-banner';
+      banner.innerHTML = '
+        <div class="apk-update-content">
+          <div class="apk-update-icon">⬆️</div>
+          <div class="apk-update-text">
+            <strong>New version available!</strong>
+            <span>You have v' + oldVersion + '. Update to v' + GRBS_CURRENT_APK_VERSION + ' for bug fixes and improvements.</span>
+          </div>
+          <div class="apk-update-actions">
+            <a href="GRBS-GPT-Roadmap.apk" download class="apk-update-btn">Update Now</a>
+            <button class="apk-update-dismiss" onclick="this.closest('.apk-update-banner').remove()">Later</button>
+          </div>
+        </div>';
+      document.body.insertBefore(banner, document.body.firstChild);
+    }
+  }, 2500);
+}
 
 // ============================================
 // EXTERNAL LINK HANDLER (APK/WebView fix)
