@@ -507,4 +507,45 @@ function addRipple(e, el) {
   }
 })();
 
+// ============================================
+// EXTERNAL LINK HANDLER (APK/WebView fix)
+// In a WebView-based APK, <a target="_blank"> doesn't open externally.
+// This intercepts clicks on external links and opens them via
+// window.open() which the WebView routes to the system browser.
+// ============================================
+
+document.addEventListener('click', function(e) {
+  var link = e.target.closest('a[href]');
+  if (!link) return;
+
+  var href = link.getAttribute('href');
+  if (!href) return;
+
+  // Skip internal links (hash, relative, javascript:)
+  if (href.charAt(0) === '#') return;
+  if (href.indexOf('javascript:') === 0) return;
+  if (href.indexOf('mailto:') === 0) return;
+  if (href.indexOf('tel:') === 0) return;
+
+  // Check if it's an external link (http/https)
+  var isExternal = false;
+  try {
+    var url = new URL(href, window.location.href);
+    if (url.origin !== window.location.origin) {
+      isExternal = true;
+    }
+  } catch (err) {
+    return;
+  }
+
+  if (!isExternal) return;
+
+  // Prevent default navigation
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Open in system browser — works in both WebView (APK) and regular browser
+  window.open(href, '_blank', 'noopener,noreferrer');
+}, true);
+
 
