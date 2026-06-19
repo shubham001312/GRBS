@@ -108,13 +108,9 @@ html.theme-transitioning *::after {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* During theme switch, fade the page content for a smooth crossfade */
+/* During theme switch, subtle content dim for polished feel */
 html.theme-transitioning main {
-  opacity: 0.7;
-}
-html.theme-transitioning .bottom-nav,
-html.theme-transitioning .app-header {
-  opacity: 0.85;
+  opacity: 0.92;
 }
 
 /* Ensure elements that should NOT transition get overridden back after */
@@ -123,9 +119,6 @@ html:not(.theme-transitioning) .ring-fill {
 }
 html:not(.theme-transitioning) .meter-fill {
   transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
-}
-html:not(.theme-transitioning) .phase-body {
-  transition: none;
 }
 html:not(.theme-transitioning) .nav-item:active {
   transition: transform 0.15s ease;
