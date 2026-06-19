@@ -1084,22 +1084,33 @@ main {
 .tqb-stat-lbl { font-size: 9px; color: var(--text-dim); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; }
 .tqb-arrow { color: var(--text-dim); }
 
-/* Timer Full-Screen Overlay */
+/* Timer Full-Screen Overlay — ALWAYS dark regardless of theme */
 .timer-overlay {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(5,5,15,0.95);
+  background: rgba(5,5,15,0.97);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   z-index: 2000;
   display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1);
 }
 .timer-overlay.open { opacity: 1; pointer-events: auto; }
+.timer-overlay.closing {
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4,0,1,1);
+  pointer-events: none;
+}
+.timer-overlay.closing .timer-h-bar {
+  transform: scale(0.92) translateY(10px);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.4,0,1,1), opacity 0.25s ease;
+}
 .timer-h-bar {
   width: 100%; max-width: 700px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 24px 32px; gap: 24px;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
 }
 .timer-h-left { flex-shrink: 0; cursor: pointer; -webkit-user-select: none; user-select: none; }
 .timer-h-digits {
@@ -1110,26 +1121,28 @@ main {
 }
 .timer-h-hint {
   font-family: var(--font-mono); font-size: 9px;
-  color: var(--text-dim); text-transform: uppercase;
+  color: rgba(255,255,255,0.35); text-transform: uppercase;
   letter-spacing: 0.08em; margin-top: 6px;
 }
 .timer-h-controls {
-  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 14px; flex-shrink: 0;
 }
 .timer-h-right { flex-shrink: 0; text-align: right; }
 .timer-h-stats {
   font-family: var(--font-mono); font-size: 11px;
-  color: var(--text-dim); margin-bottom: 2px;
+  color: rgba(255,255,255,0.4); margin-bottom: 2px;
 }
 .timer-h-total { font-size: 13px; font-weight: 700; color: var(--accent); }
 .timer-btn {
   display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; border: 2px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.05);
-  color: var(--text-dim);
-  cursor: pointer; transition: all 0.2s ease;
+  border-radius: 50%; border: 2px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.5);
+  cursor: pointer; transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.timer-btn:hover { border-color: rgba(255,255,255,0.2); color: #FFF; background: rgba(255,255,255,0.08); }
+.timer-btn:hover { border-color: rgba(255,255,255,0.25); color: #FFF; background: rgba(255,255,255,0.1); }
+.timer-btn:active { transform: scale(0.9); transition-duration: 0.08s; }
 .timer-btn-start {
   width: 64px; height: 64px;
   border-color: var(--accent); color: var(--accent);
@@ -1227,11 +1240,22 @@ main {
 
 /* Timer responsive */
 @media (max-width: 480px) {
-  .timer-h-bar { padding: 20px 16px; gap: 16px; }
+  .timer-h-bar { padding: 20px 16px; gap: 16px; flex-direction: column; align-items: center; text-align: center; }
   .timer-h-digits { font-size: 36px; }
-  .timer-btn-start { width: 52px; height: 52px; }
-  .timer-btn-reset, .timer-btn-close { width: 40px; height: 40px; }
+  .timer-h-hint { font-size: 8px; }
+  .timer-h-controls { gap: 12px; }
+  .timer-btn-start { width: 56px; height: 56px; }
+  .timer-btn-reset, .timer-btn-close { width: 42px; height: 42px; }
+  .timer-h-right { text-align: center; }
   .timer-quick-bar { padding: 12px 14px; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .timer-h-bar { flex-direction: row; gap: 20px; padding: 12px 24px; }
+  .timer-h-digits { font-size: 28px; }
+  .timer-btn-start { width: 48px; height: 48px; }
+  .timer-btn-reset, .timer-btn-close { width: 36px; height: 36px; }
+  .timer-h-hint { display: none; }
+  .timer-h-right { font-size: 10px; }
 }
 @media (min-width: 768px) {
   .timer-h-digits { font-size: 64px; }
@@ -2139,31 +2163,58 @@ main {
   color: var(--text);
 }
 
-[data-theme="neumorphism"] .timer-overlay {
-  background: rgba(232,234,240,0.98);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
+/* Timer overlay is ALWAYS dark — no neumorphism override */
 
 [data-theme="neumorphism"] .timer-h-digits {
-  color: var(--text);
-  text-shadow: none;
+  color: #FFFFFF;
+  text-shadow: 0 0 40px rgba(232,69,69,0.25);
 }
 
 [data-theme="neumorphism"] .timer-ring-bg {
-  stroke: #d0d3da;
+  stroke: rgba(255,255,255,0.12);
 }
 
 [data-theme="neumorphism"] .timer-btn {
-  border: 2px solid #d0d3da;
-  background: #e8eaf0;
-  box-shadow: 4px 4px 10px #c5c8d0, -4px -4px 10px #ffffff;
+  border: 2px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  box-shadow: none;
 }
 
 [data-theme="neumorphism"] .timer-btn:hover {
-  border-color: var(--accent);
-  background: #e8eaf0;
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.1);
 }
 
 [data-theme="neumorphism"] .timer-btn-start {
   border-color: var(--accent);
+}
+
+[data-theme="neumorphism"] .timer-h-hint {
+  color: rgba(255,255,255,0.35);
+}
+
+[data-theme="neumorphism"] .timer-h-stats {
+  color: rgba(255,255,255,0.4);
+}
+
+[data-theme="neumorphism"] .timer-history-panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: none;
+}
+
+[data-theme="neumorphism"] .timer-history-panel .history-header,
+[data-theme="neumorphism"] .timer-history-panel .history-item {
+  border-color: rgba(255,255,255,0.06);
+}
+
+[data-theme="neumorphism"] .timer-history-panel .history-item-date,
+[data-theme="neumorphism"] .timer-history-panel .history-item-duration {
+  color: #FFFFFF;
+}
+
+[data-theme="neumorphism"] .timer-history-panel .history-item-time,
+[data-theme="neumorphism"] .timer-history-panel .history-count,
+[data-theme="neumorphism"] .timer-history-panel .history-title {
+  color: rgba(255,255,255,0.4);
+}

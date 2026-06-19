@@ -212,7 +212,11 @@ var StudyTimer = (function () {
     _tripleClickCount = 0;
     clearTimeout(_tripleClickTimer);
     var overlay = document.getElementById('timer-overlay');
-    if (overlay) { overlay.classList.remove('open'); setTimeout(function () { overlay.remove(); }, 300); }
+    if (overlay) {
+      overlay.classList.remove('open');
+      overlay.classList.add('closing');
+      setTimeout(function () { overlay.remove(); }, 320);
+    }
   }
 
   function toggle() { if (state.running) pause(); else start(); }

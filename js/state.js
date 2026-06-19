@@ -37,7 +37,7 @@ function loadState() {
       });
       appState.streak = parsed.streak || 0;
       appState.lastActivity = parsed.lastActivity || null;
-      appState.currentTab = parsed.currentTab || 'dashboard';
+      appState.currentTab = 'dashboard';
     } else {
       appState.phases = fresh;
     }
