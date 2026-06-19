@@ -133,6 +133,35 @@ function setupNavigation() {
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => switchTab(item.dataset.tab));
   });
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+      switchTab(item.dataset.tab);
+      closeSidebar();
+    });
+  });
+}
+
+function toggleSidebar() {
+  var overlay = document.getElementById('sidebar-overlay');
+  var sidebar = document.getElementById('sidebar-nav');
+  var btn = document.getElementById('btn-hamburger');
+  var isOpen = sidebar && sidebar.classList.contains('open');
+  if (isOpen) {
+    closeSidebar();
+  } else {
+    if (overlay) overlay.classList.add('open');
+    if (sidebar) sidebar.classList.add('open');
+    if (btn) btn.classList.add('open');
+  }
+}
+
+function closeSidebar() {
+  var overlay = document.getElementById('sidebar-overlay');
+  var sidebar = document.getElementById('sidebar-nav');
+  var btn = document.getElementById('btn-hamburger');
+  if (overlay) overlay.classList.remove('open');
+  if (sidebar) sidebar.classList.remove('open');
+  if (btn) btn.classList.remove('open');
 }
 
 function switchTab(tabName) {
@@ -140,6 +169,9 @@ function switchTab(tabName) {
   updatePhaseIndicator();
 
   document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.tab === tabName);
+  });
+  document.querySelectorAll('.sidebar-item').forEach(item => {
     item.classList.toggle('active', item.dataset.tab === tabName);
   });
 
