@@ -152,6 +152,7 @@ function toggleSidebar() {
     if (overlay) overlay.classList.add('open');
     if (sidebar) sidebar.classList.add('open');
     if (btn) btn.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 }
 
@@ -162,6 +163,7 @@ function closeSidebar() {
   if (overlay) overlay.classList.remove('open');
   if (sidebar) sidebar.classList.remove('open');
   if (btn) btn.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 function switchTab(tabName) {
@@ -288,6 +290,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === '7') { switchTab('companies'); }
   if (e.key === '8') { switchTab('about'); }
   if (e.key === '/') { e.preventDefault(); document.getElementById('search-input') && document.getElementById('search-input').focus(); }
+  if (e.key === 'Escape') { closeSidebar(); }
 });
 
 // ============================================
