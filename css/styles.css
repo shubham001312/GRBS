@@ -9,7 +9,6 @@
   --bg-deep: #0a0a1a;
   --bg-surface: rgba(255,255,255,0.04);
   --bg: var(--bg-deep);
-  --bg-card: rgba(255,255,255,0.04);
   --bg-glass: rgba(255,255,255,0.06);
   --bg-glass-hover: rgba(255,255,255,0.10);
   --bg-glass-strong: rgba(255,255,255,0.12);
@@ -1549,7 +1548,7 @@ main {
 .cc-notes { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.4; }
 .cc-resources { margin: 8px 0; padding: 8px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); border: 1px solid var(--border-glass); }
 .cc-resources-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 6px; }
-.cc-resource-link { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text); text-decoration: none; padding: 4px 0; transition: color 0.2s; }
+.cc-resource-link { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); text-decoration: none; padding: 4px 0; transition: color 0.2s; }
 .cc-resource-link:hover { color: var(--accent); }
 .cc-resource-type { background: var(--accent); color: #fff; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
 .cc-resource-title { font-size: 11px; }
