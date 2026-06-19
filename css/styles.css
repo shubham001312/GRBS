@@ -98,6 +98,17 @@ input { font-family: inherit; border: none; outline: none; background: none; col
 img { max-width: 100%; display: block; }
 h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--text); }
 
+/* === Theme Transition === */
+*, *::before, *::after {
+  transition-property: background, background-color, border-color, color, box-shadow, backdrop-filter;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.16,1,0.3,1);
+}
+/* Exclude elements that already have transitions */
+button, .nav-item, .phase-card, .project-card, .card, .chart-container, .career-path, .company-card, .stat-chip, .stat-chip-sm, .filter-btn, .res-item, .dep-graph-node, .timer-btn, .timer-quick-bar, .dash-section, .dash-hero, .modal-card, input, .focus-item .fi-btn, .cc-link-btn, .topic-row, .cp-step, .history-item, .history-clear-btn {
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+
 /* === Glass Mixin via Classes === */
 .glass {
   background: var(--bg-glass);
@@ -1597,3 +1608,314 @@ main {
   }
   body::before { animation: none; }
 }
+
+/* ============================================
+   NEUMORPHISM THEME (Default)
+   Soft shadows · Light background · No glass effects
+   ============================================ */
+
+[data-theme="neumorphism"] {
+  --bg-deep: #e8eaf0;
+  --bg: #e8eaf0;
+  --bg-surface: #e8eaf0;
+  --bg-glass: #e8eaf0;
+  --bg-glass-hover: #dfe1e8;
+  --bg-glass-strong: #d5d7de;
+  --border: #d0d3da;
+  --border-glass: #d0d3da;
+  --border-glass-hover: #b8bcc4;
+  --text: #2d2f36;
+  --text-muted: #6b6e7a;
+  --text-dim: #9498a5;
+  --accent: #E84545;
+  --accent-hover: #d03535;
+  --accent-glow: rgba(232,69,69,0.15);
+  --success: #16a34a;
+  --success-dim: rgba(22,163,74,0.12);
+  --warning: #d97706;
+  --warning-dim: rgba(217,119,6,0.12);
+  --danger: #dc2626;
+  --danger-dim: rgba(220,38,38,0.12);
+  --green: #16a34a;
+  --green-dim: rgba(22,163,74,0.10);
+  --amber-dim: rgba(217,119,6,0.10);
+  --red-dim: rgba(232,69,69,0.10);
+  --shadow-glass: 6px 6px 14px #c5c8d0, -6px -6px 14px #ffffff;
+  --shadow-glow: 0 0 0 transparent;
+}
+
+[data-theme="neumorphism"] body {
+  background: var(--bg-deep);
+}
+
+[data-theme="neumorphism"] body::before {
+  background:
+    radial-gradient(ellipse 600px 600px at 15% 20%, rgba(232,69,69,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 85% 30%, rgba(99,102,241,0.04) 0%, transparent 70%);
+  animation: none;
+}
+
+[data-theme="neumorphism"] .app-header {
+  background: #e8eaf0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+[data-theme="neumorphism"] .app-header .logo {
+  text-shadow: none;
+  color: var(--accent);
+}
+
+[data-theme="neumorphism"] .app-header .logo svg {
+  filter: none;
+}
+
+[data-theme="neumorphism"] .header-actions button,
+[data-theme="neumorphism"] .icon-btn {
+  background: #e8eaf0;
+  border: none;
+  box-shadow: 3px 3px 6px #c5c8d0, -3px -3px 6px #ffffff;
+}
+
+[data-theme="neumorphism"] .header-actions button:hover,
+[data-theme="neumorphism"] .icon-btn:hover {
+  box-shadow: inset 2px 2px 5px #c5c8d0, inset -2px -2px 5px #ffffff;
+}
+
+[data-theme="neumorphism"] .phase-indicator,
+[data-theme="neumorphism"] .sync-indicator {
+  border: none;
+  box-shadow: inset 1px 1px 3px #c5c8d0, inset -1px -1px 3px #ffffff;
+}
+
+[data-theme="neumorphism"] .bottom-nav {
+  background: #e8eaf0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+}
+
+[data-theme="neumorphism"] .nav-item {
+  color: var(--text-dim);
+}
+
+[data-theme="neumorphism"] .nav-item.active {
+  background: transparent;
+  border: none;
+  box-shadow: inset 2px 2px 5px #c5c8d0, inset -2px -2px 5px #ffffff;
+  color: var(--accent);
+}
+
+[data-theme="neumorphism"] .nav-item.active .nav-icon {
+  filter: none;
+}
+
+[data-theme="neumorphism"] .card,
+[data-theme="neumorphism"] .dash-hero,
+[data-theme="neumorphism"] .dash-section,
+[data-theme="neumorphism"] .phase-card,
+[data-theme="neumorphism"] .project-card,
+[data-theme="neumorphism"] .chart-container,
+[data-theme="neumorphism"] .career-path,
+[data-theme="neumorphism"] .company-card,
+[data-theme="neumorphism"] .stat-chip,
+[data-theme="neumorphism"] .stat-chip-sm,
+[data-theme="neumorphism"] .filter-btn,
+[data-theme="neumorphism"] .res-item,
+[data-theme="neumorphism"] .dep-graph-node,
+[data-theme="neumorphism"] .timer-quick-bar,
+[data-theme="neumorphism"] .cc-resources,
+[data-theme="neumorphism"] .focus-panel,
+[data-theme="neumorphism"] .timer-history-panel,
+[data-theme="neumorphism"] .dash-data-btn,
+[data-theme="neumorphism"] .search-input,
+[data-theme="neumorphism"] .pc-actions button,
+[data-theme="neumorphism"] .pc-actions select,
+[data-theme="neumorphism"] .toolbar button,
+[data-theme="neumorphism"] .history-clear-btn,
+[data-theme="neumorphism"] .cc-link-btn,
+[data-theme="neumorphism"] .focus-item .fi-btn {
+  background: #e8eaf0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: 6px 6px 14px #c5c8d0, -6px -6px 14px #ffffff;
+}
+
+[data-theme="neumorphism"] .card:hover,
+[data-theme="neumorphism"] .dash-hero:hover,
+[data-theme="neumorphism"] .dash-section:hover,
+[data-theme="neumorphism"] .phase-card:hover:not(.locked),
+[data-theme="neumorphism"] .project-card:hover,
+[data-theme="neumorphism"] .chart-container:hover,
+[data-theme="neumorphism"] .career-path:hover,
+[data-theme="neumorphism"] .company-card:hover,
+[data-theme="neumorphism"] .stat-chip:hover,
+[data-theme="neumorphism"] .res-item:hover,
+[data-theme="neumorphism"] .timer-quick-bar:hover {
+  box-shadow: inset 2px 2px 5px #c5c8d0, inset -2px -2px 5px #ffffff;
+  border: none;
+}
+
+[data-theme="neumorphism"] .phase-header:hover {
+  background: #dfe1e8;
+}
+
+[data-theme="neumorphism"] .stat-chip .stat-val,
+[data-theme="neumorphism"] .stat-chip-sm .stat-val {
+  text-shadow: none;
+}
+
+[data-theme="neumorphism"] .ring-bg {
+  stroke: #d0d3da;
+}
+
+[data-theme="neumorphism"] .ring-fill {
+  filter: none;
+}
+
+[data-theme="neumorphism"] .ring-text .pct {
+  text-shadow: none;
+}
+
+[data-theme="neumorphism"] .meter-bar {
+  background: #d0d3da;
+}
+
+[data-theme="neumorphism"] .topic-row {
+  border-bottom: 1px solid #d5d7de;
+}
+
+[data-theme="neumorphism"] .topic-row:hover:not(.done) {
+  background: rgba(232,69,69,0.03);
+}
+
+[data-theme="neumorphism"] .focus-item {
+  border-bottom: 1px solid #d5d7de;
+}
+
+[data-theme="neumorphism"] .dash-section-header {
+  background: #dfe1e8;
+  border-bottom: 1px solid var(--border);
+}
+
+[data-theme="neumorphism"] .filter-btn.active {
+  box-shadow: inset 2px 2px 5px #c5c8d0, inset -2px -2px 5px #ffffff;
+}
+
+[data-theme="neumorphism"] .search-results,
+[data-theme="neumorphism"] .command-palette,
+[data-theme="neumorphism"] .search-result {
+  background: #e8eaf0;
+  border: 1px solid var(--border);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 8px 8px 20px #c5c8d0, -8px -8px 20px #ffffff;
+}
+
+[data-theme="neumorphism"] .modal-overlay {
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="neumorphism"] .modal-card {
+  background: #e8eaf0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: 12px 12px 28px #c5c8d0, -12px -12px 28px #ffffff;
+}
+
+[data-theme="neumorphism"] .modal-card input[type="text"] {
+  border: none;
+  background: #e0e2ea;
+  box-shadow: inset 3px 3px 6px #c5c8d0, inset -3px -3px 6px #ffffff;
+}
+
+[data-theme="neumorphism"] .command-palette-overlay {
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="neumorphism"] .toast {
+  background: #e8eaf0;
+  border-width: 1px;
+  border-style: solid;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 6px 6px 14px #c5c8d0, -6px -6px 14px #ffffff;
+}
+
+[data-theme="neumorphism"] .dep-graph-node {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="neumorphism"] .dep-graph-node.completed {
+  background: var(--green-dim);
+  border: none;
+  box-shadow: inset 2px 2px 5px rgba(22,163,74,0.15), inset -2px -2px 5px #ffffff;
+}
+
+[data-theme="neumorphism"] .dep-graph-node.active {
+  background: var(--amber-dim);
+  border: none;
+  box-shadow: inset 2px 2px 5px rgba(217,119,6,0.15), inset -2px -2px 5px #ffffff;
+}
+
+[data-theme="neumorphism"] .cp-step::before {
+  border-color: #e8eaf0;
+}
+
+[data-theme="neumorphism"] .cp-timeline {
+  border-left: 2px solid #d0d3da;
+}
+
+[data-theme="neumorphism"] .cc-resources {
+  background: #dfe1e8;
+}
+
+[data-theme="neumorphism"] a {
+  color: var(--accent);
+}
+
+[data-theme="neumorphism"] h1,
+[data-theme="neumorphism"] h2,
+[data-theme="neumorphism"] h3,
+[data-theme="neumorphism"] h4 {
+  color: var(--text);
+}
+
+[data-theme="neumorphism"] .timer-overlay {
+  background: rgba(232,234,240,0.98);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="neumorphism"] .timer-h-digits {
+  color: var(--text);
+  text-shadow: none;
+}
+
+[data-theme="neumorphism"] .timer-ring-bg {
+  stroke: #d0d3da;
+}
+
+[data-theme="neumorphism"] .timer-btn {
+  border: 2px solid #d0d3da;
+  background: #e8eaf0;
+  box-shadow: 4px 4px 10px #c5c8d0, -4px -4px 10px #ffffff;
+}
+
+[data-theme="neumorphism"] .timer-btn:hover {
+  border-color: var(--accent);
+  background: #e8eaf0;
+}
+
+[data-theme="neumorphism"] .timer-btn-start {
+  border-color: var(--accent);
