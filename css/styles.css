@@ -131,6 +131,8 @@ html:not(.theme-transitioning) .nav-item:active {
   -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius);
+  will-change: backdrop-filter;
+  transform: translateZ(0);
 }
 .glass-strong {
   background: var(--bg-glass-strong);
@@ -138,6 +140,8 @@ html:not(.theme-transitioning) .nav-item:active {
   -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(200%);
   border: 1px solid var(--border-glass-hover);
   border-radius: var(--radius);
+  will-change: backdrop-filter;
+  transform: translateZ(0);
 }
 
 /* === Header === */
@@ -149,6 +153,8 @@ html:not(.theme-transitioning) .nav-item:active {
   backdrop-filter: blur(var(--blur-heavy)) saturate(200%);
   -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(200%);
   border-bottom: 1px solid var(--border-glass);
+  will-change: backdrop-filter;
+  transform: translateZ(0);
 }
 .header-left {
   display: flex; align-items: center; gap: 10px;
@@ -319,17 +325,22 @@ main {
   border-top: 1px solid var(--border-glass);
   display: flex; align-items: center; justify-content: space-around;
   z-index: 100; padding: 0 8px;
+  will-change: transform;
+  transform: translateZ(0);
 }
 .nav-item {
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   padding: 10px 14px; border-radius: var(--radius-sm);
   font-size: 10px; font-family: var(--font-mono);
-  color: var(--text-dim); transition: all var(--transition);
+  color: var(--text-dim);
   min-width: 56px; min-height: 48px;
   justify-content: center;
   position: relative;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
-.nav-item .nav-icon { font-size: 20px; line-height: 1; transition: all var(--transition); }
+.nav-item .nav-icon { font-size: 20px; line-height: 1; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s ease; }
 .nav-item.active {
   color: var(--accent);
   background: rgba(232,69,69,0.1);
@@ -338,7 +349,34 @@ main {
 .nav-item.active .nav-icon {
   filter: drop-shadow(0 0 8px var(--accent-glow));
 }
-.nav-item:active { transform: scale(0.92); }
+.nav-item:active { transform: scale(0.92); transition-duration: 0.08s; }
+
+/* Ripple effect — CSS-only via class toggle on ::after */
+.nav-item, .sidebar-item, .filter-btn, .dash-data-btn, .cc-link-btn, .fi-btn {
+  position: relative;
+  overflow: hidden;
+}
+.nav-item::after, .sidebar-item::after, .filter-btn::after,
+.dash-data-btn::after, .cc-link-btn::after, .fi-btn::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%;
+  width: 120%; height: 120%;
+  background: radial-gradient(circle, rgba(232,69,69,0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: none;
+}
+.nav-item.ripple-active::after, .sidebar-item.ripple-active::after,
+.filter-btn.ripple-active::after, .dash-data-btn.ripple-active::after,
+.cc-link-btn.ripple-active::after, .fi-btn.ripple-active::after {
+  animation: rippleOut 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes rippleOut {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
 @media (max-width: 600px) {
   .hamburger-btn { display: flex; }
   .bottom-nav { display: none !important; }
@@ -364,7 +402,7 @@ main {
   -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius); padding: 16px;
-  transition: all var(--transition);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease;
   box-shadow: var(--shadow-glass);
 }
 .card:hover {
@@ -441,7 +479,7 @@ main {
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-sm); text-align: center;
   min-width: 90px;
-  transition: all var(--transition);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .stat-chip:hover {
   border-color: var(--border-glass-hover);
@@ -496,7 +534,7 @@ main {
   border-radius: var(--radius); margin-bottom: 10px;
   overflow: hidden;
   box-shadow: var(--shadow-glass);
-  transition: all var(--transition);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .phase-card.locked { opacity: 0.4; }
 .phase-card:hover:not(.locked) {
@@ -506,8 +544,9 @@ main {
 .phase-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 16px; cursor: pointer;
-  transition: background var(--transition);
+  transition: background 0.2s ease;
   min-height: 52px;
+  -webkit-tap-highlight-color: transparent;
 }
 .phase-header:hover { background: var(--bg-glass-hover); }
 .phase-header .ph-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
@@ -582,7 +621,8 @@ main {
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-sm); font-size: 12px;
-  transition: all var(--transition);
+  transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .res-item:hover {
   border-color: var(--accent);
@@ -620,17 +660,19 @@ main {
   flex-shrink: 0; padding: 8px 16px; border-radius: 20px;
   font-size: 12px; font-family: var(--font-mono); font-weight: 600;
   background: var(--bg-glass); border: 1px solid var(--border-glass);
-  color: var(--text-muted); transition: all var(--transition);
+  color: var(--text-muted);
   min-height: 44px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .filter-btn.active {
   background: linear-gradient(135deg, var(--accent), #c03636);
   color: #fff; border-color: transparent;
   box-shadow: 0 0 20px var(--accent-glow);
 }
-.filter-btn:active { transform: scale(0.94); }
+.filter-btn:active { transform: scale(0.94); transition-duration: 0.08s; }
 .project-card {
   background: var(--bg-glass);
   backdrop-filter: blur(var(--blur)) saturate(180%);
@@ -638,7 +680,7 @@ main {
   border: 1px solid var(--border-glass);
   border-radius: var(--radius); padding: 14px;
   margin-bottom: 10px;
-  transition: all var(--transition);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
   box-shadow: var(--shadow-glass);
 }
 .project-card:hover {
@@ -675,7 +717,7 @@ main {
   border: 1px solid var(--border-glass);
   border-radius: var(--radius); padding: 16px; margin-bottom: 14px;
   box-shadow: var(--shadow-glass);
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .chart-container:hover {
   border-color: var(--border-glass-hover);
@@ -746,6 +788,7 @@ main {
   pointer-events: auto;
   animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
   white-space: nowrap;
+  will-change: transform, opacity;
 }
 .toast.toast-success { border-color: rgba(52,211,153,0.3); color: var(--green); }
 .toast.toast-warning { border-color: rgba(251,191,36,0.3); color: var(--warning); }
@@ -1312,6 +1355,28 @@ main {
   button, a { min-height: 44px; }
 }
 
+/* === Mobile Performance Optimizations === */
+@media (max-width: 600px) {
+  /* Reduce blur on mobile for performance */
+  :root { --blur: 12px; --blur-heavy: 20px; }
+  /* Reduce blur on cards for mobile performance — keep light glass effect */
+  .card, .phase-card, .project-card, .chart-container,
+  .stat-chip, .stat-chip-sm, .career-path, .company-card {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .app-header {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .bottom-nav {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  /* Disable gradient mesh animation on mobile */
+  body::before { animation: none; }
+}
+
 /* === Swipe Hint Animation === */
 @keyframes swipeHint {
   0%, 100% { transform: translateX(0); }
@@ -1687,7 +1752,10 @@ main {
 .topic-link:hover { color: var(--accent-hover) !important; text-decoration: underline; }
 
 /* Smooth tab content transition */
-.tab-content { transition: opacity 0.15s ease; }
+.tab-content {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: opacity, transform;
+}
 
 /* === Companies Page === */
 .company-card {
@@ -1696,7 +1764,7 @@ main {
   -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius); padding: 14px; margin-bottom: 8px;
-  transition: all var(--transition);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
   box-shadow: var(--shadow-glass);
 }
 .company-card:hover {
@@ -1765,6 +1833,28 @@ main {
     transition-duration: 0.01ms !important;
   }
   body::before { animation: none; }
+  .card, .phase-card, .project-card, .chart-container,
+  .stat-chip, .career-path, .company-card {
+    transform: none !important;
+  }
+}
+
+/* === Tap Feedback Utility === */
+.tap-feedback {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+.tap-feedback:active {
+  transform: scale(0.97);
+  transition: transform 0.08s ease;
+}
+
+/* === Performance: Compositing Layers (only on animated elements) === */
+.phase-header {
+  will-change: background;
+}
+.modal-card {
+  will-change: transform, opacity;
 }
 
 /* ============================================

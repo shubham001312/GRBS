@@ -131,13 +131,22 @@ if (window.matchMedia) {
 
 function setupNavigation() {
   document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', () => switchTab(item.dataset.tab));
+    item.addEventListener('click', function(e) {
+      addRipple(e, this);
+      switchTab(item.dataset.tab);
+    });
   });
   document.querySelectorAll('.sidebar-item').forEach(item => {
-    item.addEventListener('click', () => {
+    item.addEventListener('click', function(e) {
+      addRipple(e, this);
       switchTab(item.dataset.tab);
       closeSidebar();
     });
+  });
+  // Event delegation for ripple on ALL interactive elements (including dynamically rendered)
+  document.body.addEventListener('click', function(e) {
+    var t = e.target.closest('.filter-btn, .dash-data-btn, .cc-link-btn, .fi-btn, .toolbar button');
+    if (t) addRipple(e, t);
   });
 }
 
@@ -166,10 +175,25 @@ function closeSidebar() {
   document.body.style.overflow = '';
 }
 
+var _tabTransitionTimer = null;
+var _tabCleanupTimer = null;
+var _pendingOldTab = null;
+var _pendingNewTab = null;
+
+function _cleanupTabStyles(el) {
+  if (!el) return;
+  el.style.transition = '';
+  el.style.opacity = '';
+  el.style.transform = '';
+}
+
 function switchTab(tabName) {
+  if (appState.currentTab === tabName) return;
+  var previousTab = appState.currentTab;
   appState.currentTab = tabName;
   updatePhaseIndicator();
 
+  // Update nav active states immediately for responsiveness
   document.querySelectorAll('.nav-item').forEach(item => {
     item.classList.toggle('active', item.dataset.tab === tabName);
   });
@@ -177,12 +201,60 @@ function switchTab(tabName) {
     item.classList.toggle('active', item.dataset.tab === tabName);
   });
 
-  document.querySelectorAll('.tab-content').forEach(content => {
-    content.classList.toggle('active', content.id === `tab-${tabName}`);
-  });
+  var oldContent = previousTab ? document.getElementById('tab-' + previousTab) : null;
+  var newContent = document.getElementById('tab-' + tabName);
+
+  if (oldContent && newContent && oldContent !== newContent) {
+    // Clean up any in-flight previous transition immediately
+    if (_tabTransitionTimer) { clearTimeout(_tabTransitionTimer); _tabTransitionTimer = null; }
+    if (_tabCleanupTimer) { clearTimeout(_tabCleanupTimer); _tabCleanupTimer = null; }
+
+    // Force-clean any stale tab that was mid-transition
+    if (_pendingOldTab && _pendingOldTab !== oldContent) {
+      _pendingOldTab.classList.remove('active');
+      _cleanupTabStyles(_pendingOldTab);
+    }
+    if (_pendingNewTab && _pendingNewTab !== newContent) {
+      _cleanupTabStyles(_pendingNewTab);
+    }
+    _pendingOldTab = oldContent;
+    _pendingNewTab = newContent;
+
+    // Show new content underneath, ready to fade in
+    newContent.style.opacity = '0';
+    newContent.style.transform = 'translateY(8px)';
+    newContent.classList.add('active');
+
+    // Fade out old content
+    oldContent.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+    oldContent.style.opacity = '0';
+    oldContent.style.transform = 'translateY(-6px)';
+
+    // After fade-out, remove old and animate new in
+    _tabTransitionTimer = setTimeout(function() {
+      oldContent.classList.remove('active');
+      _cleanupTabStyles(oldContent);
+
+      // Force reflow, then slide new content in
+      void newContent.offsetHeight;
+      newContent.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      newContent.style.opacity = '1';
+      newContent.style.transform = 'translateY(0)';
+
+      _tabCleanupTimer = setTimeout(function() {
+        _cleanupTabStyles(newContent);
+        _pendingOldTab = null;
+        _pendingNewTab = null;
+      }, 260);
+    }, 150);
+  } else {
+    document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.toggle('active', content.id === 'tab-' + tabName);
+    });
+  }
 
   renderCurrentTab();
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   if (typeof scheduleAnimReveal === 'function') scheduleAnimReveal();
 }
 
@@ -292,6 +364,20 @@ document.addEventListener('keydown', function(e) {
   if (e.key === '/') { e.preventDefault(); document.getElementById('search-input') && document.getElementById('search-input').focus(); }
   if (e.key === 'Escape') { var sb = document.getElementById('sidebar-nav'); if (sb && sb.classList.contains('open')) closeSidebar(); }
 });
+
+// ============================================
+// RIPPLE EFFECT (CSS-only, no DOM creation)
+// ============================================
+
+function addRipple(e, el) {
+  // Use CSS-only ripple via class toggle on the ::after pseudo-element
+  el.classList.remove('ripple-active');
+  // Force reflow so the class removal + re-add triggers the animation
+  void el.offsetHeight;
+  el.classList.add('ripple-active');
+  // Remove class after animation completes
+  setTimeout(function() { el.classList.remove('ripple-active'); }, 500);
+}
 
 // ============================================
 // TOUCH GESTURES
