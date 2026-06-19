@@ -158,7 +158,7 @@ body::before {
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
 /* === Links === */
-a { color: var(--accent); text-decoration: none; transition: color var(--transition-fast); }
+a { color: var(--accent); text-decoration: none; transition: color var(--transition-fast); touch-action: manipulation; }
 a:hover { color: var(--accent-hover); }
 ul, ol { list-style: none; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
@@ -469,12 +469,14 @@ main {
 .nav-item:active { transform: scale(0.92); transition-duration: 0.08s; }
 
 /* Ripple effect — CSS-only via class toggle on ::after */
-.nav-item, .sidebar-item, .filter-btn, .dash-data-btn, .cc-link-btn, .fi-btn {
+/* NOTE: .filter-btn and .cc-link-btn are excluded because they can be <a> tags;
+   overflow: hidden on <a> tags blocks tap events on mobile browsers. */
+.nav-item, .sidebar-item, .dash-data-btn, .fi-btn {
   position: relative;
   overflow: hidden;
 }
-.nav-item::after, .sidebar-item::after, .filter-btn::after,
-.dash-data-btn::after, .cc-link-btn::after, .fi-btn::after {
+.nav-item::after, .sidebar-item::after,
+.dash-data-btn::after, .fi-btn::after {
   content: '';
   position: absolute; top: 50%; left: 50%;
   width: 120%; height: 120%;
@@ -486,8 +488,7 @@ main {
   transition: none;
 }
 .nav-item.ripple-active::after, .sidebar-item.ripple-active::after,
-.filter-btn.ripple-active::after, .dash-data-btn.ripple-active::after,
-.cc-link-btn.ripple-active::after, .fi-btn.ripple-active::after {
+.dash-data-btn.ripple-active::after, .fi-btn.ripple-active::after {
   animation: rippleOut 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 @keyframes rippleOut {

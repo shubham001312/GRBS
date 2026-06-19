@@ -183,9 +183,10 @@ function setupNavigation() {
       closeSidebar();
     });
   });
-  // Event delegation for ripple on ALL interactive elements (including dynamically rendered)
+  // Event delegation for ripple on buttons only (skip <a> tags to not block navigation)
   document.body.addEventListener('click', function(e) {
-    var t = e.target.closest('.filter-btn, .dash-data-btn, .cc-link-btn, .fi-btn, .toolbar button');
+    if (e.target.closest('a')) return;
+    var t = e.target.closest('button.filter-btn, .dash-data-btn, .fi-btn, .toolbar button');
     if (t) addRipple(e, t);
   });
 }
@@ -465,11 +466,15 @@ function addRipple(e, el) {
   var touchStartY = 0;
   var touchEndX = 0;
   var touchEndY = 0;
+  var touchClientX = 0;
+  var touchClientY = 0;
   var tabOrder = ['dashboard', 'roadmap', 'dsatrack', 'projects', 'progress', 'goals', 'companies', 'about'];
 
   document.addEventListener('touchstart', function(e) {
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
+    touchClientX = e.changedTouches[0].clientX;
+    touchClientY = e.changedTouches[0].clientY;
   }, { passive: true });
 
   document.addEventListener('touchend', function(e) {
@@ -479,6 +484,15 @@ function addRipple(e, el) {
   }, { passive: true });
 
   function handleSwipe() {
+    // Skip swipe if touch started on a link or interactive element
+    var target = document.elementFromPoint(touchClientX, touchClientY);
+    if (target) {
+      var el = target;
+      while (el && el !== document.body) {
+        if (el.tagName === 'A' || el.tagName === 'BUTTON' || el.tagName === 'INPUT') return;
+        el = el.parentNode;
+      }
+    }
     var diffX = touchEndX - touchStartX;
     var diffY = touchEndY - touchStartY;
     if (Math.abs(diffX) < 60 || Math.abs(diffY) > Math.abs(diffX)) return;
