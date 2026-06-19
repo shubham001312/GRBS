@@ -74,9 +74,20 @@ function showApp() {
 
 // === THEME SYSTEM ===
 var GRBS_THEME_KEY = 'grbs_theme';
+var GRBS_THEME_MANUAL = 'grbs_theme_manual';
+
+function getOSPreference() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'glassmorphism';
+  }
+  return 'neumorphism';
+}
 
 function applyTheme() {
-  var theme = localStorage.getItem(GRBS_THEME_KEY) || 'neumorphism';
+  var saved = localStorage.getItem(GRBS_THEME_KEY);
+  var manual = localStorage.getItem(GRBS_THEME_MANUAL);
+  // If user manually chose a theme, use it; otherwise detect from OS
+  var theme = saved && manual ? saved : getOSPreference();
   document.documentElement.setAttribute('data-theme', theme);
   var btn = document.getElementById('btn-theme');
   if (btn) {
@@ -88,12 +99,24 @@ function applyTheme() {
 }
 
 function toggleTheme() {
-  var current = localStorage.getItem(GRBS_THEME_KEY) || 'neumorphism';
+  var saved = localStorage.getItem(GRBS_THEME_KEY);
+  var manual = localStorage.getItem(GRBS_THEME_MANUAL);
+  var current = saved && manual ? saved : getOSPreference();
   var next = current === 'neumorphism' ? 'glassmorphism' : 'neumorphism';
   localStorage.setItem(GRBS_THEME_KEY, next);
+  localStorage.setItem(GRBS_THEME_MANUAL, '1');
   applyTheme();
   var label = next === 'neumorphism' ? 'Neumorphism' : 'Glassmorphism';
   showToast('Switched to ' + label, 'info');
+}
+
+// Listen for OS theme changes and auto-follow if user hasn't manually chosen
+if (window.matchMedia) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem(GRBS_THEME_MANUAL)) {
+      applyTheme();
+    }
+  });
 }
 
 // ============================================
