@@ -465,11 +465,15 @@ function addRipple(e, el) {
   var touchStartY = 0;
   var touchEndX = 0;
   var touchEndY = 0;
+  var touchStartTime = 0;
+  var touchStartTarget = null;
   var tabOrder = ['dashboard', 'roadmap', 'dsatrack', 'projects', 'progress', 'goals', 'companies', 'about'];
 
   document.addEventListener('touchstart', function(e) {
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
+    touchStartTime = Date.now();
+    touchStartTarget = e.target;
   }, { passive: true });
 
   document.addEventListener('touchend', function(e) {
@@ -479,10 +483,24 @@ function addRipple(e, el) {
   }, { passive: true });
 
   function handleSwipe() {
+    // Skip swipe if touch started on a link, button, or interactive element
+    // This prevents swipe from hijacking link taps on mobile
+    if (touchStartTarget) {
+      var el = touchStartTarget;
+      while (el && el !== document.body) {
+        var tag = el.tagName;
+        if (tag === 'A' || tag === 'BUTTON' || tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+        if (el.getAttribute && (el.getAttribute('onclick') || el.getAttribute('role') === 'button')) return;
+        el = el.parentNode;
+      }
+    }
     var diffX = touchEndX - touchStartX;
     var diffY = touchEndY - touchStartY;
     if (Math.abs(diffX) < 60 || Math.abs(diffY) > Math.abs(diffX)) return;
     if (Math.abs(diffX) < 100) return;
+    var elapsed = Date.now() - touchStartTime;
+    // Only swipe if it looks like a fast swipe gesture, not a slow drag
+    if (elapsed > 500) return;
     var currentIdx = tabOrder.indexOf(appState.currentTab);
     if (currentIdx === -1) currentIdx = 0;
     if (diffX < 0 && currentIdx < tabOrder.length - 1) {
