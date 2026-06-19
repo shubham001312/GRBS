@@ -544,38 +544,57 @@ function showApkUpdatePrompt(oldVersion) {
   // Wait for app to load before showing prompt
   setTimeout(function() {
     var banner = document.getElementById('apk-update-banner');
-    if (!banner) {
-      banner = document.createElement('div');
-      banner.id = 'apk-update-banner';
-      banner.className = 'apk-update-banner';
-      banner.innerHTML = '
-        <div class="apk-update-content">
-          <div class="apk-update-icon">⬆️</div>
-          <div class="apk-update-text">
-            <strong>New version available!</strong>
-            <span>You have v' + oldVersion + '. Update to v' + GRBS_CURRENT_APK_VERSION + ' for bug fixes and improvements.</span>
-          </div>
-          <div class="apk-update-actions">
-            <a href="GRBS-GPT-Roadmap.apk" download class="apk-update-btn">Update Now</a>
-            <button class="apk-update-changelog-toggle" onclick="var cl=document.getElementById(\'apk-changelog\');cl.style.display=cl.style.display===\'none\'?\'block\':\'none\';">What's new</button>
-            <button class="apk-update-dismiss" onclick="this.closest(\'.apk-update-banner\').remove()">Later</button>
-          </div>
-        </div>
-        <div id="apk-changelog" class="apk-changelog" style="display:none;">
-          <div class="apk-changelog-inner">
-            <div class="apk-changelog-title">What's new in v' + GRBS_CURRENT_APK_VERSION + '</div>
-            <div class="apk-changelog-list">
-              <div class="apk-changelog-item"><span class="apk-cl-icon">🔗</span> Fixed external links not opening in APK — now opens in system browser</div>
-              <div class="apk-changelog-item"><span class="apk-cl-icon">⚡</span> Added Lottie animation loading screen on app startup</div>
-              <div class="apk-changelog-item"><span class="apk-cl-icon">✨</span> Skeleton loading placeholders when switching tabs</div>
-              <div class="apk-changelog-item"><span class="apk-cl-icon">🌙</span> Timer overlay always stays dark regardless of theme</div>
-              <div class="apk-changelog-item"><span class="apk-cl-icon">📱</span> Improved touch gestures — swipe skips when tapping links</div>
-              <div class="apk-changelog-item"><span class="apk-cl-icon">🐛</span> Fixed blank dashboard on initial load</div>
-              <div class="apk-changelog-item"><span class="apk-cl-icon">⬆️</span> Added in-app update prompts for old APK users</div>
-            </div>
-          </div>
-        </div>';
-      document.body.insertBefore(banner, document.body.firstChild);
+    if (banner) return;
+
+    banner = document.createElement('div');
+    banner.id = 'apk-update-banner';
+    banner.className = 'apk-update-banner';
+
+    // Build HTML without inline onclick to avoid escaping issues
+    var html = '<div class="apk-update-content">';
+    html += '<div class="apk-update-icon">⬆️</div>';
+    html += '<div class="apk-update-text">';
+    html += '<strong>New version available!</strong>';
+    html += '<span>You have v' + oldVersion + '. Update to v' + GRBS_CURRENT_APK_VERSION + ' for bug fixes and improvements.</span>';
+    html += '</div>';
+    html += '<div class="apk-update-actions">';
+    html += '<a href="GRBS-GPT-Roadmap.apk" download class="apk-update-btn">Update Now</a>';
+    html += '<button class="apk-update-changelog-toggle" id="apk-cl-toggle">What\u2019s new</button>';
+    html += '<button class="apk-update-dismiss" id="apk-cl-dismiss">Later</button>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div id="apk-changelog" class="apk-changelog" style="display:none;">';
+    html += '<div class="apk-changelog-inner">';
+    html += '<div class="apk-changelog-title">What\u2019s new in v' + GRBS_CURRENT_APK_VERSION + '</div>';
+    html += '<div class="apk-changelog-list">';
+    html += '<div class="apk-changelog-item"><span class="apk-cl-icon">🔗</span> Fixed external links not opening in APK — now opens in system browser</div>';
+    html += '<div class="apk-changelog-item"><span class="apk-cl-icon">⚡</span> Added Lottie animation loading screen on app startup</div>';
+    html += '<div class="apk-changelog-item"><span class="apk-cl-icon">✨</span> Skeleton loading placeholders when switching tabs</div>';
+    html += '<div class="apk-changelog-item"><span class="apk-cl-icon">🌙</span> Timer overlay always stays dark regardless of theme</div>';
+    html += '<div class="apk-changelog-item"><span class="apk-cl-icon">📱</span> Improved touch gestures — swipe skips when tapping links</div>';
+    html += '<div class="apk-changelog-item"><span class="apk-cl-icon">🐛</span> Fixed blank dashboard on initial load</div>';
+    html += '<div class="apk-changelog-item"><span class="apk-cl-icon">⬆️</span> Added in-app update prompts for old APK users</div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    banner.innerHTML = html;
+    document.body.insertBefore(banner, document.body.firstChild);
+
+    // Attach event listeners after DOM insertion (avoids inline onclick escaping)
+    var toggleBtn = document.getElementById('apk-cl-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function() {
+        var cl = document.getElementById('apk-changelog');
+        if (cl) cl.style.display = cl.style.display === 'none' ? 'block' : 'none';
+      });
+    }
+    var dismissBtn = document.getElementById('apk-cl-dismiss');
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', function() {
+        var b = document.getElementById('apk-update-banner');
+        if (b) b.remove();
+      });
     }
   }, 2500);
 }
