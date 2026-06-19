@@ -9,3 +9,30 @@ Thumbs.db
 coverage/
 .cache/
 out/
+
+# Binary & backup files
+*.apk
+*.zip
+*.tar.gz
+*.bak
+*-backup-*.json
+*-prompt*.md
+*-Prompt*.md
+MEMORY.md
+*.pyc
+__pycache__/
+
+# Profile staging (belongs in profile repo)
+_profile_staging/
+GitHub-Profile-Setup/
+
+# Google verification
+google*.html
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
