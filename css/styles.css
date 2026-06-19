@@ -469,13 +469,12 @@ main {
 .nav-item:active { transform: scale(0.92); transition-duration: 0.08s; }
 
 /* Ripple effect — CSS-only via class toggle on ::after */
-/* Only apply to button elements, NOT <a> tags to avoid blocking navigation */
-button.nav-item, button.sidebar-item, button.filter-btn, button.dash-data-btn, button.fi-btn {
+.nav-item, .sidebar-item, .filter-btn, .dash-data-btn, .cc-link-btn, .fi-btn {
   position: relative;
   overflow: hidden;
 }
-button.nav-item::after, button.sidebar-item::after, button.filter-btn::after,
-button.dash-data-btn::after, button.fi-btn::after {
+.nav-item::after, .sidebar-item::after, .filter-btn::after,
+.dash-data-btn::after, .cc-link-btn::after, .fi-btn::after {
   content: '';
   position: absolute; top: 50%; left: 50%;
   width: 120%; height: 120%;
@@ -486,9 +485,9 @@ button.dash-data-btn::after, button.fi-btn::after {
   pointer-events: none;
   transition: none;
 }
-button.nav-item.ripple-active::after, button.sidebar-item.ripple-active::after,
-button.filter-btn.ripple-active::after, button.dash-data-btn.ripple-active::after,
-button.fi-btn.ripple-active::after {
+.nav-item.ripple-active::after, .sidebar-item.ripple-active::after,
+.filter-btn.ripple-active::after, .dash-data-btn.ripple-active::after,
+.cc-link-btn.ripple-active::after, .fi-btn.ripple-active::after {
   animation: rippleOut 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 @keyframes rippleOut {

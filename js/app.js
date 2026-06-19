@@ -183,9 +183,9 @@ function setupNavigation() {
       closeSidebar();
     });
   });
-  // Event delegation for ripple on buttons only (skip <a> tags to not block navigation)
+  // Event delegation for ripple on ALL interactive elements (including dynamically rendered)
   document.body.addEventListener('click', function(e) {
-    var t = e.target.closest('button.filter-btn, button.dash-data-btn, button.fi-btn, button.toolbar button');
+    var t = e.target.closest('.filter-btn, .dash-data-btn, .cc-link-btn, .fi-btn, .toolbar button');
     if (t) addRipple(e, t);
   });
 }
