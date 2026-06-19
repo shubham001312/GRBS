@@ -12,6 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Apply theme before anything renders so modal gets correct theme
   applyTheme();
 
+  // Initialize Lottie animation on loading screen
+  var loaderLottie = document.getElementById('loader-lottie');
+  if (loaderLottie && typeof lottie !== 'undefined') {
+    try {
+      lottie.loadAnimation({
+        container: loaderLottie,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://lottie.host/17498c56-78e8-466d-a773-82ef10fe4017/aM0qLg3tWp.json'
+      });
+    } catch (e) { /* Lottie failed to load, fallback to CSS-only loader */ }
+  }
+
   // Dismiss loading screen after app is ready
   var loader = document.getElementById('app-loader');
   function dismissLoader() {
@@ -20,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(function() { if (loader && loader.parentNode) loader.parentNode.removeChild(loader); }, 600);
     }
   }
-  // Minimum display time for polish (matches 1.5s progress bar), then dismiss
-  setTimeout(dismissLoader, 1500);
-  // Fallback: force dismiss after 3s no matter what
-  setTimeout(dismissLoader, 3000);
+  // Minimum display time for polish, then dismiss
+  setTimeout(dismissLoader, 1800);
+  // Fallback: force dismiss after 3.5s no matter what
+  setTimeout(dismissLoader, 3500);
 
   // Restore running timer across page refresh
   if (typeof StudyTimer !== 'undefined' && StudyTimer.restoreOnLoad) {
