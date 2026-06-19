@@ -94,9 +94,22 @@ function showApp() {
   setupSearch();
   if (typeof setupCommandPalette === 'function') setupCommandPalette();
 
-  // Switch to the saved tab (or default to dashboard)
-  const savedTab = appState.currentTab || 'dashboard';
-  switchTab(savedTab);
+  // Ensure all tab-content elements are properly activated
+  document.querySelectorAll('.tab-content').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  var savedTab = appState.currentTab || 'dashboard';
+  var initialTab = document.getElementById('tab-' + savedTab);
+  if (initialTab) initialTab.classList.add('active');
+
+  // Defer initial render to next frame so browser processes display changes
+  // and CSS animations fire correctly
+  requestAnimationFrame(function() {
+    updatePhaseIndicator();
+    renderCurrentTab();
+    window.scrollTo(0, 0);
+    if (typeof scheduleAnimReveal === 'function') scheduleAnimReveal();
+  });
 }
 
 // === THEME SYSTEM ===
