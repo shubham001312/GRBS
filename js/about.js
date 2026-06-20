@@ -18,7 +18,7 @@ function renderAbout() {
       <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Developer & AI/ML Enthusiast</p>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
         <a href="https://github.com/shubham001312" target="_blank" rel="noopener noreferrer" class="filter-btn" style="text-decoration:none;">GitHub</a>
-        <a href="https://linkedin.com/in/shubham-mallick" target="_blank" rel="noopener noreferrer" class="filter-btn" style="text-decoration:none;">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/shubham-mallick-061298378/" target="_blank" rel="noopener noreferrer" class="filter-btn" style="text-decoration:none;">LinkedIn</a>
         <a href="https://shubham001312.github.io/Shubham-Mallick/" target="_blank" rel="noopener noreferrer" class="filter-btn" style="text-decoration:none;">Know About Developer</a>
       </div>
       <div style="margin-top:12px;">
